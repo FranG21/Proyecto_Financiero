@@ -17,14 +17,16 @@ public class VerPrestamoCliente extends javax.swing.JFrame {
      * Creates new form VerPrestamoCliente
      */
     DefaultTableModel modelo;
+
     public VerPrestamoCliente() {
         initComponents();
-         modelo();
-        
+        setLocationRelativeTo(null);
+        modelo();
+
     }
-    
+
     private void modelo() {
-        
+
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
         modelo.addColumn("ESTADO");
@@ -150,6 +152,11 @@ public class VerPrestamoCliente extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("AMORTIZACION");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
         jButton2.setBounds(710, 550, 170, 50);
 
@@ -166,10 +173,15 @@ public class VerPrestamoCliente extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Amortizacion vista = new Amortizacion();
+        vista.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Lbl1;

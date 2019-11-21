@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 /**
- *
+ * modificacion
  * @author jose
  */
 public class Home extends javax.swing.JFrame {
