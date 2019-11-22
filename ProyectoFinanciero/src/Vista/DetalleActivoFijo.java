@@ -54,7 +54,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(764, 696));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -62,8 +62,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         jLabel2.setText("DETALLE DE ACTIVO FIJO");
         jLabel2.setInheritsPopupMenu(false);
         jLabel2.setPreferredSize(new java.awt.Dimension(930, 690));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(139, 0, 490, 70);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 0, 490, 70));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
@@ -233,12 +232,10 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(140, 60, 488, 609);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 760, 720);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

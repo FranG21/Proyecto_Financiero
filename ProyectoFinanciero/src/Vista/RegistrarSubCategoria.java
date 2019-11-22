@@ -16,6 +16,7 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
      */
     public RegistrarSubCategoria() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,37 +41,30 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NUEVA CATEGORIA");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 20, 310, 70);
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 80, 930, 20);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 310, 70));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 930, 20));
 
         TxtNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre.setText("NOMBRE");
-        getContentPane().add(TxtNombre);
-        TxtNombre.setBounds(100, 110, 130, 30);
-        getContentPane().add(CajaNombre);
-        CajaNombre.setBounds(70, 140, 200, 30);
+        getContentPane().add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 130, 30));
+        getContentPane().add(CajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 200, 30));
 
         TxtNombre1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
-        getContentPane().add(TxtNombre1);
-        TxtNombre1.setBounds(100, 210, 130, 30);
-        getContentPane().add(CajaNombre1);
-        CajaNombre1.setBounds(70, 240, 200, 30);
+        getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
+        getContentPane().add(CajaNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre2.setText("CATEGORIA");
-        getContentPane().add(TxtNombre2);
-        TxtNombre2.setBounds(440, 110, 130, 30);
+        getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 130, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -81,8 +75,7 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(520, 240, 100, 30);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 100, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -93,18 +86,15 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(390, 240, 110, 30);
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 110, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CATEGORIA 1", "CATEGORIA 2", "...." }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(410, 140, 200, 30);
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -60, 920, 680);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -60, 920, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,38 +111,6 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrarSubCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrarSubCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrarSubCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrarSubCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrarSubCategoria().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaNombre;

@@ -65,47 +65,39 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(600, 600));
-        getContentPane().setLayout(null);
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 80, 930, 20);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 930, 20));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("NUEVO ACTIVO FIJO");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 20, 310, 70);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 310, 70));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CATEGORIA");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 100, 130, 30);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 30));
 
         TxtNit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit.setText("CODIGO");
-        getContentPane().add(TxtNit);
-        TxtNit.setBounds(20, 240, 130, 30);
+        getContentPane().add(TxtNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 30));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CAT 1", "CAT 2", "CAT 3" }));
-        getContentPane().add(jComboBox2);
-        jComboBox2.setBounds(140, 100, 200, 30);
-        getContentPane().add(CajaNit);
-        CajaNit.setBounds(140, 240, 200, 30);
+        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 200, 30));
+        getContentPane().add(CajaNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("DESCRIPCION");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(450, 180, 100, 30);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 100, 30));
 
         Direccion.setColumns(20);
         Direccion.setRows(5);
         jScrollPane1.setViewportView(Direccion);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(560, 170, 200, 100);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 200, 100));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -116,8 +108,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(660, 520, 100, 30);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 520, 100, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -128,102 +119,82 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(530, 520, 110, 30);
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 110, 30));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CAT 1", "CAT 2", "CAT 3" }));
-        getContentPane().add(jComboBox3);
-        jComboBox3.setBounds(560, 100, 200, 30);
+        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 200, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("SUBCATEGORIA");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(440, 100, 130, 30);
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 130, 30));
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "DEPTO 1", "DEPTO2", "DEPTO 3" }));
-        getContentPane().add(jComboBox4);
-        jComboBox4.setBounds(140, 170, 200, 30);
+        getContentPane().add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("DEPARTAMENTO");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(20, 170, 130, 30);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("MARCA");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 310, 130, 30);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 130, 30));
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "MARCA 1", "MARCA 2", "MARCA 3", "..." }));
-        getContentPane().add(jComboBox5);
-        jComboBox5.setBounds(140, 310, 200, 30);
+        getContentPane().add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 200, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("PROVEEDOR");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(440, 310, 130, 30);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 130, 30));
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "PROV 1", "PROV 2", "PROV 3", "...." }));
-        getContentPane().add(jComboBox6);
-        jComboBox6.setBounds(560, 310, 200, 30);
+        getContentPane().add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 200, 30));
 
         TxtNit1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit1.setText("SERIE/MARCA");
-        getContentPane().add(TxtNit1);
-        TxtNit1.setBounds(20, 380, 130, 30);
-        getContentPane().add(CajaNit1);
-        CajaNit1.setBounds(140, 380, 200, 30);
+        getContentPane().add(TxtNit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 130, 30));
+        getContentPane().add(CajaNit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 200, 30));
 
         TxtNit2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit2.setText("PRECIO");
-        getContentPane().add(TxtNit2);
-        TxtNit2.setBounds(440, 380, 130, 30);
-        getContentPane().add(CajaNit2);
-        CajaNit2.setBounds(560, 380, 200, 30);
+        getContentPane().add(TxtNit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 130, 30));
+        getContentPane().add(CajaNit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 200, 30));
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "NUEVO", "USADO" }));
-        getContentPane().add(jComboBox7);
-        jComboBox7.setBounds(560, 460, 200, 30);
+        getContentPane().add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 460, 200, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("CONDICION");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(440, 460, 130, 30);
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, 130, 30));
 
         TxtNit4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit4.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit4.setText("INICIO DE USO");
-        getContentPane().add(TxtNit4);
-        TxtNit4.setBounds(20, 460, 130, 30);
+        getContentPane().add(TxtNit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 130, 30));
 
         TxtNit3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit3.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit3.setText("DOCANCION");
-        getContentPane().add(TxtNit3);
-        TxtNit3.setBounds(20, 530, 130, 30);
-        getContentPane().add(jDateChooser1);
-        jDateChooser1.setBounds(140, 460, 200, 30);
+        getContentPane().add(TxtNit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 130, 30));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 200, 30));
 
         jCheckBox1.setText("DONADO");
-        getContentPane().add(jCheckBox1);
-        jCheckBox1.setBounds(140, 530, 69, 23);
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -70, 920, 690);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -70, 920, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

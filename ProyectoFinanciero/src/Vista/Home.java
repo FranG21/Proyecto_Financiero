@@ -40,6 +40,9 @@ public class Home extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -97,6 +100,30 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu1.setText("ACTIVO FIJO");
+
+        jMenuItem7.setText("CATEGORIA");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem8.setText("SUBCATEGORIA");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
+        jMenuItem9.setText("COMPRA");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem9);
 
         jMenuItem2.setText("REEVALUAR");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +211,21 @@ public class Home extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        ListaCategoria vista = new ListaCategoria();
+        vista.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        ListaSubCategoria vista = new ListaSubCategoria();
+        vista.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        ListaActivoFijo vista = new ListaActivoFijo();
+        vista.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,5 +275,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
