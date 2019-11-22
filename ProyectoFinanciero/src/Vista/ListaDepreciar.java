@@ -12,14 +12,14 @@ import javax.swing.table.DefaultTableModel;
  * @author jose
  */
 
-public class ListaReevaluar extends javax.swing.JFrame {
+public class ListaDepreciar extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
     
-    public ListaReevaluar() {
+    public ListaDepreciar() {
         initComponents();
         setLocationRelativeTo(null); 
         modelo();
@@ -27,7 +27,7 @@ public class ListaReevaluar extends javax.swing.JFrame {
     
     private void modelo() {
         
-         modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel();
         modelo.addColumn("N°");
         modelo.addColumn("CODIGO");
         modelo.addColumn("DESCRIPCION");
@@ -50,7 +50,6 @@ public class ListaReevaluar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tablacliente = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -58,12 +57,11 @@ public class ListaReevaluar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(950, 660));
         setMinimumSize(new java.awt.Dimension(950, 660));
-        setPreferredSize(new java.awt.Dimension(950, 660));
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REEVALUACION DE ACTIVO FIJO");
+        jLabel2.setText("DEPRECIACION DE ACTIVO FIJO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 20, 400, 70);
 
@@ -94,18 +92,6 @@ public class ListaReevaluar extends javax.swing.JFrame {
         });
         getContentPane().add(BtnVer);
         BtnVer.setBounds(140, 130, 90, 30);
-
-        jButton4.setBackground(new java.awt.Color(204, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("REEVALUAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(270, 130, 120, 30);
         getContentPane().add(jTextField1);
         jTextField1.setBounds(550, 50, 230, 30);
 
@@ -125,15 +111,9 @@ public class ListaReevaluar extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleRevaluar vista = new DetalleRevaluar();
+        DetalleDepreciar vista = new DetalleDepreciar();
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-         Reevaluar vista = new Reevaluar();
-        vista.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,7 +124,6 @@ public class ListaReevaluar extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tablacliente;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

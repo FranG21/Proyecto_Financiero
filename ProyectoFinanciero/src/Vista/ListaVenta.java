@@ -12,14 +12,14 @@ import javax.swing.table.DefaultTableModel;
  * @author jose
  */
 
-public class ListaReevaluar extends javax.swing.JFrame {
+public class ListaVenta extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
     
-    public ListaReevaluar() {
+    public ListaVenta() {
         initComponents();
         setLocationRelativeTo(null); 
         modelo();
@@ -56,14 +56,12 @@ public class ListaReevaluar extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(950, 660));
         setMinimumSize(new java.awt.Dimension(950, 660));
-        setPreferredSize(new java.awt.Dimension(950, 660));
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REEVALUACION DE ACTIVO FIJO");
+        jLabel2.setText("VENTA DE ACTIVO FIJO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 20, 400, 70);
 
@@ -98,7 +96,7 @@ public class ListaReevaluar extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(204, 0, 0));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("REEVALUAR");
+        jButton4.setText("VENDER");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -131,7 +129,7 @@ public class ListaReevaluar extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         Reevaluar vista = new Reevaluar();
+        RegistrarVenta vista = new RegistrarVenta();
         vista.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
