@@ -12,14 +12,14 @@ import javax.swing.table.DefaultTableModel;
  * @author jose
  */
 
-public class ListaClientenesNaturales extends javax.swing.JFrame {
+public class ListaReevaluar extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
     
-    public ListaClientenesNaturales() {
+    public ListaReevaluar() {
         initComponents();
         setLocationRelativeTo(null); 
         modelo();
@@ -47,51 +47,25 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tablacliente = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
-        BtnModifica = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(950, 660));
         setMinimumSize(new java.awt.Dimension(950, 660));
-        setPreferredSize(new java.awt.Dimension(930, 690));
+        setPreferredSize(new java.awt.Dimension(950, 660));
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LISTA DE CLIENTES");
+        jLabel2.setText("REEVALUACION DE ACTIVO FIJO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 20, 400, 70);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("ESTADO");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(570, 20, 70, 30);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CARTERA");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(750, 20, 80, 30);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS LOS CLIENTES", "NORMALES", "MOROSOS", "INCOBRABLES" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(710, 50, 180, 40);
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        getContentPane().add(jComboBox3);
-        jComboBox3.setBounds(530, 50, 140, 40);
 
         Tablacliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,30 +95,23 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
         getContentPane().add(BtnVer);
         BtnVer.setBounds(140, 130, 90, 30);
 
-        BtnModifica.setBackground(new java.awt.Color(255, 153, 0));
-        BtnModifica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
-        BtnModifica.setText("MODIFICAR");
-        getContentPane().add(BtnModifica);
-        BtnModifica.setBounds(290, 130, 120, 30);
-
-        jButton3.setBackground(new java.awt.Color(0, 51, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("NUEVO PRESTASMO");
-        getContentPane().add(jButton3);
-        jButton3.setBounds(450, 130, 180, 30);
-
         jButton4.setBackground(new java.awt.Color(204, 0, 0));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("DAR DE BAJA");
+        jButton4.setText("REEVALUAR");
         getContentPane().add(jButton4);
-        jButton4.setBounds(650, 130, 120, 30);
+        jButton4.setBounds(270, 130, 120, 30);
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(550, 50, 230, 30);
+
+        jButton1.setText("BUSCAR");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(780, 50, 90, 32);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
+        jLabel1.setText("SAFJKSDKFJSDFNJNKSFJNKDFJNKJNK");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -60, 970, 770);
 
@@ -163,18 +130,14 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnModifica;
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tablacliente;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     
