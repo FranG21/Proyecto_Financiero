@@ -17,6 +17,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
     public ModificarCategoria() {
         initComponents();
         setLocationRelativeTo(null);
+        CajaCod.setEditable(false);
     }
 
     /**
@@ -33,9 +34,9 @@ public class ModificarCategoria extends javax.swing.JFrame {
         TxtNombre = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
-        CajaNombre1 = new javax.swing.JTextField();
+        CajaCod = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
-        CajaNombre2 = new javax.swing.JTextField();
+        CajaValr = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -53,19 +54,25 @@ public class ModificarCategoria extends javax.swing.JFrame {
         TxtNombre.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre.setText("NOMBRE");
         getContentPane().add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 130, 30));
+
+        CajaNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                CajaNombreFocusLost(evt);
+            }
+        });
         getContentPane().add(CajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 200, 30));
 
         TxtNombre1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
         getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
+        getContentPane().add(CajaCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre2.setText("VALOR RESIDUAL");
         getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
-        getContentPane().add(CajaNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
+        getContentPane().add(CajaValr, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -106,14 +113,18 @@ public class ModificarCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
+    private void CajaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CajaNombreFocusLost
+        CajaCod.setText("ALGO");
+    }//GEN-LAST:event_CajaNombreFocusLost
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CajaCod;
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaNombre1;
-    private javax.swing.JTextField CajaNombre2;
+    private javax.swing.JTextField CajaValr;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombre1;
     private javax.swing.JLabel TxtNombre2;
