@@ -229,7 +229,7 @@ public class DetalleCliente extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(140, 60, 488, 607);
+        jPanel1.setBounds(140, 60, 488, 609);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
