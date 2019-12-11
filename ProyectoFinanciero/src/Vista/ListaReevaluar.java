@@ -111,7 +111,7 @@ public class ListaReevaluar extends javax.swing.JFrame {
 
         jButton1.setText("BUSCAR");
         getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 32);
+        jButton1.setBounds(780, 50, 90, 23);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
