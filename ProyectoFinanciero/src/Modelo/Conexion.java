@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package Modelo;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String RUTA = "jdbc:mysql://localhost:3306/sistemacontable";
+    private static final String RUTA = "jdbc:mysql://localhost:3306/proyectofinanciero";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     public Connection conexion;

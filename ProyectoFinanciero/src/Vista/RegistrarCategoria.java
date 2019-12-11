@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Modelo.Categoria;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PEREZ
@@ -14,9 +18,12 @@ public class RegistrarCategoria extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarCategoria
      */
+    ControladorCategoria controlador = new ControladorCategoria();
+
     public RegistrarCategoria() {
         initComponents();
         setLocationRelativeTo(null);
+        controlador = new ControladorCategoria();
     }
 
     /**
@@ -35,11 +42,11 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         TxtVidaUtil = new javax.swing.JLabel();
         CajaVidaUtil = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
-        CajaNombre1 = new javax.swing.JTextField();
+        CajaCodigo = new javax.swing.JTextField();
         TxtVidaUtil1 = new javax.swing.JLabel();
-        CajaVidaUtil1 = new javax.swing.JTextField();
+        CajaEconomica = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
-        CajaNombre2 = new javax.swing.JTextField();
+        CajaValorResidual = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -69,19 +76,19 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
         getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
+        getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         TxtVidaUtil1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtVidaUtil1.setForeground(new java.awt.Color(255, 255, 255));
         TxtVidaUtil1.setText("VIDA ECONOMICA");
         getContentPane().add(TxtVidaUtil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 130, 30));
-        getContentPane().add(CajaVidaUtil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 200, 30));
+        getContentPane().add(CajaEconomica, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 200, 30));
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("CODIGO");
+        TxtNombre2.setText("VALOR RESIDUAL");
         getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
-        getContentPane().add(CajaNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
+        getContentPane().add(CajaValorResidual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -120,6 +127,18 @@ public class RegistrarCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+
+        String nombre = CajaNombre.getText();
+        String codigo = CajaCodigo.getText();
+        Integer vidaUtil = Integer.parseInt(CajaVidaUtil.getText());
+        Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
+        Integer valorResidual = Integer.parseInt(CajaValorResidual.getText());
+
+        if (true) {
+            Categoria categoria = new Categoria(nombre, codigo, vidaUtil, vidaEconomica, valorResidual, 0);
+            controlador.AgregarCatgoria(categoria);
+            JOptionPane.showMessageDialog(null, "Lo Agrego");
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -127,11 +146,11 @@ public class RegistrarCategoria extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CajaCodigo;
+    private javax.swing.JTextField CajaEconomica;
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaNombre1;
-    private javax.swing.JTextField CajaNombre2;
+    private javax.swing.JTextField CajaValorResidual;
     private javax.swing.JTextField CajaVidaUtil;
-    private javax.swing.JTextField CajaVidaUtil1;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombre1;
     private javax.swing.JLabel TxtNombre2;
