@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Modelo.Categoria;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PEREZ
@@ -14,9 +18,12 @@ public class ModificarCategoria extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarCategoria
      */
+    ControladorCategoria cc;
+
     public ModificarCategoria() {
         initComponents();
         setLocationRelativeTo(null);
+        cc = new ControladorCategoria();
         CajaCod.setEditable(false);
     }
 
@@ -33,9 +40,9 @@ public class ModificarCategoria extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         TxtNombre = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
-        TxtNombre1 = new javax.swing.JLabel();
+        TxtCod = new javax.swing.JLabel();
         CajaCod = new javax.swing.JTextField();
-        TxtNombre2 = new javax.swing.JLabel();
+        TxtValr = new javax.swing.JLabel();
         CajaValr = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
@@ -62,16 +69,16 @@ public class ModificarCategoria extends javax.swing.JFrame {
         });
         getContentPane().add(CajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 200, 30));
 
-        TxtNombre1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre1.setText("CODIGO");
-        getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
+        TxtCod.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        TxtCod.setForeground(new java.awt.Color(255, 255, 255));
+        TxtCod.setText("CODIGO");
+        getContentPane().add(TxtCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
         getContentPane().add(CajaCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
-        TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("VALOR RESIDUAL");
-        getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
+        TxtValr.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        TxtValr.setForeground(new java.awt.Color(255, 255, 255));
+        TxtValr.setText("VALOR RESIDUAL");
+        getContentPane().add(TxtValr, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
         getContentPane().add(CajaValr, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
@@ -110,7 +117,30 @@ public class ModificarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-        // TODO add your handling code here:
+        Categoria c = new Categoria();
+        String nombre = this.CajaNombre.getText();
+        String cod = this.CajaCod.getText();
+        int valr = Integer.parseInt(this.CajaValr.getText());
+        if (vacio(nombre, valr, cod)) {
+            if (cc.existeCampo("cod", cod) || cc.existeCampo("nombre", nombre)) {
+                c.setCodigo(cod);
+                c.setNombre(nombre);
+                c.setValorResidual(valr);
+                if (cc.ModificarCategoria(c)) {
+                    JOptionPane.showConfirmDialog(rootPane, "CATEGORIA MODIFICADA EXITOSAMENTE", "MODIFICAR CATEGORIA", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showConfirmDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR CATEGORIA", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                if (cc.existeCampo("cod", cod) && !cc.existeCampo("nombre", nombre)) {
+                    JOptionPane.showConfirmDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                } else if (!cc.existeCampo("cod", cod) && cc.existeCampo("nombre", nombre)) {
+                    JOptionPane.showConfirmDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showConfirmDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void CajaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CajaNombreFocusLost
@@ -125,13 +155,22 @@ public class ModificarCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField CajaCod;
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JTextField CajaValr;
+    private javax.swing.JLabel TxtCod;
     private javax.swing.JLabel TxtNombre;
-    private javax.swing.JLabel TxtNombre1;
-    private javax.swing.JLabel TxtNombre2;
+    private javax.swing.JLabel TxtValr;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean vacio(String nombre, int valr, String cod) {
+        if (nombre.isEmpty() || valr <= 0 || cod.isEmpty()
+                || nombre.equalsIgnoreCase(" ") || cod.equalsIgnoreCase(" ")) {
+            JOptionPane.showConfirmDialog(rootPane, "COMPLETE LOS CAMPOS VACIOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 }

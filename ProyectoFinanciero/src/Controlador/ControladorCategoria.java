@@ -21,27 +21,58 @@ import java.util.concurrent.locks.StampedLock;
 import javax.swing.JOptionPane;
 
 public class ControladorCategoria {
+
     public Conexion conexion;
 
     public ControladorCategoria() {
         conexion = new Conexion();
         PreparedStatement st = null;
     }
-    
+
     public void AgregarCatgoria(Categoria categoria) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-           String sql = "INSERT INTO categoria (nombre,cod,val,vidautil,vidaeco,estado) VALUES"
-                   + " ('" + categoria.getNombre() + "','" + categoria.getCodigo()+ "'," + categoria.getValorResidual()+ "," + categoria.getVidaUtil()+ "," + categoria.getVidaEconomica()+ ","+0+")";
-           st.executeUpdate(sql);
+            String sql = "INSERT INTO categoria (nombre,cod,val,vidautil,vidaeco,estado) VALUES"
+                    + " ('" + categoria.getNombre() + "','" + categoria.getCodigo() + "'," + categoria.getValorResidual() + "," + categoria.getVidaUtil() + "," + categoria.getVidaEconomica() + "," + 0 + ")";
+            st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    
-    
+
+    public boolean ModificarCategoria(Categoria categoria) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = " ";
+            st.executeUpdate(sql);
+            System.out.println("CTA MODIFICADA");
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean existeCampo(String c, String cod) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "SELECT * FROM categoria where " + c + "='" + cod + "'";
+            st.executeUpdate(sql);
+            int r = st.getFetchSize();
+            conexion.cerrarConexion();
+            if (r == 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }
