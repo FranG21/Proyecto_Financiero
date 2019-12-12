@@ -165,7 +165,8 @@ public class ListaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
-        ModificarCategoria vista = new ModificarCategoria();
+        ModificarCategoria vista = new ModificarCategoria(objeto);
+        vista.setC(objeto);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 

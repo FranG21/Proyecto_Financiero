@@ -19,12 +19,17 @@ public class ModificarCategoria extends javax.swing.JFrame {
      * Creates new form RegistrarCategoria
      */
     ControladorCategoria cc;
+    private Categoria c = new Categoria();
 
-    public ModificarCategoria() {
+    ModificarCategoria(Categoria c) {
+        this.c = c;
         initComponents();
         setLocationRelativeTo(null);
         cc = new ControladorCategoria();
-        //CajaCod.setEditable(false);
+        System.out.println("o" + c.getNombre());
+        CajaNombre.setText(c.getNombre());
+        CajaCod.setText(c.getCodigo());
+        CajaValr.setText("" + c.getValorResidual());
     }
 
     /**
@@ -123,13 +128,12 @@ public class ModificarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-        Categoria c = new Categoria();
         String nombre = this.CajaNombre.getText();
         String cod = this.CajaCod.getText();
         String val = this.CajaValr.getText();
         if (vacio(nombre, val, cod)) {
             int valr = Integer.parseInt(val);
-            if (cc.existeCampo("cod", cod) || cc.existeCampo("nombre", nombre)) {
+            if (cc.existeCampo("cod", cod, c.getIdCategoria()) && cc.existeCampo("nombre", nombre, c.getIdCategoria())) {
                 c.setCodigo(cod);
                 c.setNombre(nombre);
                 c.setValorResidual(valr);
@@ -145,7 +149,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void CajaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CajaNombreFocusLost
-        CajaCod.setText("ALGO");
+
     }//GEN-LAST:event_CajaNombreFocusLost
 
     private void CajaValrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CajaValrKeyTyped
@@ -183,12 +187,21 @@ public class ModificarCategoria extends javax.swing.JFrame {
     }
 
     private void mensajes(String cod, String nombre) {
-        if (cc.existeCampo("cod", cod) && !cc.existeCampo("nombre", nombre)) {
+        if (!cc.existeCampo("cod", cod, this.c.getIdCategoria()) && cc.existeCampo("nombre", nombre, this.c.getIdCategoria())) {
             JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
-        } else if (!cc.existeCampo("cod", cod) && cc.existeCampo("nombre", nombre)) {
+        } else if (cc.existeCampo("cod", cod, this.c.getIdCategoria()) && !cc.existeCampo("nombre", nombre, this.c.getIdCategoria())) {
             JOptionPane.showMessageDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
         }
     }
+
+    public Categoria getC() {
+        return c;
+    }
+
+    public void setC(Categoria c) {
+        this.c = c;
+    }
+
 }

@@ -74,7 +74,7 @@ public class ControladorCategoria {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE nombre=" + c.getNombre() + "cod=" + c.getCodigo();
+            String sql = "UPDATE categoria SET nombre='" + c.getNombre() + "', cod= '" + c.getCodigo() + "' WHERE idCat=" + c.getIdCategoria();
             st.executeUpdate(sql);
             System.out.println("CTA MODIFICADA");
             conexion.cerrarConexion();
@@ -85,29 +85,28 @@ public class ControladorCategoria {
         return false;
     }
 
-    public boolean existeCampo(String c, String cod) {
-        int r = 0;
+    public boolean existeCampo(String c, String cod, int id) {
+        ResultSet rs = null;
         try {
-            conexion.abrirConexion();
-            Statement st = conexion.abrirConexion().createStatement();
-            String sql = "SELECT * FROM categoria where " + c + "='" + cod + "' limit 2";
-            st.execute(sql);
-            r = st.getFetchSize();
-            conexion.cerrarConexion();
-            if (r == 0) {
-                return true;
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM categoria where " + c + " = '" + cod + "' AND idCat <> " + id + " limit 2";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
             }
+            conexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println(e);
         }
-        return false;
+        return true;
     }
-    
-    public boolean ModificarEstado(int estado,int id) {
+
+    public boolean ModificarEstado(int estado, int id) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE categoria SET estado="+estado+" WHERE idCat="+id;
+            String sql = "UPDATE categoria SET estado=" + estado + " WHERE idCat=" + id;
             st.executeUpdate(sql);
             System.out.println("CTA MODIFICADA");
             conexion.cerrarConexion();

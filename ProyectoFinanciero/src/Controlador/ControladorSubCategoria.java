@@ -22,37 +22,38 @@ import javax.swing.JOptionPane;
  * @author GM
  */
 public class ControladorSubCategoria {
+
     public Conexion conexion;
 
     public ControladorSubCategoria() {
         conexion = new Conexion();
         PreparedStatement st = null;
     }
-    
+
     public void AgregarSubCategoria(SubCategoria subCategoria) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-           String sql = "INSERT INTO subcategoria (nombre,idcat,codigo,estado) VALUES"
-                   + " ('" + subCategoria.getNombre() + "'," + subCategoria.getIdCtegoria()+ ",'" + subCategoria.getCodigo()+ "',"+0+")";
-           st.executeUpdate(sql);
+            String sql = "INSERT INTO subcategoria (nombre,idcat,codigo,estado) VALUES"
+                    + " ('" + subCategoria.getNombre() + "'," + subCategoria.getIdCtegoria() + ",'" + subCategoria.getCodigo() + "'," + 0 + ")";
+            st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public String buscarCategoria(int id) {
-        String cadena="";
+        String cadena = "";
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM categoria where idCat="+id;
+            String sql = "SELECT * FROM categoria where idCat=" + id;
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                cadena=rs.getString("nombre");
+                cadena = rs.getString("nombre");
             }
             conexion.cerrarConexion();
         } catch (Exception e) {
@@ -60,7 +61,7 @@ public class ControladorSubCategoria {
         }
         return cadena;
     }
-    
+
     public ArrayList<SubCategoria> obtenerLista() {
         ArrayList<SubCategoria> subCategorias = new ArrayList<>();
         ResultSet rs = null;
@@ -71,7 +72,7 @@ public class ControladorSubCategoria {
             rs = ps.executeQuery();
             while (rs.next()) {
                 SubCategoria subCategoria = new SubCategoria();
-                
+
                 subCategoria.setIdSubcategoria(rs.getInt("idSub"));
                 subCategoria.setNombre(rs.getString("nombre"));
                 subCategoria.setIdCtegoria(rs.getInt("idcat"));
@@ -85,12 +86,13 @@ public class ControladorSubCategoria {
         }
         return subCategorias;
     }
-    
-    public boolean ModificarEstado(int estado,int id) {
+
+    public boolean ModificarSubCategoria(SubCategoria sc) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE subcategoria SET estado="+estado+" WHERE idSub="+id;
+            String sql = "UPDATE subcategoria SET nombre='" + sc.getNombre() + "', codigo = '" + sc.getCodigo()
+                    + "' , idCat ='" + sc.getIdCtegoria() + "' WHERE idSub=" + sc.getIdSubcategoria();
             st.executeUpdate(sql);
             conexion.cerrarConexion();
             return true;
@@ -98,5 +100,37 @@ public class ControladorSubCategoria {
             System.out.println(e);
         }
         return false;
+    }
+
+    public boolean ModificarEstado(int estado, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE subcategoria SET estado=" + estado + " WHERE idSub=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean existeCampo(String c, String cod, int id) {
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "SELECT * FROM subcategoria WHERE " + c + "='" + cod + "' AND idSub <> " + id + " limit 2";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
     }
 }

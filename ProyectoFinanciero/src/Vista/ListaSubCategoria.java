@@ -173,7 +173,7 @@ public class ListaSubCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
-        ModificarSubCategoria vista = new ModificarSubCategoria();
+        ModificarSubCategoria vista = new ModificarSubCategoria(objeto);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 

@@ -24,22 +24,21 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
     ControladorCategoria controladorCategoria;
     ControladorSubCategoria controladorS;
     ArrayList<Categoria> listaCategoria;
-    
-    
+
     public RegistrarSubCategoria() {
         initComponents();
         setLocationRelativeTo(null);
         controladorCategoria = new ControladorCategoria();
-        controladorS=new ControladorSubCategoria();
-        listaCategoria=new ArrayList<>();
-        
-        listaCategoria=controladorCategoria.obtenerCuentas();
+        controladorS = new ControladorSubCategoria();
+        listaCategoria = new ArrayList<>();
+
+        listaCategoria = controladorCategoria.obtenerCuentas();
         llenarCombo();
     }
-    
-    public void llenarCombo(){
+
+    public void llenarCombo() {
         ComboCategoria.addItem("SELECCIONE");
-        for(int i=0;i<listaCategoria.size();i++){
+        for (int i = 0; i < listaCategoria.size(); i++) {
             ComboCategoria.addItem(listaCategoria.get(i).getNombre());
         }
     }
@@ -130,11 +129,11 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        int indice=ComboCategoria.getSelectedIndex();
-        String nombre=CajaNombre.getText();
-         String codigo=CajaCodigo.getText();
-        if(true){
-            SubCategoria sub=new SubCategoria(listaCategoria.get(indice-1).getIdCategoria(), nombre, codigo);
+        int indice = ComboCategoria.getSelectedIndex();
+        String nombre = CajaNombre.getText();
+        String codigo = CajaCodigo.getText();
+        if (true) {
+            SubCategoria sub = new SubCategoria(listaCategoria.get(indice - 1).getIdCategoria(), nombre, codigo);
             controladorS.AgregarSubCategoria(sub);
             JOptionPane.showMessageDialog(null, "Lo Agrego");
         }

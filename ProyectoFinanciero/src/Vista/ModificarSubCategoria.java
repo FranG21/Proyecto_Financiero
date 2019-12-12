@@ -5,6 +5,13 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Controlador.ControladorSubCategoria;
+import Modelo.Categoria;
+import Modelo.SubCategoria;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PEREZ
@@ -14,9 +21,32 @@ public class ModificarSubCategoria extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarCategoria
      */
-    public ModificarSubCategoria() {
+    ControladorCategoria controladorCategoria;
+    ControladorSubCategoria cs;
+    ArrayList<Categoria> listaCategoria;
+    SubCategoria sc;
+
+    public ModificarSubCategoria(SubCategoria sc) {
         initComponents();
         setLocationRelativeTo(null);
+        this.sc = sc;
+        controladorCategoria = new ControladorCategoria();
+        cs = new ControladorSubCategoria();
+        listaCategoria = new ArrayList<>();
+        listaCategoria = controladorCategoria.obtenerCuentas();
+        llenarCombo();
+        this.CajaNombre.setText(sc.getNombre());
+        this.CajaCod.setText(sc.getCodigo());
+    }
+
+    public void llenarCombo() {
+        ComboCategoria.addItem("SELECCIONE");
+        for (int i = 0; i < listaCategoria.size(); i++) {
+            ComboCategoria.addItem(listaCategoria.get(i).getNombre());
+            if (listaCategoria.get(i).getIdCategoria().equals(sc.getIdCtegoria())) {
+                ComboCategoria.setSelectedItem(listaCategoria.get(i).getNombre());
+            }
+        }
     }
 
     /**
@@ -33,11 +63,11 @@ public class ModificarSubCategoria extends javax.swing.JFrame {
         TxtNombre = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
-        CajaNombre1 = new javax.swing.JTextField();
+        CajaCod = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         TxtNombre2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboCategoria = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,7 +89,7 @@ public class ModificarSubCategoria extends javax.swing.JFrame {
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
         getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
+        getContentPane().add(CajaCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -88,8 +118,7 @@ public class ModificarSubCategoria extends javax.swing.JFrame {
         TxtNombre2.setText("CATEGORIA");
         getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 130, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CATEGORIA 1", "CATEGORIA 2", "...." }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
+        getContentPane().add(ComboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,25 +134,60 @@ public class ModificarSubCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-        // TODO add your handling code here:
+        String nombre = this.CajaNombre.getText();
+        String cod = this.CajaCod.getText();
+        int val = ComboCategoria.getSelectedIndex();
+        if (vacio(nombre, val, cod)) {
+            int cat = listaCategoria.get(val - 1).getIdCategoria();
+            if (cs.existeCampo("codigo", cod, sc.getIdSubcategoria()) && cs.existeCampo("nombre", nombre, sc.getIdSubcategoria())) {
+                sc.setCodigo(cod);
+                sc.setNombre(nombre);
+                sc.setIdCtegoria(cat);
+                if (cs.ModificarSubCategoria(sc)) {
+                    JOptionPane.showMessageDialog(rootPane, "SUBCATEGORIA MODIFICADA EXITOSAMENTE", "MODIFICAR SUBCATEGORIA", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR SUBCATEGORIA", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                mensajes(cod, nombre);
+            }
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CajaCod;
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaNombre1;
+    private javax.swing.JComboBox<String> ComboCategoria;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombre1;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean vacio(String nombre, int val, String cod) {
+        if (nombre.isEmpty() || val == 0 || cod.isEmpty()
+                || nombre.equalsIgnoreCase(" ") || cod.equalsIgnoreCase(" ")) {
+            JOptionPane.showMessageDialog(rootPane, "COMPLETE LOS CAMPOS VACIOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private void mensajes(String cod, String nombre) {
+        if (!cs.existeCampo("codigo", cod, sc.getIdSubcategoria()) && cs.existeCampo("nombre", nombre, sc.getIdSubcategoria())) {
+            JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR SUBCATEGORIA", JOptionPane.WARNING_MESSAGE);
+        } else if (cs.existeCampo("codigo", cod, sc.getIdSubcategoria()) && !cs.existeCampo("nombre", nombre, sc.getIdSubcategoria())) {
+            JOptionPane.showMessageDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR SUBCATEGORIA", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR SUBCATEGORIA", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
