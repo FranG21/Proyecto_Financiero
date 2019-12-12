@@ -24,7 +24,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cc = new ControladorCategoria();
-        CajaCod.setEditable(false);
+        //CajaCod.setEditable(false);
     }
 
     /**
