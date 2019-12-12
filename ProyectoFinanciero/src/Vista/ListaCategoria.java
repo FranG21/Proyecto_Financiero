@@ -5,6 +5,12 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Modelo.Categoria;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,11 +23,25 @@ public class ListaCategoria extends javax.swing.JFrame {
      * Creates new form ListaCatalago
      */
     DefaultTableModel modelo;
+    ControladorCategoria ctrCategoria;
+    ArrayList<Categoria> categoria;
+    int posicion = -1;
+    Categoria objeto;
 
     public ListaCategoria() {
         initComponents();
         setLocationRelativeTo(null);
+        ctrCategoria = new ControladorCategoria();
+
         modelo();
+        verTabla();
+        TablaCat.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ver(e); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
     }
 
     private void modelo() {
@@ -30,7 +50,7 @@ public class ListaCategoria extends javax.swing.JFrame {
         modelo.addColumn("N°");
         modelo.addColumn("CODIGO");
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("CATEGORIA");
+        modelo.addColumn("ESTADO");
         TablaCat.setModel(modelo);
     }
 
@@ -49,7 +69,7 @@ public class ListaCategoria extends javax.swing.JFrame {
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEstado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaCat = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -71,10 +91,11 @@ public class ListaCategoria extends javax.swing.JFrame {
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
         getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 140, 40));
 
-        BtnVer.setBackground(new java.awt.Color(0, 153, 0));
+        BtnVer.setBackground(new java.awt.Color(102, 153, 255));
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnVer.setForeground(new java.awt.Color(255, 255, 255));
         BtnVer.setText("VER");
+        BtnVer.setEnabled(false);
         BtnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVerActionPerformed(evt);
@@ -86,6 +107,7 @@ public class ListaCategoria extends javax.swing.JFrame {
         BtnModifica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
         BtnModifica.setText("MODIFICAR");
+        BtnModifica.setEnabled(false);
         BtnModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnModificaActionPerformed(evt);
@@ -104,11 +126,17 @@ public class ListaCategoria extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 180, 30));
 
-        jButton4.setBackground(new java.awt.Color(204, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("DAR DE BAJA");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 120, 30));
+        btnEstado.setBackground(new java.awt.Color(204, 0, 0));
+        btnEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEstado.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstado.setText("DAR DE BAJA");
+        btnEstado.setEnabled(false);
+        btnEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 120, 30));
 
         TablaCat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -133,7 +161,7 @@ public class ListaCategoria extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
@@ -146,6 +174,34 @@ public class ListaCategoria extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
+        // TODO add your handling code here:
+        if (objeto.getEstado() == 0) {
+            if (ctrCategoria.ModificarEstado(1, objeto.getIdCategoria())) {
+                /* BtnVer.setEnabled(false);
+                BtnModifica.setEnabled(false);
+                btnEstado.setEnabled(false);
+                 */
+                verTabla();
+                objeto.setEstado(1);
+                btnEstado.setBackground(Color.RED);
+                btnEstado.setText("DAR DE BAJA");
+            } else {
+
+            }
+
+        } else {
+            if (ctrCategoria.ModificarEstado(0, objeto.getIdCategoria())) {
+                verTabla();
+                objeto.setEstado(0);
+                btnEstado.setBackground(Color.GREEN);
+                btnEstado.setText("DAR DE ALTA");
+            } else {
+            }
+        }
+
+    }//GEN-LAST:event_btnEstadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -154,12 +210,54 @@ public class ListaCategoria extends javax.swing.JFrame {
     private javax.swing.JButton BtnModifica;
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable TablaCat;
+    private javax.swing.JButton btnEstado;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void Ver(MouseEvent e) {
+        int row = TablaCat.rowAtPoint(e.getPoint());
+        posicion = Integer.parseInt(TablaCat.getValueAt(row, 0).toString());
+        objeto = new Categoria();
+        objeto = categoria.get(posicion - 1);
+        BtnVer.setEnabled(true);
+        BtnModifica.setEnabled(true);
+        btnEstado.setEnabled(true);
+        if (objeto.getEstado() == 0) {
+            btnEstado.setBackground(Color.GREEN);
+            btnEstado.setText("DAR DE ALTA");
+
+        } else {
+            btnEstado.setBackground(Color.RED);
+            btnEstado.setText("DAR DE BAJA");
+        }
+
+    }
+
+    void verTabla() {
+        //objeto = new Categoria();
+        categoria = new ArrayList<>();
+        categoria = ctrCategoria.obtenerCuentas();
+
+        modelo.setRowCount(categoria.size());
+
+        for (int i = 0; i < categoria.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(categoria.get(i).getCodigo(), i, 1);
+            modelo.setValueAt(categoria.get(i).getNombre(), i, 2);
+            if (categoria.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 3);
+            } else {
+                modelo.setValueAt("ACTIVO", i, 3);
+            }
+
+        }
+
+        TablaCat.setModel(modelo);
+    }
 }

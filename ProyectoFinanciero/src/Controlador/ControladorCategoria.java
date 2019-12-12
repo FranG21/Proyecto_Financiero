@@ -103,5 +103,20 @@ public class ControladorCategoria {
         }
         return false;
     }
+    
+    public boolean ModificarEstado(int estado,int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE categoria SET estado="+estado+" WHERE idCat="+id;
+            st.executeUpdate(sql);
+            System.out.println("CTA MODIFICADA");
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
 }
