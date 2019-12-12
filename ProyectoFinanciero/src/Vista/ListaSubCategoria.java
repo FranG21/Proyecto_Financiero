@@ -12,6 +12,8 @@ import Modelo.SubCategoria;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,6 +40,37 @@ public class ListaSubCategoria extends javax.swing.JFrame {
 
         modelo();
         verTabla();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
         TablaSCat.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
