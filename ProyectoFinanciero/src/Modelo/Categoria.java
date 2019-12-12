@@ -12,6 +12,7 @@ package Modelo;
 public class Categoria {
     
     private Integer idCategoria;
+
     private String nombre;
     private String codigo;
     private Integer vidaUtil;
@@ -29,12 +30,7 @@ public class Categoria {
     }
 
     public Categoria() {
-        
     }
-    
-    
-
-    
 
     public String getNombre() {
         return nombre;
