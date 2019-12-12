@@ -79,6 +79,12 @@ public class ModificarCategoria extends javax.swing.JFrame {
         TxtValr.setForeground(new java.awt.Color(255, 255, 255));
         TxtValr.setText("VALOR RESIDUAL");
         getContentPane().add(TxtValr, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
+
+        CajaValr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CajaValrKeyTyped(evt);
+            }
+        });
         getContentPane().add(CajaValr, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
@@ -146,6 +152,13 @@ public class ModificarCategoria extends javax.swing.JFrame {
     private void CajaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CajaNombreFocusLost
         CajaCod.setText("ALGO");
     }//GEN-LAST:event_CajaNombreFocusLost
+
+    private void CajaValrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CajaValrKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9')) && (caracter != '\b')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_CajaValrKeyTyped
 
     /**
      * @param args the command line arguments
