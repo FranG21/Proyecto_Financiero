@@ -42,7 +42,7 @@ public class ControladorCategoria {
             System.out.println(e);
         }
     }
-    
+
     public ArrayList<Categoria> obtenerCuentas() {
         ArrayList<Categoria> categorias = new ArrayList<>();
         ResultSet rs = null;
@@ -53,7 +53,7 @@ public class ControladorCategoria {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Categoria categoria = new Categoria();
-                
+
                 categoria.setIdCategoria(rs.getInt("idCat"));
                 categoria.setNombre(rs.getString("nombre"));
                 categoria.setCodigo(rs.getString("cod"));
@@ -69,13 +69,12 @@ public class ControladorCategoria {
         }
         return categorias;
     }
-    
 
-    public boolean ModificarCategoria(Categoria categoria) {
+    public boolean ModificarCategoria(Categoria c) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = " ";
+            String sql = "UPDATE nombre=" + c.getNombre() + "cod=" + c.getCodigo();
             st.executeUpdate(sql);
             System.out.println("CTA MODIFICADA");
             conexion.cerrarConexion();
@@ -91,7 +90,7 @@ public class ControladorCategoria {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "SELECT * FROM categoria where " + c + "='" + cod + "'";
+            String sql = "SELECT * FROM categoria where " + c + "='" + cod + "' limit 2";
             st.execute(sql);
             r = st.getFetchSize();
             conexion.cerrarConexion();
