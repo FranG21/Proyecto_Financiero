@@ -126,24 +126,25 @@ public class ModificarCategoria extends javax.swing.JFrame {
         Categoria c = new Categoria();
         String nombre = this.CajaNombre.getText();
         String cod = this.CajaCod.getText();
-        int valr = Integer.parseInt(this.CajaValr.getText());
-        if (vacio(nombre, valr, cod)) {
+        String val = this.CajaValr.getText();
+        if (vacio(nombre, val, cod)) {
+            int valr = Integer.parseInt(val);
             if (cc.existeCampo("cod", cod) || cc.existeCampo("nombre", nombre)) {
                 c.setCodigo(cod);
                 c.setNombre(nombre);
                 c.setValorResidual(valr);
                 if (cc.ModificarCategoria(c)) {
-                    JOptionPane.showConfirmDialog(rootPane, "CATEGORIA MODIFICADA EXITOSAMENTE", "MODIFICAR CATEGORIA", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "CATEGORIA MODIFICADA EXITOSAMENTE", "MODIFICAR CATEGORIA", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showConfirmDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR CATEGORIA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR CATEGORIA", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 if (cc.existeCampo("cod", cod) && !cc.existeCampo("nombre", nombre)) {
-                    JOptionPane.showConfirmDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
                 } else if (!cc.existeCampo("cod", cod) && cc.existeCampo("nombre", nombre)) {
-                    JOptionPane.showConfirmDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showConfirmDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
@@ -178,10 +179,10 @@ public class ModificarCategoria extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    private boolean vacio(String nombre, int valr, String cod) {
-        if (nombre.isEmpty() || valr <= 0 || cod.isEmpty()
-                || nombre.equalsIgnoreCase(" ") || cod.equalsIgnoreCase(" ")) {
-            JOptionPane.showConfirmDialog(rootPane, "COMPLETE LOS CAMPOS VACIOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+    private boolean vacio(String nombre, String val, String cod) {
+        if (nombre.isEmpty() || val.isEmpty() || cod.isEmpty()
+                || nombre.equalsIgnoreCase(" ") || val.equalsIgnoreCase(" ") || cod.equalsIgnoreCase(" ")) {
+            JOptionPane.showMessageDialog(rootPane, "COMPLETE LOS CAMPOS VACIOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;

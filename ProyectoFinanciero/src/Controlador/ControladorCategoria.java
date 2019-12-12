@@ -59,12 +59,13 @@ public class ControladorCategoria {
     }
 
     public boolean existeCampo(String c, String cod) {
+        int r = 0;
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "SELECT * FROM categoria where " + c + "='" + cod + "'";
-            st.executeUpdate(sql);
-            int r = st.getFetchSize();
+            st.execute(sql);
+            r = st.getFetchSize();
             conexion.cerrarConexion();
             if (r == 0) {
                 return true;

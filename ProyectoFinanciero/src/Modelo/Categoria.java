@@ -10,7 +10,7 @@ package Modelo;
  * @author GM
  */
 public class Categoria {
-    
+
     private String nombre;
     private String codigo;
     private Integer vidaUtil;
@@ -28,10 +28,7 @@ public class Categoria {
     }
 
     public Categoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
     public String getNombre() {
         return nombre;
@@ -80,7 +77,5 @@ public class Categoria {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
-    
-    
-    
+
 }
