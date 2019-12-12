@@ -42,4 +42,61 @@ public class ControladorSubCategoria {
             System.out.println(e);
         }
     }
+    
+    public String buscarCategoria(int id) {
+        String cadena="";
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM categoria where idCat="+id;
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cadena=rs.getString("nombre");
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return cadena;
+    }
+    
+    public ArrayList<SubCategoria> obtenerLista() {
+        ArrayList<SubCategoria> subCategorias = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM subcategoria ORDER BY codigo ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                SubCategoria subCategoria = new SubCategoria();
+                
+                subCategoria.setIdSubcategoria(rs.getInt("idSub"));
+                subCategoria.setNombre(rs.getString("nombre"));
+                subCategoria.setIdCtegoria(rs.getInt("idcat"));
+                subCategoria.setCodigo(rs.getString("codigo"));
+                subCategoria.setEstado(rs.getInt("estado"));
+                subCategorias.add(subCategoria);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return subCategorias;
+    }
+    
+    public boolean ModificarEstado(int estado,int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE subcategoria SET estado="+estado+" WHERE idSub="+id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }
