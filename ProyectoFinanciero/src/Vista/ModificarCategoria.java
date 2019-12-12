@@ -139,13 +139,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR CATEGORIA", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                if (cc.existeCampo("cod", cod) && !cc.existeCampo("nombre", nombre)) {
-                    JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
-                } else if (!cc.existeCampo("cod", cod) && cc.existeCampo("nombre", nombre)) {
-                    JOptionPane.showMessageDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
-                }
+                mensajes(cod, nombre);
             }
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
@@ -186,5 +180,15 @@ public class ModificarCategoria extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+
+    private void mensajes(String cod, String nombre) {
+        if (cc.existeCampo("cod", cod) && !cc.existeCampo("nombre", nombre)) {
+            JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+        } else if (!cc.existeCampo("cod", cod) && cc.existeCampo("nombre", nombre)) {
+            JOptionPane.showMessageDialog(rootPane, "NOMBRE: " + nombre + ", YA SE ENCUENTRA REGISTRADO", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "CODIGO: " + cod + " Y NOMBRE: " + nombre + ", YA SE ENCUENTRAN REGISTRADOS", "MODIFICAR CATEGORIA", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
