@@ -10,6 +10,8 @@ package Modelo;
  * @author GM
  */
 public class Categoria {
+    
+    private Integer idCategoria;
 
     private String nombre;
     private String codigo;
@@ -78,4 +80,15 @@ public class Categoria {
         this.estado = estado;
     }
 
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+    
+    
+    
+    
 }
