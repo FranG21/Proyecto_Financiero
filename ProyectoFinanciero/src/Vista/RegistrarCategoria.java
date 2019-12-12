@@ -24,7 +24,10 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         controlador = new ControladorCategoria();
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

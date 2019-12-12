@@ -5,6 +5,13 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Controlador.ControladorSubCategoria;
+import Modelo.Categoria;
+import Modelo.SubCategoria;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PEREZ
@@ -14,9 +21,27 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarCategoria
      */
+    ControladorCategoria controladorCategoria;
+    ControladorSubCategoria controladorS;
+    ArrayList<Categoria> listaCategoria;
+    
+    
     public RegistrarSubCategoria() {
         initComponents();
         setLocationRelativeTo(null);
+        controladorCategoria = new ControladorCategoria();
+        controladorS=new ControladorSubCategoria();
+        listaCategoria=new ArrayList<>();
+        
+        listaCategoria=controladorCategoria.obtenerCuentas();
+        llenarCombo();
+    }
+    
+    public void llenarCombo(){
+        ComboCategoria.addItem("SELECCIONE");
+        for(int i=0;i<listaCategoria.size();i++){
+            ComboCategoria.addItem(listaCategoria.get(i).getNombre());
+        }
     }
 
     /**
@@ -33,11 +58,11 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         TxtNombre = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
-        CajaNombre1 = new javax.swing.JTextField();
+        CajaCodigo = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboCategoria = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,7 +84,7 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
         getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
+        getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,8 +113,7 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         });
         getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 110, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CATEGORIA 1", "CATEGORIA 2", "...." }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
+        getContentPane().add(ComboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,6 +130,14 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        int indice=ComboCategoria.getSelectedIndex();
+        String nombre=CajaNombre.getText();
+         String codigo=CajaCodigo.getText();
+        if(true){
+            SubCategoria sub=new SubCategoria(listaCategoria.get(indice-1).getIdCategoria(), nombre, codigo);
+            controladorS.AgregarSubCategoria(sub);
+            JOptionPane.showMessageDialog(null, "Lo Agrego");
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -113,14 +145,14 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CajaCodigo;
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaNombre1;
+    private javax.swing.JComboBox<String> ComboCategoria;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombre1;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;

@@ -11,6 +11,7 @@ package Modelo;
  */
 public class Categoria {
     
+    private Integer idCategoria;
     private String nombre;
     private String codigo;
     private Integer vidaUtil;
@@ -26,6 +27,12 @@ public class Categoria {
         this.valorResidual = valorResidual;
         this.estado = estado;
     }
+
+    public Categoria() {
+        
+    }
+    
+    
 
     
 
@@ -76,6 +83,15 @@ public class Categoria {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+    
     
     
     
