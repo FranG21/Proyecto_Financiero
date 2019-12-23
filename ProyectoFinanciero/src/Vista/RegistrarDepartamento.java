@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author PEREZ
  */
-public class RegistrarSubCategoria extends javax.swing.JFrame {
+public class RegistrarDepartamento extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarCategoria
@@ -26,7 +26,7 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
     ControladorSubCategoria controladorS;
     ArrayList<Categoria> listaCategoria;
 
-    public RegistrarSubCategoria() {
+    public RegistrarDepartamento() {
         initComponents();
         setLocationRelativeTo(null);
         controladorCategoria = new ControladorCategoria();
@@ -35,15 +35,10 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         CajaCodigo.setEnabled(false);
 
         listaCategoria = controladorCategoria.obtenerCuentas();
-        llenarCombo();
+        
     }
 
-    public void llenarCombo() {
-        ComboCategoria.addItem("SELECCIONE");
-        for (int i = 0; i < listaCategoria.size(); i++) {
-            ComboCategoria.addItem(listaCategoria.get(i).getNombre());
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,11 +55,9 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         CajaNombre = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
         CajaCodigo = new javax.swing.JTextField();
-        TxtNombre2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         botonRegistrar1 = new javax.swing.JButton();
-        ComboCategoria = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -87,11 +80,6 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         TxtNombre1.setText("CODIGO");
         getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
         getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
-
-        TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("CATEGORIA");
-        getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 130, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -126,8 +114,6 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         });
         getContentPane().add(botonRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 110, 30));
 
-        getContentPane().add(ComboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 200, 30));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
@@ -143,12 +129,12 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        int indice = ComboCategoria.getSelectedIndex();
+        
         String nombre = CajaNombre.getText();
         String codigo = CajaCodigo.getText();
         if (true) {
-            SubCategoria sub = new SubCategoria(listaCategoria.get(indice - 1).getIdCategoria(), nombre, codigo);
-            controladorS.AgregarSubCategoria(sub);
+            
+           // controladorS.AgregarSubCategoria(sub);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
 
         }
@@ -171,10 +157,8 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCodigo;
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JComboBox<String> ComboCategoria;
     private javax.swing.JLabel TxtNombre;
     private javax.swing.JLabel TxtNombre1;
-    private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonRegistrar1;
     private javax.swing.JButton jButton1;

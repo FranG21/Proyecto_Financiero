@@ -86,6 +86,31 @@ public class ControladorSubCategoria {
         }
         return subCategorias;
     }
+    
+    public ArrayList<SubCategoria> obtenerSubCategoriaCaracter(String letra) {
+        ArrayList<SubCategoria> subCategorias = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM subcategoria WHERE subcategoria.nombre LIKE '"+letra.charAt(0)+letra.charAt(1)+"%' or subcategoria.nombre LIKE '"+letra.charAt(0)+letra.charAt(1)+"%'";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                SubCategoria subCategoria = new SubCategoria();
+
+                subCategoria.setIdSubcategoria(rs.getInt("idSub"));
+                subCategoria.setNombre(rs.getString("nombre"));
+                subCategoria.setIdCtegoria(rs.getInt("idcat"));
+                subCategoria.setCodigo(rs.getString("codigo"));
+                subCategoria.setEstado(rs.getInt("estado"));
+                subCategorias.add(subCategoria);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return subCategorias;
+    }
 
     public boolean ModificarSubCategoria(SubCategoria sc) {
         try {

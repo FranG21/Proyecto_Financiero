@@ -7,6 +7,8 @@ package Vista;
 
 import Controlador.ControladorCategoria;
 import Modelo.Categoria;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +26,7 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         controlador = new ControladorCategoria();
+        CajaCodigo.setEnabled(false);
         
     }
     
@@ -46,12 +49,11 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         CajaVidaUtil = new javax.swing.JTextField();
         TxtNombre1 = new javax.swing.JLabel();
         CajaCodigo = new javax.swing.JTextField();
-        TxtVidaUtil1 = new javax.swing.JLabel();
-        CajaEconomica = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
         CajaValorResidual = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -72,26 +74,20 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         TxtVidaUtil.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtVidaUtil.setForeground(new java.awt.Color(255, 255, 255));
         TxtVidaUtil.setText("VIDA UTIL");
-        getContentPane().add(TxtVidaUtil, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 130, 30));
-        getContentPane().add(CajaVidaUtil, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 200, 30));
+        getContentPane().add(TxtVidaUtil, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 130, 30));
+        getContentPane().add(CajaVidaUtil, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 200, 30));
 
         TxtNombre1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre1.setText("CODIGO");
-        getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
-
-        TxtVidaUtil1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtVidaUtil1.setForeground(new java.awt.Color(255, 255, 255));
-        TxtVidaUtil1.setText("VIDA ECONOMICA");
-        getContentPane().add(TxtVidaUtil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 130, 30));
-        getContentPane().add(CajaEconomica, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 200, 30));
+        getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 130, 30));
+        getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 200, 30));
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre2.setText("VALOR RESIDUAL");
-        getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 130, 30));
-        getContentPane().add(CajaValorResidual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 30));
+        getContentPane().add(TxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 130, 30));
+        getContentPane().add(CajaValorResidual, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -102,7 +98,7 @@ public class RegistrarCategoria extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, 100, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 100, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -113,7 +109,18 @@ public class RegistrarCategoria extends javax.swing.JFrame {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 110, 30));
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 110, 30));
+
+        jButton2.setBackground(new java.awt.Color(255, 153, 0));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("GENERAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 110, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,15 +141,26 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         String nombre = CajaNombre.getText();
         String codigo = CajaCodigo.getText();
         Integer vidaUtil = Integer.parseInt(CajaVidaUtil.getText());
-        Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
+        //Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
         Integer valorResidual = Integer.parseInt(CajaValorResidual.getText());
 
         if (true) {
-            Categoria categoria = new Categoria(nombre, codigo, vidaUtil, vidaEconomica, valorResidual, 0);
+            Categoria categoria = new Categoria(nombre, codigo, vidaUtil, 0, valorResidual, 0);
             controlador.AgregarCatgoria(categoria);
             JOptionPane.showMessageDialog(null, "Lo Agrego");
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(CajaNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "DEBE DE AGREGAR UN NOMBRE A SU NUEVA CATEGORIA", "ERROR", JOptionPane.WARNING_MESSAGE );
+        }else{
+           String codigo = ObtenerCodigo(CajaNombre.getText());
+           CajaCodigo.setText(codigo);
+           
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,7 +168,6 @@ public class RegistrarCategoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCodigo;
-    private javax.swing.JTextField CajaEconomica;
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JTextField CajaValorResidual;
     private javax.swing.JTextField CajaVidaUtil;
@@ -158,11 +175,21 @@ public class RegistrarCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel TxtNombre1;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JLabel TxtVidaUtil;
-    private javax.swing.JLabel TxtVidaUtil1;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private String ObtenerCodigo(String codigo) {
+        ArrayList<Categoria> lista=controlador.obtenerCategoriaCaracter(codigo);
+        DecimalFormat format=new DecimalFormat("0000");
+        int cantidad=lista.size()+1;
+        String aux=""+cantidad;
+        String codi=""+codigo.charAt(0)+codigo.charAt(1)+format.format(cantidad);
+        
+        return codi;
+    }
 }
