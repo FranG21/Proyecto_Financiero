@@ -19,24 +19,21 @@ import javax.swing.JOptionPane;
  *
  * @author PEREZ
  */
-public class RegistrarDepartamento extends javax.swing.JFrame {
+public class ModificarDepartamento extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarCategoria
      */
     ControladorDeparamento controladorDep;
- 
-
-    public RegistrarDepartamento() {
+    int idDep;
+    
+    public ModificarDepartamento(Departamento dep) {
         initComponents();
         setLocationRelativeTo(null);
-   
+        CajaNombre.setText(dep.getNombreDep());
+        idDep=dep.getIdDep();
         controladorDep = new ControladorDeparamento();
-       
-        CajaCodigo.setEnabled(false);
-
         
-
     }
 
     /**
@@ -52,11 +49,8 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         TxtNombre = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
-        TxtNombre1 = new javax.swing.JLabel();
-        CajaCodigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
-        botonRegistrar1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -73,12 +67,6 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
         TxtNombre.setText("NOMBRE");
         getContentPane().add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 130, 30));
         getContentPane().add(CajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 200, 30));
-
-        TxtNombre1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNombre1.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre1.setText("CODIGO");
-        getContentPane().add(TxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
-        getContentPane().add(CajaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -102,17 +90,6 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
         });
         getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 110, 30));
 
-        botonRegistrar1.setBackground(new java.awt.Color(255, 204, 0));
-        botonRegistrar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        botonRegistrar1.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar1.setText("GENERAR");
-        botonRegistrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrar1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonRegistrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 110, 30));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
@@ -130,61 +107,28 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String nombre = CajaNombre.getText();
-        String codigo = CajaCodigo.getText();
+        
         if (true) {
-            Departamento dep = new Departamento(codigo, nombre);
-            controladorDep.AgregarDepartamento(dep);
-            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-
+            Departamento dep = new Departamento("", nombre);
+            controladorDep.ModificarDepartamento(nombre,idDep);
+            JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
-
-    private void botonRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrar1ActionPerformed
-        // TODO add your handling code here:
-        if (CajaNombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "DEBE DE AGREGAR UN NOMBRE A SU NUEVO DEPAAMENTO", "ERROR", JOptionPane.WARNING_MESSAGE);
-        } else {
-            String codigo = ObtenerCodigo(CajaNombre.getText());
-            CajaCodigo.setText(codigo);
-        }
-    }//GEN-LAST:event_botonRegistrar1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CajaCodigo;
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JLabel TxtNombre;
-    private javax.swing.JLabel TxtNombre1;
     private javax.swing.JButton botonRegistrar;
-    private javax.swing.JButton botonRegistrar1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    private String ObtenerCodigo(String codigo) {
-        ArrayList<Departamento> lista = controladorDep.obtenerLista();
-        DecimalFormat format = new DecimalFormat("0000");
-        int conta = 0;
-        String var = "";
-        for (int i = 0; i < codigo.length(); i++) {
-            if (codigo.charAt(i) == ' ') {
-                conta++;
-                if (conta == 2) {
-                    var = "" + codigo.charAt(i+1);
-                }
-            }
 
-        }
-
-        int cantidad = lista.size() + 1;
-        String aux = "" + cantidad;
-        String codi = "D" + var + format.format(cantidad);
-
-        return codi;
-    }
 }

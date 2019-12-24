@@ -6,8 +6,10 @@
 package Vista;
 
 import Controlador.ControladorCategoria;
+import Controlador.ControladorDeparamento;
 import Controlador.ControladorSubCategoria;
 import Modelo.Categoria;
+import Modelo.Departamento;
 import Modelo.SubCategoria;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -27,16 +29,16 @@ public class ListaDepartamento extends javax.swing.JFrame {
      * Creates new form ListaCatalago
      */
     DefaultTableModel modelo;
-    ControladorSubCategoria ctrSubCategoria;
-    ArrayList<SubCategoria> subCategoria;
+    ControladorDeparamento ctrDeparamento;
+    ArrayList<Departamento> listaDepartamentos;
     int posicion = -1;
-    SubCategoria objeto;
+    Departamento objeto;
 
     public ListaDepartamento() {
         initComponents();
         setLocationRelativeTo(null);
         modelo();
-         ctrSubCategoria = new ControladorSubCategoria();
+         ctrDeparamento = new ControladorDeparamento();
 
         modelo();
         verTabla();
@@ -86,7 +88,6 @@ public class ListaDepartamento extends javax.swing.JFrame {
         modelo.addColumn("N°");
         modelo.addColumn("CODIGO");
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("CATEGORIA");
         modelo.addColumn("ESTADO");
         TablaSCat.setModel(modelo);
     }
@@ -206,35 +207,35 @@ public class ListaDepartamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
-        ModificarSubCategoria vista = new ModificarSubCategoria(objeto);
+        ModificarDepartamento vista = new ModificarDepartamento(objeto);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         // TODO add your handling code here:
         if (objeto.getEstado() == 0) {
-            if (ctrSubCategoria.ModificarEstado(1, objeto.getIdSubcategoria())) {
-                /* BtnVer.setEnabled(false);
-                BtnModifica.setEnabled(false);
-                btnEstado.setEnabled(false);
-                 */
-                verTabla();
-                objeto.setEstado(1);
-                btnEstado.setBackground(Color.RED);
-                btnEstado.setText("DAR DE BAJA");
-            } else {
-
-            }
+//            if (ctrSubCategoria.ModificarEstado(1, objeto.getIdSubcategoria())) {
+//                /* BtnVer.setEnabled(false);
+//                BtnModifica.setEnabled(false);
+//                btnEstado.setEnabled(false);
+//                 */
+//                verTabla();
+//                objeto.setEstado(1);
+//                btnEstado.setBackground(Color.RED);
+//                btnEstado.setText("DAR DE BAJA");
+//            } else {
+//
+//            }
 
         } else {
-            if (ctrSubCategoria.ModificarEstado(0, objeto.getIdSubcategoria())) {
-                verTabla();
-                objeto.setEstado(0);
-                btnEstado.setBackground(Color.GREEN);
-                btnEstado.setText("DAR DE ALTA");
-            } else {
-            }
-        }
+//            if (ctrSubCategoria.ModificarEstado(0, objeto.getIdSubcategoria())) {
+//                verTabla();
+//                objeto.setEstado(0);
+//                btnEstado.setBackground(Color.GREEN);
+//                btnEstado.setText("DAR DE ALTA");
+//            } else {
+//            }
+       }
     }//GEN-LAST:event_btnEstadoActionPerformed
 
     /**
@@ -257,8 +258,8 @@ public class ListaDepartamento extends javax.swing.JFrame {
     private void Ver(MouseEvent e) {
         int row = TablaSCat.rowAtPoint(e.getPoint());
         posicion = Integer.parseInt(TablaSCat.getValueAt(row, 0).toString());
-        objeto = new SubCategoria();
-        objeto = subCategoria.get(posicion - 1);
+        objeto = new Departamento();
+        objeto = listaDepartamentos.get(posicion - 1);
         BtnVer.setEnabled(true);
         BtnModifica.setEnabled(true);
         btnEstado.setEnabled(true);
@@ -275,25 +276,24 @@ public class ListaDepartamento extends javax.swing.JFrame {
 
     void verTabla() {
         //objeto = new Categoria();
-        subCategoria = new ArrayList<>();
-        subCategoria = ctrSubCategoria.obtenerLista();
+        listaDepartamentos = new ArrayList<>();
+        listaDepartamentos = ctrDeparamento.obtenerLista();
 
-        modelo.setRowCount(subCategoria.size());
+        modelo.setRowCount(listaDepartamentos.size());
 
-        for (int i = 0; i < subCategoria.size(); i++) {
+        for (int i = 0; i < listaDepartamentos.size(); i++) {
 
             modelo.setValueAt(i + 1, i, 0);
-            modelo.setValueAt(subCategoria.get(i).getCodigo(), i, 1);
-            modelo.setValueAt(subCategoria.get(i).getNombre(), i, 2);
-            modelo.setValueAt(ctrSubCategoria.buscarCategoria(subCategoria.get(i).getIdCtegoria()), i, 3);
-            if (subCategoria.get(i).getEstado() == 0) {
-                modelo.setValueAt("INACTIVO", i, 4);
+            modelo.setValueAt(listaDepartamentos.get(i).getCodigo(), i, 1);
+            modelo.setValueAt(listaDepartamentos.get(i).getNombreDep(), i, 2);
+            
+            if (listaDepartamentos.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 3);
             } else {
-                modelo.setValueAt("ACTIVO", i, 4);
+                modelo.setValueAt("ACTIVO", i, 3);
             }
 
         }
-
         TablaSCat.setModel(modelo);
     }
 

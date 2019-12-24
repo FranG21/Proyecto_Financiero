@@ -5,6 +5,17 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Controlador.ControladorDeparamento;
+import Controlador.ControladorMarca;
+import Controlador.ControladorProveedor;
+import Controlador.ControladorSubCategoria;
+import Modelo.Categoria;
+import Modelo.Departamento;
+import Modelo.Marca;
+import Modelo.Proveedor;
+import Modelo.SubCategoria;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,10 +27,45 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarClientes
      */
+    ControladorCategoria controladorCategoria;
+    ControladorSubCategoria controladorSub;
+    ControladorDeparamento controladorDeparamento;
+    ControladorProveedor controladorProveedor;
+    ControladorMarca controladorMarca;
+    
+    ArrayList<Categoria> listaCategoria;
+    ArrayList<SubCategoria> listaSubCategoria;
+    ArrayList<Departamento> listaDepartamento;
+    ArrayList<Proveedor> listaProveedor;
+    ArrayList<Marca> listaMarca;
+    
     public RegistrarActivoFijo() {
         initComponents();
         setSize(900, 660);
         setLocationRelativeTo(null); 
+        
+        controladorCategoria = new ControladorCategoria();
+        controladorSub = new ControladorSubCategoria();
+        controladorDeparamento=new ControladorDeparamento();
+        controladorMarca= new ControladorMarca();
+        
+        listaCategoria = new ArrayList<>();
+        listaSubCategoria=new ArrayList<>();
+        listaDepartamento=new ArrayList<>();
+        listaProveedor=new ArrayList<>();
+        listaMarca=new ArrayList<>();
+        
+        listaCategoria = controladorCategoria.obtenerCuentas();
+        listaSubCategoria=controladorSub.obtenerLista();
+        listaDepartamento=controladorDeparamento.obtenerLista();
+        listaMarca=controladorMarca.obtenerLista();
+        
+        llenarComboCategoria();
+        llenaComboSub();
+        llenarComboDep();
+        llenarComboPro();
+        llenarComboMarca();
+        
     }
 
     /**
@@ -35,21 +81,21 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TxtNit = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<>();
         CajaNit = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Direccion = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboSub = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        comboDepartamento = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        comboMarca = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        comboProveedor = new javax.swing.JComboBox<>();
         TxtNit1 = new javax.swing.JLabel();
         CajaNit1 = new javax.swing.JTextField();
         TxtNit2 = new javax.swing.JLabel();
@@ -84,8 +130,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         TxtNit.setText("CODIGO");
         getContentPane().add(TxtNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 30));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CAT 1", "CAT 2", "CAT 3" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 200, 30));
+        getContentPane().add(comboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 200, 30));
         getContentPane().add(CajaNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -121,16 +166,14 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         });
         getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 110, 30));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CAT 1", "CAT 2", "CAT 3" }));
-        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 200, 30));
+        getContentPane().add(comboSub, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 200, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("SUBCATEGORIA");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 130, 30));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "DEPTO 1", "DEPTO2", "DEPTO 3" }));
-        getContentPane().add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
+        getContentPane().add(comboDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,16 +185,14 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         jLabel7.setText("MARCA");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 130, 30));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "MARCA 1", "MARCA 2", "MARCA 3", "..." }));
-        getContentPane().add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 200, 30));
+        getContentPane().add(comboMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 200, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("PROVEEDOR");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 130, 30));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "PROV 1", "PROV 2", "PROV 3", "...." }));
-        getContentPane().add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 200, 30));
+        getContentPane().add(comboProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 200, 30));
 
         TxtNit1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit1.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,6 +229,8 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         getContentPane().add(TxtNit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 130, 30));
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 200, 30));
 
+        jCheckBox1.setBackground(new java.awt.Color(102, 102, 102));
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("DONADO");
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
 
@@ -254,13 +297,13 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     private javax.swing.JLabel TxtNit3;
     private javax.swing.JLabel TxtNit4;
     private javax.swing.JButton botonRegistrar;
+    private javax.swing.JComboBox<String> comboCategoria;
+    private javax.swing.JComboBox<String> comboDepartamento;
+    private javax.swing.JComboBox<String> comboMarca;
+    private javax.swing.JComboBox<String> comboProveedor;
+    private javax.swing.JComboBox<String> comboSub;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -275,4 +318,36 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarComboCategoria() {
+        comboCategoria.addItem("SELECCIONE");
+        for (int i = 0; i < listaCategoria.size(); i++) {
+            comboCategoria.addItem(listaCategoria.get(i).getNombre());
+        }
+    }
+
+    private void llenaComboSub() {
+        comboSub.addItem("SELECCIONE");
+        for (int i = 0; i < listaSubCategoria.size(); i++) {
+            comboSub.addItem(listaSubCategoria.get(i).getNombre());
+        }
+    }
+
+    private void llenarComboDep() {
+        comboDepartamento.addItem("SELECCIONE");
+        for (int i = 0; i < listaDepartamento.size(); i++) {
+            comboDepartamento.addItem(listaDepartamento.get(i).getNombreDep());
+        }
+    }
+
+    private void llenarComboPro() {
+        
+    }
+
+    private void llenarComboMarca() {
+        comboMarca.addItem("SELECCIONE");
+        for (int i = 0; i < listaMarca.size(); i++) {
+            comboMarca.addItem(listaMarca.get(i).getNombre());
+        }
+    }
 }
