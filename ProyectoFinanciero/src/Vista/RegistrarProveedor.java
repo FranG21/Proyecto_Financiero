@@ -28,17 +28,14 @@ public class RegistrarProveedor extends javax.swing.JFrame {
      * Creates new form RegistrarClientes
      */
     ControladorProveedor controladorProveedor;
-   
-    
 
-    
     public RegistrarProveedor() {
         initComponents();
         setSize(900, 660);
-        setLocationRelativeTo(null); 
-        
-        controladorProveedor=new ControladorProveedor();
-               
+        setLocationRelativeTo(null);
+
+        controladorProveedor = new ControladorProveedor();
+
     }
 
     /**
@@ -173,7 +170,20 @@ public class RegistrarProveedor extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        
+        String nit = CajaNit.getText();
+        String nombre = CajaProveddor.getText();
+        String representante = CajaRepresentante.getText();
+        String correo = CajaCorreo.getText();
+        String telefono = CajaTelefono.getText();
+        String direccion = Direccion.getText();
+        String descripcion = Descripcion.getText();
+
+        if (true) {
+            Proveedor pro = new Proveedor(nombre, direccion, nit, representante, telefono, correo, descripcion, 1);
+            controladorProveedor.Agregar(pro);
+            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -235,5 +245,4 @@ public class RegistrarProveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    
 }

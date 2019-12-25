@@ -103,7 +103,6 @@ public class ControladorCategoria {
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "UPDATE categoria SET nombre='" + c.getNombre() + "', cod= '" + c.getCodigo() + "' WHERE idCat=" + c.getIdCategoria();
             st.executeUpdate(sql);
-            System.out.println("CTA MODIFICADA");
             conexion.cerrarConexion();
             return true;
         } catch (Exception e) {

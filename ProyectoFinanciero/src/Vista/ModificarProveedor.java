@@ -29,14 +29,14 @@ public class ModificarProveedor extends javax.swing.JFrame {
      */
     ControladorProveedor controladorProveedor;
     Proveedor pro;
-    
+
     public ModificarProveedor(Proveedor objeto) {
         initComponents();
         setSize(900, 660);
-        setLocationRelativeTo(null); 
-        pro=objeto;
-        controladorProveedor=new ControladorProveedor();
-        
+        setLocationRelativeTo(null);
+        pro = objeto;
+        controladorProveedor = new ControladorProveedor();
+
         CajaNit.setText(pro.getNit());
         CajaProveddor.setText(pro.getNombre());
         CajaRepresentante.setText(pro.getResponsable());
@@ -44,7 +44,7 @@ public class ModificarProveedor extends javax.swing.JFrame {
         CajaTelefono.setText(pro.getTelefono());
         Direccion.setText(pro.getDireccion());
         Descripcion.setText(pro.getObservaciones());
-               
+
     }
 
     /**
@@ -179,6 +179,30 @@ public class ModificarProveedor extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        String nit = CajaNit.getText();
+        String nombre = CajaProveddor.getText();
+        String representante = CajaRepresentante.getText();
+        String correo = CajaCorreo.getText();
+        String telefono = CajaTelefono.getText();
+        String direccion = Direccion.getText();
+        String descripcion = Descripcion.getText();
+
+        if (true) {
+            pro.setNit(nit);
+            pro.setNombre(nombre);
+            pro.setResponsable(representante);
+            pro.setCorreo(correo);
+            pro.setTelefono(telefono);
+            pro.setDireccion(direccion);
+            pro.setObservaciones(descripcion);
+
+            if (controladorProveedor.Modificar(pro)) {
+                JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -240,5 +264,4 @@ public class ModificarProveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    
 }

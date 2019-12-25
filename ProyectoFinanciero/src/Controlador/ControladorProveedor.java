@@ -33,6 +33,36 @@ public class ControladorProveedor {
         PreparedStatement st = null;
     }
     
+    public void Agregar(Proveedor x) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "INSERT INTO proveedor (nombre,direccion, nit,contacto,telefono,correo,observacion,estado) VALUES"
+                    + " ('" + x.getNombre() + "','" + x.getDireccion()+ "','" + x.getNit()+ "','" + x.getResponsable()+ "','" + x.getTelefono()+ "','" + x.getCorreo()+ "','" + x.getObservaciones()+ "'," + 1 + ")";
+            st.executeUpdate(sql);
+            System.out.println("CTA AGREGADA");
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public boolean Modificar(Proveedor c) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE proveedor SET nombre='" + c.getNombre() + "', nit= '" + c.getNit()+ "'"
+                    + ", direccion='"+c.getDireccion()+"', contacto='"+c.getResponsable()+"',telefono='"+c.getTelefono()+"',correo='"+c.getCorreo()+"',observacion='"+c.getObservaciones()+"' WHERE ide=" + c.getIdP();
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    
     public ArrayList<Proveedor> obtenerLista() {
         ArrayList<Proveedor> listaProveedor = new ArrayList<>();
         ResultSet rs = null;

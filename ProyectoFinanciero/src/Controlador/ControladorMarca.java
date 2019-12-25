@@ -29,6 +29,19 @@ public class ControladorMarca {
         PreparedStatement st = null;
     }
     
+    public void Agregar(Marca x) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "INSERT INTO marca (nombre,estado) VALUES"
+                    + " ('" + x.getNombre() + "'," + 1 + ")";
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     public ArrayList<Marca> obtenerLista() {
         ArrayList<Marca> listaMarca = new ArrayList<>();
         ResultSet rs = null;

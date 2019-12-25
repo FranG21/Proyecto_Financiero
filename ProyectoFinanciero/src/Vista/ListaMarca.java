@@ -6,9 +6,11 @@
 package Vista;
 
 import Controlador.ControladorCategoria;
+import Controlador.ControladorMarca;
 import Controlador.ControladorProveedor;
 import Controlador.ControladorSubCategoria;
 import Modelo.Categoria;
+import Modelo.Marca;
 import Modelo.Proveedor;
 import Modelo.SubCategoria;
 import java.awt.Color;
@@ -29,16 +31,16 @@ public class ListaMarca extends javax.swing.JFrame {
      * Creates new form ListaCatalago
      */
     DefaultTableModel modelo;
-    ControladorProveedor ctrProveedor;
-    ArrayList<Proveedor> listaProveedor;
+    ControladorMarca ctrMarca;
+    ArrayList<Marca> listaMarca;
     int posicion = -1;
-   Proveedor objeto;
+    Marca objeto;
 
     public ListaMarca() {
         initComponents();
         setLocationRelativeTo(null);
         modelo();
-         ctrProveedor = new ControladorProveedor();
+         ctrMarca = new ControladorMarca();
 
         modelo();
         verTabla();
@@ -86,10 +88,7 @@ public class ListaMarca extends javax.swing.JFrame {
 
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
-        modelo.addColumn("NIT");
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("CORREO");
-        modelo.addColumn("TELEFONO");
         modelo.addColumn("ESTADO");
         TablaSCat.setModel(modelo);
     }
@@ -204,13 +203,13 @@ public class ListaMarca extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        RegistrarProveedor vista = new RegistrarProveedor();
+        RegistrarMarca vista = new RegistrarMarca();
         vista.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
-        ModificarProveedor vista = new ModificarProveedor(objeto);
-       vista.setVisible(true);
+       //ModificarProveedor vista = new ModificarProveedor(objeto);
+       //vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
@@ -260,8 +259,8 @@ public class ListaMarca extends javax.swing.JFrame {
     private void Ver(MouseEvent e) {
         int row = TablaSCat.rowAtPoint(e.getPoint());
         posicion = Integer.parseInt(TablaSCat.getValueAt(row, 0).toString());
-        objeto = new Proveedor();
-        objeto = listaProveedor.get(posicion - 1);
+        objeto = new Marca();
+        objeto = listaMarca.get(posicion - 1);
         BtnVer.setEnabled(true);
         BtnModifica.setEnabled(true);
         btnEstado.setEnabled(true);
@@ -278,22 +277,19 @@ public class ListaMarca extends javax.swing.JFrame {
 
     void verTabla() {
         //objeto = new Categoria();
-        listaProveedor = new ArrayList<>();
-        listaProveedor = ctrProveedor.obtenerLista();
+        listaMarca = new ArrayList<>();
+        listaMarca = ctrMarca.obtenerLista();
 
-        modelo.setRowCount(listaProveedor.size());
+        modelo.setRowCount(listaMarca.size());
 
-        for (int i = 0; i < listaProveedor.size(); i++) {
+        for (int i = 0; i < listaMarca.size(); i++) {
 
             modelo.setValueAt(i + 1, i, 0);
-            modelo.setValueAt(listaProveedor.get(i).getNit(), i, 1);
-            modelo.setValueAt(listaProveedor.get(i).getNombre(), i, 2);
-            modelo.setValueAt(listaProveedor.get(i).getCorreo(), i, 3);
-            modelo.setValueAt(listaProveedor.get(i).getTelefono(), i, 4);
-            if (listaProveedor.get(i).getEstado() == 0) {
-                modelo.setValueAt("INACTIVO", i, 5);
+            modelo.setValueAt(listaMarca.get(i).getNombre(), i, 1);
+            if (listaMarca.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 2);
             } else {
-                modelo.setValueAt("ACTIVO", i, 5);
+                modelo.setValueAt("ACTIVO", i, 2);
             }
 
         }
