@@ -47,6 +47,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         controladorCategoria = new ControladorCategoria();
         controladorSub = new ControladorSubCategoria();
         controladorDeparamento=new ControladorDeparamento();
+        controladorProveedor=new ControladorProveedor();
         controladorMarca= new ControladorMarca();
         
         listaCategoria = new ArrayList<>();
@@ -58,6 +59,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         listaCategoria = controladorCategoria.obtenerCuentas();
         listaSubCategoria=controladorSub.obtenerLista();
         listaDepartamento=controladorDeparamento.obtenerLista();
+        listaProveedor=controladorProveedor.obtenerListaActivo();
         listaMarca=controladorMarca.obtenerLista();
         
         llenarComboCategoria();
@@ -341,7 +343,10 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     }
 
     private void llenarComboPro() {
-        
+        comboProveedor.addItem("SELECCIONE");
+        for (int i = 0; i < listaProveedor.size(); i++) {
+            comboProveedor.addItem(listaProveedor.get(i).getNombre());
+        }
     }
 
     private void llenarComboMarca() {
