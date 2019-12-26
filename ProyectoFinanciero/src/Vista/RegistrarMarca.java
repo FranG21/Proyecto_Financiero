@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.ControladorMarca;
 import Modelo.Marca;
+import Modelo.Proveedor;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
@@ -20,11 +21,13 @@ public class RegistrarMarca extends javax.swing.JFrame {
      * Creates new form RegistrarClientes
      */
     ControladorMarca controlador;
-
-    public RegistrarMarca() {
+    Proveedor pro;
+    public RegistrarMarca(Proveedor p) {
         initComponents();
-
+        pro=p;
         controlador = new ControladorMarca();
+        cajaProveedor.setEnabled(false);
+        cajaProveedor.setText(pro.getNombre());
         //Línea 1
         this.setSize(new Dimension(830, 264));
 
@@ -47,7 +50,7 @@ public class RegistrarMarca extends javax.swing.JFrame {
         TxtNit = new javax.swing.JLabel();
         CajaNombre = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
-        CajaProveedor = new javax.swing.JTextField();
+        cajaProveedor = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -79,8 +82,8 @@ public class RegistrarMarca extends javax.swing.JFrame {
         TxtNombre2.setText("NOMBRE");
         getContentPane().add(TxtNombre2);
         TxtNombre2.setBounds(80, 110, 120, 30);
-        getContentPane().add(CajaProveedor);
-        CajaProveedor.setBounds(590, 110, 200, 30);
+        getContentPane().add(cajaProveedor);
+        cajaProveedor.setBounds(590, 110, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -123,9 +126,9 @@ public class RegistrarMarca extends javax.swing.JFrame {
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
         String nombre = CajaNombre.getText();
-
+        
         if (true) {
-            Marca m = new Marca(nombre);
+            Marca m = new Marca(nombre,pro.getIdP());
             controlador.Agregar(m);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -169,10 +172,10 @@ public class RegistrarMarca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaProveedor;
     private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
+    private javax.swing.JTextField cajaProveedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

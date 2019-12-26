@@ -35,13 +35,14 @@ public class ListaMarca extends javax.swing.JFrame {
     ArrayList<Marca> listaMarca;
     int posicion = -1;
     Marca objeto;
+    Proveedor pro;
 
-    public ListaMarca() {
+    public ListaMarca(Proveedor p) {
         initComponents();
         setLocationRelativeTo(null);
         modelo();
-         ctrMarca = new ControladorMarca();
-
+        ctrMarca = new ControladorMarca();
+        pro=p;
         modelo();
         verTabla();
         this.addWindowListener(new WindowListener() {
@@ -199,17 +200,17 @@ public class ListaMarca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
-        
+
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        RegistrarMarca vista = new RegistrarMarca();
+        RegistrarMarca vista = new RegistrarMarca(pro);
         vista.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
-       //ModificarProveedor vista = new ModificarProveedor(objeto);
-       //vista.setVisible(true);
+        //ModificarProveedor vista = new ModificarProveedor(objeto);
+        //vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed

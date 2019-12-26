@@ -13,11 +13,15 @@ public class Marca {
     
     private Integer idM;
     private String nombre;
+    private Integer idPro;
     private Integer estado;
 
-    public Marca(String nombre) {
+    public Marca(String nombre, Integer idPro) {
         this.nombre = nombre;
+        this.idPro = idPro;
     }
+
+    
 
     public Marca() {
     }
@@ -44,6 +48,14 @@ public class Marca {
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public Integer getIdPro() {
+        return idPro;
+    }
+
+    public void setIdPro(Integer idPro) {
+        this.idPro = idPro;
     }
     
     
