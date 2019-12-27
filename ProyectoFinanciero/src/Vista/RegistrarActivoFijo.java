@@ -14,10 +14,12 @@ import Controlador.ControladorSubCategoria;
 import Modelo.Activo;
 import Modelo.Categoria;
 import Modelo.Departamento;
+import Modelo.DetalleActivo;
 import Modelo.Marca;
 import Modelo.Proveedor;
 import Modelo.SubCategoria;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -54,7 +56,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         controladorDeparamento = new ControladorDeparamento();
         controladorProveedor = new ControladorProveedor();
         controladorMarca = new ControladorMarca();
-        controladoActivo=new ControladorActivo();
+        controladoActivo = new ControladorActivo();
 
         listaCategoria = new ArrayList<>();
         listaSubCategoria = new ArrayList<>();
@@ -65,12 +67,14 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         listaCategoria = controladorCategoria.obtenerCuentas();
         listaDepartamento = controladorDeparamento.obtenerLista();
         listaProveedor = controladorProveedor.obtenerListaActivo();
-        
 
+        CajaVidaUilR.setEnabled(false);
+        cajaFecha.setMaxSelectableDate(new Date());
+        cajaFecha.setEnabled(false);
         llenarComboCategoria();
         llenarComboDep();
         llenarComboPro();
-        
+
         generarCodigo();
 
     }
@@ -92,7 +96,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         CajaCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Direccion = new javax.swing.JTextArea();
+        descripcion = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         comboSub = new javax.swing.JComboBox<>();
@@ -104,15 +108,17 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         comboProveedor = new javax.swing.JComboBox<>();
         TxtNit1 = new javax.swing.JLabel();
-        CajaNit1 = new javax.swing.JTextField();
+        CajaSerie = new javax.swing.JTextField();
         TxtNit2 = new javax.swing.JLabel();
-        CajaNit2 = new javax.swing.JTextField();
+        CajaPrecio = new javax.swing.JTextField();
         comboCondicion = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         TxtNit4 = new javax.swing.JLabel();
         TxtNit3 = new javax.swing.JLabel();
         cajaFecha = new com.toedter.calendar.JDateChooser();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chectDonado = new javax.swing.JCheckBox();
+        TxtNit5 = new javax.swing.JLabel();
+        CajaVidaUilR = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,9 +156,9 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         jLabel3.setText("DESCRIPCION");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 100, 30));
 
-        Direccion.setColumns(20);
-        Direccion.setRows(5);
-        jScrollPane1.setViewportView(Direccion);
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        jScrollPane1.setViewportView(descripcion);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 200, 100));
 
@@ -165,7 +171,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 520, 100, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 560, 100, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -176,7 +182,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 110, 30));
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 560, 110, 30));
 
         getContentPane().add(comboSub, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 200, 30));
 
@@ -215,15 +221,15 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         TxtNit1.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit1.setText("SERIE/MARCA");
-        getContentPane().add(TxtNit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 130, 30));
-        getContentPane().add(CajaNit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 200, 30));
+        getContentPane().add(TxtNit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 130, 30));
+        getContentPane().add(CajaSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 200, 30));
 
         TxtNit2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit2.setText("PRECIO");
-        getContentPane().add(TxtNit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 130, 30));
-        getContentPane().add(CajaNit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 200, 30));
+        getContentPane().add(TxtNit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, 130, 30));
+        getContentPane().add(CajaPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 460, 200, 30));
 
         comboCondicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "NUEVO", "USADO" }));
         comboCondicion.addActionListener(new java.awt.event.ActionListener() {
@@ -231,30 +237,39 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
                 comboCondicionActionPerformed(evt);
             }
         });
-        getContentPane().add(comboCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 460, 200, 30));
+        getContentPane().add(comboCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 200, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("CONDICION");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, 130, 30));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 130, 30));
 
         TxtNit4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit4.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit4.setText("INICIO DE USO");
-        getContentPane().add(TxtNit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 130, 30));
+        getContentPane().add(TxtNit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 130, 30));
 
         TxtNit3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit3.setForeground(new java.awt.Color(255, 255, 255));
         TxtNit3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtNit3.setText("DOCANCION");
         getContentPane().add(TxtNit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 130, 30));
-        getContentPane().add(cajaFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, 200, 30));
 
-        jCheckBox1.setBackground(new java.awt.Color(102, 102, 102));
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("DONADO");
-        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
+        cajaFecha.setDateFormatString("dd-MM-yyyy");
+        getContentPane().add(cajaFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 200, 30));
+
+        chectDonado.setBackground(new java.awt.Color(102, 102, 102));
+        chectDonado.setForeground(new java.awt.Color(255, 255, 255));
+        chectDonado.setText("DONADO");
+        getContentPane().add(chectDonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, -1, -1));
+
+        TxtNit5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        TxtNit5.setForeground(new java.awt.Color(255, 255, 255));
+        TxtNit5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TxtNit5.setText("VIDA UTIL RESTANTE");
+        getContentPane().add(TxtNit5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 510, 130, 30));
+        getContentPane().add(CajaVidaUilR, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 510, 200, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -271,6 +286,46 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+
+        String donado = "";
+        String codigo = CajaCodigo.getText();
+        String descripcion = this.descripcion.getText();
+        int idSubCategoria = listaSubCategoria.get(comboSub.getSelectedIndex() - 1).getIdSubcategoria();
+        int idDepartamento = listaDepartamento.get(comboDepartamento.getSelectedIndex() - 1).getIdDep();
+        int idMarca = listaMarca.get(comboMarca.getSelectedIndex() - 1).getIdM();
+        String condicion = comboCondicion.getSelectedItem().toString();
+        String serie = CajaSerie.getText();
+        Double precio = Double.parseDouble(CajaPrecio.getText());
+        Date fecha = cajaFecha.getDate();
+        Integer vidautilrestante = null;
+
+        if (CajaVidaUilR.getText().equals("")) {
+            vidautilrestante = listaCategoria.get(comboCategoria.getSelectedIndex() - 1).getVidaUtil();
+        } else {
+            vidautilrestante = Integer.parseInt(CajaVidaUilR.getText());
+        }
+
+        if (chectDonado.isSelected()) {
+            donado = "SI";
+        } else {
+            donado = "NO";
+        }
+
+        if (true) {
+            Activo x = new Activo(codigo, descripcion, idDepartamento, idSubCategoria, idMarca, "", 0);
+            controladoActivo.Agregar(x);
+            x.setId(controladoActivo.obtenerUltimoRegistro());
+            DetalleActivo y = new DetalleActivo(serie, new Date(), fecha, precio, donado, vidautilrestante, x, condicion);
+            controladoActivo.AgregarDetalle(y);
+            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS");
+            
+           
+        } else {
+
+        }
+
+       
+
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void comboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaActionPerformed
@@ -278,11 +333,11 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         listaSubCategoria = new ArrayList<SubCategoria>();
         int indice = comboCategoria.getSelectedIndex() - 1;
         comboSub.removeAllItems();
-        
+
         if (indice != -1) {
             listaSubCategoria = controladorSub.obtenerListaFiltrada(listaCategoria.get(indice).getIdCategoria());
             llenaComboSub();
-        }else{
+        } else {
             comboSub.addItem("SELECCIONE");
         }
 
@@ -293,28 +348,30 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         listaMarca = new ArrayList<>();
         int indice = comboProveedor.getSelectedIndex() - 1;
         comboMarca.removeAllItems();
-        
+
         if (indice != -1) {
             listaMarca = controladorMarca.obtenerListaFiltrada(listaCategoria.get(indice).getIdCategoria());
             llenarComboMarca();
-        }else{
+        } else {
             comboMarca.addItem("SELECCIONE");
         }
     }//GEN-LAST:event_comboProveedorActionPerformed
 
     private void comboCondicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCondicionActionPerformed
         // TODO add your handling code here:
-        Date fecha=new Date();
+        Date fecha = new Date();
         cajaFecha.setDate(null);
-        
-        if(comboCondicion.getSelectedIndex()==0){
+        CajaVidaUilR.setText("");
+        if (comboCondicion.getSelectedIndex() == 0) {
             cajaFecha.setEnabled(false);
-        }else if(comboCondicion.getSelectedIndex()==1){
+            CajaVidaUilR.setEnabled(false);
+        } else if (comboCondicion.getSelectedIndex() == 1) {
             cajaFecha.setEnabled(false);
             cajaFecha.setDate(fecha);
-        }else if(comboCondicion.getSelectedIndex()==2){
+            CajaVidaUilR.setEnabled(false);
+        } else if (comboCondicion.getSelectedIndex() == 2) {
             cajaFecha.setEnabled(true);
-            
+            CajaVidaUilR.setEnabled(true);
         }
     }//GEN-LAST:event_comboCondicionActionPerformed
 
@@ -355,24 +412,26 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCodigo;
-    private javax.swing.JTextField CajaNit1;
-    private javax.swing.JTextField CajaNit2;
-    private javax.swing.JTextArea Direccion;
+    private javax.swing.JTextField CajaPrecio;
+    private javax.swing.JTextField CajaSerie;
+    private javax.swing.JTextField CajaVidaUilR;
     private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNit1;
     private javax.swing.JLabel TxtNit2;
     private javax.swing.JLabel TxtNit3;
     private javax.swing.JLabel TxtNit4;
+    private javax.swing.JLabel TxtNit5;
     private javax.swing.JButton botonRegistrar;
     private com.toedter.calendar.JDateChooser cajaFecha;
+    private javax.swing.JCheckBox chectDonado;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboCondicion;
     private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JComboBox<String> comboMarca;
     private javax.swing.JComboBox<String> comboProveedor;
     private javax.swing.JComboBox<String> comboSub;
+    private javax.swing.JTextArea descripcion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -422,10 +481,10 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     }
 
     private void generarCodigo() {
-        ArrayList<Activo> lista= controladoActivo.obtenerCodigo();
+        ArrayList<Activo> lista = controladoActivo.obtenerCodigo();
         DecimalFormat format = new DecimalFormat("0000");
         int cantidad = lista.size() + 1;
-        String codi = ""+format.format(cantidad);
+        String codi = "" + format.format(cantidad);
         CajaCodigo.setText(codi);
         CajaCodigo.setEnabled(false);
     }
