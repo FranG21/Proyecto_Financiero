@@ -21,14 +21,14 @@ import java.util.concurrent.locks.StampedLock;
 import javax.swing.JOptionPane;
 
 public class ControladorMarca {
-    
+
     public Conexion conexion;
 
     public ControladorMarca() {
         conexion = new Conexion();
         PreparedStatement st = null;
     }
-    
+
     public void Agregar(Marca x) {
         try {
             conexion.abrirConexion();
@@ -41,13 +41,13 @@ public class ControladorMarca {
             System.out.println(e);
         }
     }
-    
-    public ArrayList<Marca> obtenerLista() {
+
+    public ArrayList<Marca> obtenerLista(int var) {
         ArrayList<Marca> listaMarca = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM marca ORDER BY nombre ASC";
+            String sql = "SELECT * FROM marca WHERE marca.idep=" + var + " ORDER BY nombre ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -64,13 +64,13 @@ public class ControladorMarca {
         }
         return listaMarca;
     }
-    
+
     public ArrayList<Marca> obtenerListaFiltrada(int x) {
         ArrayList<Marca> listaMarca = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM marca WHERE marca.idep="+x+" ORDER BY nombre ASC";
+            String sql = "SELECT * FROM marca WHERE marca.idep=" + x + " AND marca.estado=1 ORDER BY nombre ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -87,5 +87,19 @@ public class ControladorMarca {
         }
         return listaMarca;
     }
-    
+
+    public boolean ModificarEstado(int estado, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE marca SET estado=" + estado + " WHERE idMarca=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }

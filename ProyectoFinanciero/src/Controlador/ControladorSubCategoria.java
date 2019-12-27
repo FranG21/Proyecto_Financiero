@@ -92,7 +92,7 @@ public class ControladorSubCategoria {
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM subcategoria WHERE subcategoria.idcat="+x+" ORDER BY codigo ASC";
+            String sql = "SELECT * FROM subcategoria WHERE subcategoria.idcat="+x+" AND subcategoria.estado=1 ORDER BY codigo ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {

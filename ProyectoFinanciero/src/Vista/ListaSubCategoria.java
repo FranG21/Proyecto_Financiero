@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,7 +37,7 @@ public class ListaSubCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelo();
-         ctrSubCategoria = new ControladorSubCategoria();
+        ctrSubCategoria = new ControladorSubCategoria();
 
         modelo();
         verTabla();
@@ -197,7 +198,7 @@ public class ListaSubCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
-        
+
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -265,10 +266,11 @@ public class ListaSubCategoria extends javax.swing.JFrame {
         if (objeto.getEstado() == 0) {
             btnEstado.setBackground(Color.GREEN);
             btnEstado.setText("DAR DE ALTA");
-
+            JOptionPane.showMessageDialog(null, "REGISTRO DADO DE ALTA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
         } else {
             btnEstado.setBackground(Color.RED);
             btnEstado.setText("DAR DE BAJA");
+            JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

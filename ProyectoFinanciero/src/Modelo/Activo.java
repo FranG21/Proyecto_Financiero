@@ -19,6 +19,8 @@ public class Activo {
     private  Integer idMarca;
     private String descripcionEstado;
     private Integer estado;
+    private String sub;
+    private String cat;
 
     public Activo(String codigo) {
         this.codigo = codigo;
@@ -100,6 +102,23 @@ public class Activo {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
+
+    public String getSub() {
+        return sub;
+    }
+
+    public void setSub(String sub) {
+        this.sub = sub;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+    
     
     
 

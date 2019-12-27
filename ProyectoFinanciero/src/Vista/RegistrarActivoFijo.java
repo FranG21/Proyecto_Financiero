@@ -64,9 +64,9 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         listaProveedor = new ArrayList<>();
         listaMarca = new ArrayList<>();
 
-        listaCategoria = controladorCategoria.obtenerCuentas();
-        listaDepartamento = controladorDeparamento.obtenerLista();
-        listaProveedor = controladorProveedor.obtenerListaActivo();
+        listaCategoria = controladorCategoria.obtenerCuentasCondicionada(1);
+        listaDepartamento = controladorDeparamento.obtenerListaCondicionada(1);
+        listaProveedor = controladorProveedor.obtenerListaCondicionada(1);
 
         CajaVidaUilR.setEnabled(false);
         cajaFecha.setMaxSelectableDate(new Date());
@@ -350,7 +350,7 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         comboMarca.removeAllItems();
 
         if (indice != -1) {
-            listaMarca = controladorMarca.obtenerListaFiltrada(listaCategoria.get(indice).getIdCategoria());
+            listaMarca = controladorMarca.obtenerListaFiltrada(listaProveedor.get(indice).getIdP());
             llenarComboMarca();
         } else {
             comboMarca.addItem("SELECCIONE");

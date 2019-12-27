@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -214,27 +215,25 @@ public class ListaDepartamento extends javax.swing.JFrame {
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         // TODO add your handling code here:
         if (objeto.getEstado() == 0) {
-//            if (ctrSubCategoria.ModificarEstado(1, objeto.getIdSubcategoria())) {
-//                /* BtnVer.setEnabled(false);
-//                BtnModifica.setEnabled(false);
-//                btnEstado.setEnabled(false);
-//                 */
-//                verTabla();
-//                objeto.setEstado(1);
-//                btnEstado.setBackground(Color.RED);
-//                btnEstado.setText("DAR DE BAJA");
-//            } else {
-//
-//            }
+            if (ctrDeparamento.ModificarEstado(1, objeto.getIdDep())) {
+                verTabla();
+                objeto.setEstado(1);
+                btnEstado.setBackground(Color.RED);
+                btnEstado.setText("DAR DE BAJA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE ALTA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+
+            }
 
         } else {
-//            if (ctrSubCategoria.ModificarEstado(0, objeto.getIdSubcategoria())) {
-//                verTabla();
-//                objeto.setEstado(0);
-//                btnEstado.setBackground(Color.GREEN);
-//                btnEstado.setText("DAR DE ALTA");
-//            } else {
-//            }
+            if (ctrDeparamento.ModificarEstado(0, objeto.getIdDep())) {
+                verTabla();
+                objeto.setEstado(0);
+                btnEstado.setBackground(Color.GREEN);
+                btnEstado.setText("DAR DE ALTA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+            }
        }
     }//GEN-LAST:event_btnEstadoActionPerformed
 

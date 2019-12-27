@@ -70,6 +70,33 @@ public class ControladorCategoria {
         return categorias;
     }
     
+    public ArrayList<Categoria> obtenerCuentasCondicionada(int var) {
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM categoria WHERE categoria.estado="+var+" ORDER BY cod ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Categoria categoria = new Categoria();
+
+                categoria.setIdCategoria(rs.getInt("idCat"));
+                categoria.setNombre(rs.getString("nombre"));
+                categoria.setCodigo(rs.getString("cod"));
+                categoria.setValorResidual(rs.getInt("val"));
+                categoria.setVidaEconomica(rs.getInt("vidaeco"));
+                categoria.setVidaUtil(rs.getInt("vidautil"));
+                categoria.setEstado(rs.getInt("estado"));
+                categorias.add(categoria);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return categorias;
+    }
+    
     public ArrayList<Categoria> obtenerCategoriaCaracter(String letra) {
         ArrayList<Categoria> categorias = new ArrayList<>();
         ResultSet rs = null;

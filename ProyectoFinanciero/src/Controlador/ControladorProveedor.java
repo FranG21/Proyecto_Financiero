@@ -92,12 +92,12 @@ public class ControladorProveedor {
         return listaProveedor;
     }
     
-    public ArrayList<Proveedor> obtenerListaActivo() {
+    public ArrayList<Proveedor> obtenerListaCondicionada(int var) {
         ArrayList<Proveedor> listaProveedor = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM proveedor WHERE proveedor.estado=1 ORDER BY nombre ASC";
+            String sql = "SELECT * FROM proveedor WHERE proveedor.estado="+var+" ORDER BY nombre ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -113,6 +113,20 @@ public class ControladorProveedor {
             JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return listaProveedor;
+    }
+    
+    public boolean ModificarEstado(int estado, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE proveedor SET estado=" + estado + " WHERE ide=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
     
 }

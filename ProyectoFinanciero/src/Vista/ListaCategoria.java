@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -213,14 +214,11 @@ public class ListaCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (objeto.getEstado() == 0) {
             if (ctrCategoria.ModificarEstado(1, objeto.getIdCategoria())) {
-                /* BtnVer.setEnabled(false);
-                BtnModifica.setEnabled(false);
-                btnEstado.setEnabled(false);
-                 */
                 verTabla();
                 objeto.setEstado(1);
                 btnEstado.setBackground(Color.RED);
                 btnEstado.setText("DAR DE BAJA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE ALTA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             } else {
 
             }
@@ -231,6 +229,7 @@ public class ListaCategoria extends javax.swing.JFrame {
                 objeto.setEstado(0);
                 btnEstado.setBackground(Color.GREEN);
                 btnEstado.setText("DAR DE ALTA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             } else {
             }
         }

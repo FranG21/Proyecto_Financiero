@@ -5,6 +5,15 @@
  */
 package Vista;
 
+import Controlador.ControladorActivo;
+import Controlador.ControladorCategoria;
+import Controlador.ControladorSubCategoria;
+import Modelo.Activo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,11 +27,64 @@ public class ListaDepreciar extends javax.swing.JFrame {
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
+    ControladorActivo controladorActivo;
+    ControladorSubCategoria controladorSub;
+    ControladorCategoria controladorCategoria;
+    ArrayList<Activo> listaActivo;    
+    int posicion = -1;
+    Activo objeto;
     
     public ListaDepreciar() {
         initComponents();
         setLocationRelativeTo(null); 
         modelo();
+        
+        listaActivo=new ArrayList<>();
+        modelo();
+        controladorActivo=new ControladorActivo();
+        controladorSub=new ControladorSubCategoria();
+        controladorCategoria=new ControladorCategoria();
+                
+        verTabla();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        Tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ver(e); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
+        
     }
     
     private void modelo() {
@@ -33,8 +95,8 @@ public class ListaDepreciar extends javax.swing.JFrame {
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("CATEGORIA");
         modelo.addColumn("SUBCATEGORIA");
-       // modelo.addColumn("TIPO");
-        Tablacliente.setModel(modelo);
+        modelo.addColumn("ESTADO");
+        Tabla.setModel(modelo);
     }
 
     /**
@@ -48,7 +110,7 @@ public class ListaDepreciar extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablacliente = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -65,7 +127,7 @@ public class ListaDepreciar extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 20, 400, 70);
 
-        Tablacliente.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,15 +138,16 @@ public class ListaDepreciar extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tablacliente);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(90, 200, 790, 380);
+        jScrollPane1.setBounds(40, 200, 870, 380);
 
         BtnVer.setBackground(new java.awt.Color(0, 153, 0));
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnVer.setForeground(new java.awt.Color(255, 255, 255));
         BtnVer.setText("VER");
+        BtnVer.setEnabled(false);
         BtnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVerActionPerformed(evt);
@@ -97,7 +160,7 @@ public class ListaDepreciar extends javax.swing.JFrame {
 
         jButton1.setText("BUSCAR");
         getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 23);
+        jButton1.setBounds(780, 50, 90, 32);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -122,7 +185,7 @@ public class ListaDepreciar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVer;
-    private javax.swing.JTable Tablacliente;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -130,5 +193,38 @@ public class ListaDepreciar extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
+    private void Ver(MouseEvent e) {
+        int row = Tabla.rowAtPoint(e.getPoint());
+        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
+        objeto = new Activo();
+        objeto = listaActivo.get(posicion - 1);
+        BtnVer.setEnabled(true);     
+
+    }
+
+    void verTabla() {
+        //objeto = new Categoria();
+        listaActivo = new ArrayList<>();
+        listaActivo = controladorActivo.obtenerListaActivos();
+
+        modelo.setRowCount(listaActivo.size());
+
+        for (int i = 0; i < listaActivo.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaActivo.get(i).getCodigo(), i, 1);
+            modelo.setValueAt(listaActivo.get(i).getDescripcion(), i, 2);
+            modelo.setValueAt(listaActivo.get(i).getCat(), i, 3);
+            modelo.setValueAt(listaActivo.get(i).getSub(), i, 4);
+            if (listaActivo.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 5);
+            } else {
+                modelo.setValueAt("ACTIVO", i, 5);
+            }
+
+        }
+
+        Tabla.setModel(modelo);
+    }
     
 }

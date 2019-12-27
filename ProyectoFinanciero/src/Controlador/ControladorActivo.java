@@ -45,14 +45,14 @@ public class ControladorActivo {
             System.out.println(e);
         }
     }
-    
+
     public void AgregarDetalle(DetalleActivo x) {
         try {
-            SimpleDateFormat forma=new SimpleDateFormat("YYYY-MM-dd");
+            SimpleDateFormat forma = new SimpleDateFormat("YYYY-MM-dd");
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO detalle_activo (serie,fecha_adqui,fecha_inicio,valor_historico,donado,vidautil_restante,activofijo_id,condicion) VALUES"
-                    + " ('" + x.getSerie()+ "','" + forma.format(x.getFechaCompra())+ "','" + forma.format(x.getFechaInicio())+ "'," + x.getPrecio()+ ",'" + x.getDonado() + "'," + x.getVidaUtilRestante()+ "," + x.getActivo().getId()+ ",'" + x.getCondicion()+ "')";
+                    + " ('" + x.getSerie() + "','" + forma.format(x.getFechaCompra()) + "','" + forma.format(x.getFechaInicio()) + "'," + x.getPrecio() + ",'" + x.getDonado() + "'," + x.getVidaUtilRestante() + "," + x.getActivo().getId() + ",'" + x.getCondicion() + "')";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
@@ -100,6 +100,169 @@ public class ControladorActivo {
             JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return x.getId();
+    }
+
+    public ArrayList<Activo> obtenerLista() {
+        ArrayList<Activo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "activo.idAc, "
+                    + "activo.codAct, "
+                    + "activo.descrip, "
+                    + "activo.idDep, "
+                    + "activo.idSub, "
+                    + "activo.estado, "
+                    + "activo.idMarca, "
+                    + "activo.descripcionEstado, "
+                    + "categoria.cod, "
+                    + "subcategoria.codigo, "
+                    + "departamento.codigo, "
+                    + "subcategoria.nombre, "
+                    + "categoria.nombre "
+                    + "FROM "
+                    + "activo "
+                    + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
+                    + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "
+                    + "ORDER BY categoria.cod ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Activo aux = new Activo();
+
+                aux.setId(rs.getInt("idAc"));
+                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setDescripcion(rs.getString("descrip"));
+                aux.setIdDepartamento(rs.getInt("idDep"));
+                aux.setIdSubcategoria(rs.getInt("idSub"));
+                aux.setIdMarca(rs.getInt("idMarca"));
+                aux.setDescripcionEstado(rs.getString("descripcionEstado"));
+                aux.setEstado(rs.getInt("estado"));
+                aux.setSub(rs.getString(12));
+                aux.setCat(rs.getString(13));
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
+    
+    public ArrayList<Activo> obtenerListaActivos() {
+        ArrayList<Activo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "activo.idAc, "
+                    + "activo.codAct, "
+                    + "activo.descrip, "
+                    + "activo.idDep, "
+                    + "activo.idSub, "
+                    + "activo.estado, "
+                    + "activo.idMarca, "
+                    + "activo.descripcionEstado, "
+                    + "categoria.cod, "
+                    + "subcategoria.codigo, "
+                    + "departamento.codigo, "
+                    + "subcategoria.nombre, "
+                    + "categoria.nombre "
+                    + "FROM "
+                    + "activo "
+                    + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
+                    + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "                    
+                    + "WHERE activo.estado=1 "                    
+                    + "ORDER BY categoria.cod ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Activo aux = new Activo();
+
+                aux.setId(rs.getInt("idAc"));
+                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setDescripcion(rs.getString("descrip"));
+                aux.setIdDepartamento(rs.getInt("idDep"));
+                aux.setIdSubcategoria(rs.getInt("idSub"));
+                aux.setIdMarca(rs.getInt("idMarca"));
+                aux.setDescripcionEstado(rs.getString("descripcionEstado"));
+                aux.setEstado(rs.getInt("estado"));
+                aux.setSub(rs.getString(12));
+                aux.setCat(rs.getString(13));
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
+    
+     public ArrayList<Activo> obtenerListaCondicionada(int var) {
+        ArrayList<Activo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "activo.idAc, "
+                    + "activo.codAct, "
+                    + "activo.descrip, "
+                    + "activo.idDep, "
+                    + "activo.idSub, "
+                    + "activo.estado, "
+                    + "activo.idMarca, "
+                    + "activo.descripcionEstado, "
+                    + "categoria.cod, "
+                    + "subcategoria.codigo, "
+                    + "departamento.codigo, "
+                    + "subcategoria.nombre, "
+                    + "categoria.nombre "
+                    + "FROM "
+                    + "activo "
+                    + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
+                    + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "                    
+                    + "WHERE activo.estado="+var +" "                    
+                    + "ORDER BY categoria.cod ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Activo aux = new Activo();
+
+                aux.setId(rs.getInt("idAc"));
+                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setDescripcion(rs.getString("descrip"));
+                aux.setIdDepartamento(rs.getInt("idDep"));
+                aux.setIdSubcategoria(rs.getInt("idSub"));
+                aux.setIdMarca(rs.getInt("idMarca"));
+                aux.setDescripcionEstado(rs.getString("descripcionEstado"));
+                aux.setEstado(rs.getInt("estado"));
+                aux.setSub(rs.getString(12));
+                aux.setCat(rs.getString(13));
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
+    
+    public boolean ModificarEstado(int estado, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE activo SET estado=" + estado + " WHERE idAc=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
 }
