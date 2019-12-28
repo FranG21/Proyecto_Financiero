@@ -126,6 +126,7 @@ public class ControladorActivo {
                     + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
                     + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
                     + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "
+                    + "WHERE activo.estado=1 OR activo.estado=0 "
                     + "ORDER BY categoria.cod ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -133,7 +134,7 @@ public class ControladorActivo {
                 Activo aux = new Activo();
 
                 aux.setId(rs.getInt("idAc"));
-                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setCodigo(rs.getString("cod") + "-" + rs.getString("codigo") + "-" + rs.getString(11) + "-" + rs.getString("codAct"));
                 aux.setDescripcion(rs.getString("descrip"));
                 aux.setIdDepartamento(rs.getInt("idDep"));
                 aux.setIdSubcategoria(rs.getInt("idSub"));
@@ -150,7 +151,7 @@ public class ControladorActivo {
         }
         return x;
     }
-    
+
     public ArrayList<Activo> obtenerListaActivos() {
         ArrayList<Activo> x = new ArrayList<>();
         ResultSet rs = null;
@@ -174,8 +175,8 @@ public class ControladorActivo {
                     + "activo "
                     + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
                     + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
-                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "                    
-                    + "WHERE activo.estado=1 "                    
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "
+                    + "WHERE activo.estado=1 "
                     + "ORDER BY categoria.cod ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -183,7 +184,7 @@ public class ControladorActivo {
                 Activo aux = new Activo();
 
                 aux.setId(rs.getInt("idAc"));
-                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setCodigo(rs.getString("cod") + "-" + rs.getString("codigo") + "-" + rs.getString(11) + "-" + rs.getString("codAct"));
                 aux.setDescripcion(rs.getString("descrip"));
                 aux.setIdDepartamento(rs.getInt("idDep"));
                 aux.setIdSubcategoria(rs.getInt("idSub"));
@@ -200,8 +201,8 @@ public class ControladorActivo {
         }
         return x;
     }
-    
-     public ArrayList<Activo> obtenerListaCondicionada(int var) {
+
+    public ArrayList<Activo> obtenerListaCondicionada(int var) {
         ArrayList<Activo> x = new ArrayList<>();
         ResultSet rs = null;
         try {
@@ -224,8 +225,8 @@ public class ControladorActivo {
                     + "activo "
                     + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
                     + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
-                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "                    
-                    + "WHERE activo.estado="+var +" "                    
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "
+                    + "WHERE activo.estado=" + var + " "
                     + "ORDER BY categoria.cod ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -233,7 +234,7 @@ public class ControladorActivo {
                 Activo aux = new Activo();
 
                 aux.setId(rs.getInt("idAc"));
-                aux.setCodigo(rs.getString("cod")+"-"+rs.getString("codigo")+"-"+rs.getString(11)+"-"+rs.getString("codAct"));
+                aux.setCodigo(rs.getString("cod") + "-" + rs.getString("codigo") + "-" + rs.getString(11) + "-" + rs.getString("codAct"));
                 aux.setDescripcion(rs.getString("descrip"));
                 aux.setIdDepartamento(rs.getInt("idDep"));
                 aux.setIdSubcategoria(rs.getInt("idSub"));
@@ -250,12 +251,50 @@ public class ControladorActivo {
         }
         return x;
     }
-    
+
+    public Integer obtenerIdDetalle(int id) {
+        int x = -1;
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "detalle_activo.id "
+                    + "FROM "
+                    + "detalle_activo "
+                    + "WHERE activofijo_id="+id;
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Activo aux = new Activo();
+
+                x = rs.getInt(1);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
+
     public boolean ModificarEstado(int estado, int id) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "UPDATE activo SET estado=" + estado + " WHERE idAc=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean ModificarEstadoVenta(int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE activo SET estado=2 WHERE idAc=" + id;
             st.executeUpdate(sql);
             conexion.cerrarConexion();
             return true;

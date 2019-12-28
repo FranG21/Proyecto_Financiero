@@ -5,8 +5,12 @@
  */
 package Vista;
 
+import Controlador.ControladorActivo;
+import Controlador.ControladorDepreciacion;
 import Controlador.ControladorVenta;
 import Modelo.Activo;
+import Modelo.Depreciacion;
+import Modelo.DepreciacionAcumulada;
 import Modelo.Movimiento;
 import Modelo.Venta;
 import java.awt.Dimension;
@@ -29,28 +33,47 @@ public class RegistrarVenta extends javax.swing.JFrame {
     SimpleDateFormat formaFecha;
     Date fechaActual;
     ControladorVenta controladorVenta;
+    ControladorActivo controladorActivo;
     ArrayList<Venta> listaVenta;
-    DecimalFormat formaFactura;
+    DecimalFormat formaFactura, formaPrecio;
     String codigo;
     ArrayList<Movimiento> listaMovimiento;
-   
+    Depreciacion depreciacion;
+    ControladorDepreciacion controladorDepreciacion;
+    ArrayList<DepreciacionAcumulada> listaAcumuladas;
+    Double d = 0.00;
+    int meses;
+    Double precioVenta = 0.00;
+    int id = -1;
+
     public RegistrarVenta(Activo x) {
         initComponents();
 
         activo = x;
-        listaVenta=new ArrayList<>();
-        listaMovimiento=new ArrayList<>();
+        listaVenta = new ArrayList<>();
+        listaMovimiento = new ArrayList<>();
         formaFecha = new SimpleDateFormat("dd-MM-YYYY");
         fechaActual = new Date();
-        controladorVenta=new ControladorVenta();
-        formaFactura=new DecimalFormat("00000");
-        codigo=obtenerCodigo();
-        
+        controladorVenta = new ControladorVenta();
+        formaFactura = new DecimalFormat("00000");
+        formaPrecio = new DecimalFormat("0.00");
+        codigo = obtenerCodigo();
+        depreciacion = new Depreciacion();
+        controladorDepreciacion = new ControladorDepreciacion();
+        listaAcumuladas = new ArrayList<>();
+        controladorActivo = new ControladorActivo();
+
         CajaFecha.setText(formaFecha.format(fechaActual));
         CajaCodigoFatura.setText(codigo);
-        listaMovimiento=controladorVenta.obtenerListaMovimiento();
-        
+        listaMovimiento = controladorVenta.obtenerListaMovimiento();
+        depreciacion = controladorDepreciacion.obtenerObjeto(activo.getId());
+        meses = controladorVenta.obtenerMeses(activo.getId());
+        id = controladorActivo.obtenerIdDetalle(activo.getId());
+
+        listaAcumuladas = obtenerListaCondicionada(12);
+
         llenarCombo();
+        calcularPrecio();
         //Línea 1
         this.setSize(new Dimension(899, 450));
 
@@ -58,8 +81,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
         this.setMinimumSize(new Dimension(899, 450));
         setLocationRelativeTo(null);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,12 +97,10 @@ public class RegistrarVenta extends javax.swing.JFrame {
         TxtApellidos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TxtDui = new javax.swing.JLabel();
-        TxtNit = new javax.swing.JLabel();
         CajaFecha = new javax.swing.JTextField();
         CajaPrecio = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
         comboMovimiento = new javax.swing.JComboBox<>();
-        CajaNit = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -123,29 +142,22 @@ public class RegistrarVenta extends javax.swing.JFrame {
         getContentPane().add(TxtDui);
         TxtDui.setBounds(450, 180, 160, 30);
 
-        TxtNit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNit.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TxtNit.setText("PRECIO DE VENTA:");
-        getContentPane().add(TxtNit);
-        TxtNit.setBounds(450, 250, 130, 30);
-
         CajaFecha.setEnabled(false);
         getContentPane().add(CajaFecha);
         CajaFecha.setBounds(620, 180, 200, 30);
+
+        CajaPrecio.setEnabled(false);
         getContentPane().add(CajaPrecio);
         CajaPrecio.setBounds(210, 250, 200, 30);
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("VALOR EN LIBRO:");
+        TxtNombre2.setText("PRECIO DE VENTA:");
         getContentPane().add(TxtNombre2);
         TxtNombre2.setBounds(90, 250, 120, 30);
 
         getContentPane().add(comboMovimiento);
         comboMovimiento.setBounds(210, 180, 200, 30);
-        getContentPane().add(CajaNit);
-        CajaNit.setBounds(620, 250, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -157,7 +169,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(280, 310, 100, 30);
+        jButton1.setBounds(710, 320, 100, 30);
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -169,7 +181,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(130, 310, 110, 30);
+        botonRegistrar.setBounds(570, 320, 110, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,6 +199,20 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+
+        int indice = comboMovimiento.getSelectedIndex();
+        String codigoVenta = CajaCodigoFatura.getText();
+        int idMovimiento = listaMovimiento.get(indice - 1).getIdMovimiento();
+        Double precioVenta = Double.parseDouble(CajaPrecio.getText());
+        String fechaVenta = CajaFecha.getText();
+        if (true) {
+            Venta x = new Venta(id, idMovimiento, codigoVenta, precioVenta, fechaActual);
+            controladorVenta.Agregar(x);
+            controladorActivo.ModificarEstadoVenta(activo.getId());
+            JOptionPane.showMessageDialog(null, "VENTA REALIZADA", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -227,11 +253,9 @@ public class RegistrarVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCodigoFatura;
     private javax.swing.JTextField CajaFecha;
-    private javax.swing.JTextField CajaNit;
     private javax.swing.JTextField CajaPrecio;
     private javax.swing.JLabel TxtApellidos;
     private javax.swing.JLabel TxtDui;
-    private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JComboBox<String> comboMovimiento;
@@ -243,7 +267,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private String obtenerCodigo() {
-       listaVenta = controladorVenta.obtenerCodigo();
+        listaVenta = controladorVenta.obtenerCodigo();
         int cantidad = listaVenta.size() + 1;
         String codi = formaFactura.format(cantidad);
 
@@ -255,5 +279,41 @@ public class RegistrarVenta extends javax.swing.JFrame {
         for (int i = 0; i < listaMovimiento.size(); i++) {
             comboMovimiento.addItem(listaMovimiento.get(i).getNombre());
         }
+    }
+
+    private ArrayList<DepreciacionAcumulada> obtenerListaCondicionada(int var) {
+        ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
+        Double acumulada = 0.0;
+        Double valorLibro = 0.0;
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = d / var;
+
+        for (int i = 1; i <= depreciacion.getN() * var; i++) {
+            acumulada = acumulada + d;
+            valorLibro = depreciacion.getP() - acumulada;
+            lista.add(new DepreciacionAcumulada(i, d, acumulada, valorLibro));
+        }
+
+        return lista;
+    }
+
+    private void calcularPrecio() {
+
+        if (meses > listaAcumuladas.size()) {
+            precioVenta = listaAcumuladas.get(listaAcumuladas.size() - 1).getValorLibros();
+        } else {
+            if (meses == 0) {
+                precioVenta = depreciacion.getP();
+            } else {
+                for (int i = 0; i < listaAcumuladas.size(); i++) {
+                    if (meses == listaAcumuladas.get(i).getNumeroAnio()) {
+                        precioVenta = listaAcumuladas.get(i).getValorLibros();
+                    }
+                }
+            }
+        }
+
+        precioVenta = precioVenta + precioVenta * (1 / depreciacion.getPorcentajeL());
+        CajaPrecio.setText("" + formaPrecio.format(precioVenta));
     }
 }

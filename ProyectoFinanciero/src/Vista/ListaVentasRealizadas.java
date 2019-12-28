@@ -8,42 +8,48 @@ package Vista;
 import Controlador.ControladorActivo;
 import Controlador.ControladorCategoria;
 import Controlador.ControladorSubCategoria;
+import Controlador.ControladorVenta;
 import Modelo.Activo;
+import Modelo.SubCategoria;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jose
+ * @author PEREZ
  */
-public class ListaVenta extends javax.swing.JFrame {
+public class ListaVentasRealizadas extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListaClitenesNaturales
+     * Creates new form ListaCatalago
      */
     DefaultTableModel modelo;
     ControladorActivo controladorActivo;
     ControladorSubCategoria controladorSub;
     ControladorCategoria controladorCategoria;
+    ControladorVenta controladorVenta;
     ArrayList<Activo> listaActivo;
     int posicion = -1;
     Activo objeto;
 
-    public ListaVenta() {
+    public ListaVentasRealizadas() {
         initComponents();
+        setSize(900, 660);
         setLocationRelativeTo(null);
-        modelo();
 
         listaActivo = new ArrayList<>();
         modelo();
         controladorActivo = new ControladorActivo();
         controladorSub = new ControladorSubCategoria();
         controladorCategoria = new ControladorCategoria();
+        controladorVenta = new ControladorVenta();
 
         verTabla();
         this.addWindowListener(new WindowListener() {
@@ -88,12 +94,15 @@ public class ListaVenta extends javax.swing.JFrame {
     }
 
     private void modelo() {
+
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
         modelo.addColumn("CODIGO");
         modelo.addColumn("DESCRIPCION");
         modelo.addColumn("CATEGORIA");
         modelo.addColumn("SUBCATEGORIA");
+        modelo.addColumn("MOVIMIENTO");
+        modelo.addColumn("VENTA $");
         Tabla.setModel(modelo);
     }
 
@@ -107,23 +116,46 @@ public class ListaVenta extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        comboEstado = new javax.swing.JComboBox<>();
+        BtnVer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
-        BtnVer = new javax.swing.JButton();
-        btnVender = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(950, 660));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("VENTA DE ACTIVO FIJO");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 20, 400, 70);
+        jLabel2.setText("LISTA DE ACTIVO FIJO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 70));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("MOVIMIENTO");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 110, 30));
+
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVO", "INACTIVO" }));
+        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEstadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 310, 30));
+
+        BtnVer.setBackground(new java.awt.Color(0, 153, 0));
+        BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        BtnVer.setForeground(new java.awt.Color(255, 255, 255));
+        BtnVer.setText("VER");
+        BtnVer.setEnabled(false);
+        BtnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 90, 30));
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,61 +170,31 @@ public class ListaVenta extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Tabla);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(90, 200, 790, 380);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 850, 380));
 
-        BtnVer.setBackground(new java.awt.Color(0, 153, 0));
-        BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnVer.setForeground(new java.awt.Color(255, 255, 255));
-        BtnVer.setText("VER");
-        BtnVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVerActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnVer);
-        BtnVer.setBounds(140, 130, 90, 30);
-
-        btnVender.setBackground(new java.awt.Color(204, 0, 0));
-        btnVender.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVender.setForeground(new java.awt.Color(255, 255, 255));
-        btnVender.setText("VENDER");
-        btnVender.setEnabled(false);
-        btnVender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVender);
-        btnVender.setBounds(270, 130, 120, 30);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(550, 50, 230, 30);
-
-        jButton1.setText("BUSCAR");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 32);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
-        jLabel1.setText("SAFJKSDKFJSDFNJNKSFJNKDFJNKJNK");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -60, 970, 770);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 970, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        ListaVentasRealizadas vista = new ListaVentasRealizadas();
+        DetalleActivoFijo vista = new DetalleActivoFijo();
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
-    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
         // TODO add your handling code here:
-        RegistrarVenta vista = new RegistrarVenta(objeto);
-        vista.setVisible(true);
-    }//GEN-LAST:event_btnVenderActionPerformed
+        modelo();
+        if (comboEstado.getSelectedIndex() == 0) {
+            verTabla();
+        } else if (comboEstado.getSelectedIndex() == 1) {
+            verTablaCondicionada(1);
+        } else if (comboEstado.getSelectedIndex() == 2) {
+            verTablaCondicionada(0);
+        }
+    }//GEN-LAST:event_comboEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,12 +203,11 @@ public class ListaVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton btnVender;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void Ver(MouseEvent e) {
@@ -215,13 +216,15 @@ public class ListaVenta extends javax.swing.JFrame {
         objeto = new Activo();
         objeto = listaActivo.get(posicion - 1);
         BtnVer.setEnabled(true);
-        btnVender.setEnabled(true);
+        
+
     }
 
     void verTabla() {
         //objeto = new Categoria();
+        SimpleDateFormat forma=new SimpleDateFormat("dd-MM-YYYY");
         listaActivo = new ArrayList<>();
-        listaActivo = controladorActivo.obtenerListaActivos();
+        listaActivo = controladorVenta.obtenerListaVentas();
 
         modelo.setRowCount(listaActivo.size());
 
@@ -232,6 +235,28 @@ public class ListaVenta extends javax.swing.JFrame {
             modelo.setValueAt(listaActivo.get(i).getDescripcion(), i, 2);
             modelo.setValueAt(listaActivo.get(i).getCat(), i, 3);
             modelo.setValueAt(listaActivo.get(i).getSub(), i, 4);
+            modelo.setValueAt(forma.format(listaActivo.get(i).getFecha()), i, 5);
+            modelo.setValueAt(listaActivo.get(i).getPrecioVenta(), i, 6);
+        }
+        Tabla.setModel(modelo);
+    }
+
+    private void verTablaCondicionada(int estado) {
+        SimpleDateFormat forma=new SimpleDateFormat("dd-MM-YYYY");
+        listaActivo = new ArrayList<>();
+        listaActivo = controladorActivo.obtenerListaCondicionada(estado);
+
+        modelo.setRowCount(listaActivo.size());
+
+        for (int i = 0; i < listaActivo.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaActivo.get(i).getCodigo(), i, 1);
+            modelo.setValueAt(listaActivo.get(i).getDescripcion(), i, 2);
+            modelo.setValueAt(listaActivo.get(i).getCat(), i, 3);
+            modelo.setValueAt(listaActivo.get(i).getSub(), i, 4);
+            modelo.setValueAt(forma.format(listaActivo.get(i).getFecha()), i, 5);
+            modelo.setValueAt(listaActivo.get(i).getPrecioVenta(), i, 6);
         }
         Tabla.setModel(modelo);
     }

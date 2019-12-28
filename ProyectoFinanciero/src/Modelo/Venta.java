@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author GM
@@ -16,16 +18,20 @@ public class Venta {
     private Integer idMovimiento;
     private String codigoFactura;
     private Double precioVenta;
+    private Date fechaVenta;
 
     public Venta() {
     }
 
-    public Venta(Integer idDetalle, Integer idMovimiento, String codigoFactura, Double precioVenta) {
+    public Venta(Integer idDetalle, Integer idMovimiento, String codigoFactura, Double precioVenta, Date fechaVenta) {
         this.idDetalle = idDetalle;
         this.idMovimiento = idMovimiento;
         this.codigoFactura = codigoFactura;
         this.precioVenta = precioVenta;
+        this.fechaVenta = fechaVenta;
     }
+
+    
 
     public Integer getIdVenta() {
         return idVenta;
@@ -65,6 +71,14 @@ public class Venta {
 
     public void setPrecioVenta(Double precioVenta) {
         this.precioVenta = precioVenta;
+    }
+
+    public Date getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(Date fechaVenta) {
+        this.fechaVenta = fechaVenta;
     }
     
     

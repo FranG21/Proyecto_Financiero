@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author GM
@@ -21,7 +23,10 @@ public class Activo {
     private Integer estado;
     private String sub;
     private String cat;
-
+    private Double precioVenta;
+    private String movimiento;
+    private Date fecha;
+    
     public Activo(String codigo) {
         this.codigo = codigo;
     }
@@ -118,8 +123,29 @@ public class Activo {
     public void setCat(String cat) {
         this.cat = cat;
     }
-    
-    
-    
 
+    public Double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public String getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
 }
