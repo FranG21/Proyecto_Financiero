@@ -5,35 +5,53 @@
  */
 package Vista;
 
+import Controlador.ControladorDepreciacion;
+import Modelo.Activo;
+import Modelo.Depreciacion;
+import Modelo.DepreciacionAcumulada;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jose
  */
-
 public class Depreciar extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
-    
-    public Depreciar() {
+    Activo activo;
+    Depreciacion depreciacion;
+    ControladorDepreciacion controladorDepreciacion;
+    ArrayList<DepreciacionAcumulada> listaDepreciacion;
+    DecimalFormat format;
+    Double d;
+
+    public Depreciar(Activo p) {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         modelo();
+        activo = p;
+        controladorDepreciacion = new ControladorDepreciacion();
+        depreciacion = controladorDepreciacion.obtenerObjeto(activo.getId());
+        format = new DecimalFormat("00.00");
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION ANUAL: $"+format.format(d));
+        llenarTabla();
     }
-    
+
     private void modelo() {
-        
+
         modelo = new DefaultTableModel();
-        modelo.addColumn("Año-mes-dia");
-        modelo.addColumn("Cuota a depreciar");
-        modelo.addColumn("Depreciacion acumulada");
-        modelo.addColumn("Valor en llibro");
-        
-        Tablacliente.setModel(modelo);
+        modelo.addColumn("AÑO-MES-DIA");
+        modelo.addColumn("CUOTA A DEPRECIAR");
+        modelo.addColumn("DEPRECIACION ACUMULADA");
+        modelo.addColumn("VALOR EN LIBROS");
+
+        Tabla.setModel(modelo);
     }
 
     /**
@@ -47,26 +65,24 @@ public class Depreciar extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablacliente = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
-        BtnVer1 = new javax.swing.JButton();
         BtnVer2 = new javax.swing.JButton();
         BtnVer3 = new javax.swing.JButton();
-        BtnVer4 = new javax.swing.JButton();
-        BtnVer5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(950, 660));
         getContentPane().setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("DEPRECIACION DE ACTIVO FIJO");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(290, 20, 400, 70);
+        jLabel2.setBounds(90, 80, 750, 70);
 
-        Tablacliente.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -77,7 +93,7 @@ public class Depreciar extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tablacliente);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(90, 200, 790, 380);
@@ -92,19 +108,7 @@ public class Depreciar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnVer);
-        BtnVer.setBounds(360, 130, 90, 30);
-
-        BtnVer1.setBackground(new java.awt.Color(0, 153, 0));
-        BtnVer1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnVer1.setForeground(new java.awt.Color(255, 255, 255));
-        BtnVer1.setText("CALCULAR");
-        BtnVer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVer1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnVer1);
-        BtnVer1.setBounds(140, 130, 90, 30);
+        BtnVer.setBounds(190, 160, 90, 30);
 
         BtnVer2.setBackground(new java.awt.Color(0, 153, 0));
         BtnVer2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -116,7 +120,7 @@ public class Depreciar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnVer2);
-        BtnVer2.setBounds(470, 130, 90, 30);
+        BtnVer2.setBounds(300, 160, 90, 30);
 
         BtnVer3.setBackground(new java.awt.Color(0, 153, 0));
         BtnVer3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -128,31 +132,13 @@ public class Depreciar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnVer3);
-        BtnVer3.setBounds(250, 130, 90, 30);
+        BtnVer3.setBounds(90, 160, 90, 30);
 
-        BtnVer4.setBackground(new java.awt.Color(0, 153, 0));
-        BtnVer4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnVer4.setForeground(new java.awt.Color(255, 255, 255));
-        BtnVer4.setText("VER");
-        BtnVer4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVer4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnVer4);
-        BtnVer4.setBounds(250, 130, 90, 30);
-
-        BtnVer5.setBackground(new java.awt.Color(0, 153, 0));
-        BtnVer5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        BtnVer5.setForeground(new java.awt.Color(255, 255, 255));
-        BtnVer5.setText("VER");
-        BtnVer5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVer5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnVer5);
-        BtnVer5.setBounds(250, 130, 90, 30);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("DEPRECIACION DE ACTIVO FIJO");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(290, 20, 400, 70);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,47 +152,125 @@ public class Depreciar extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleDepreciar vista = new DetalleDepreciar();
-        vista.setVisible(true);
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = d / 12;
+        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION MENSUAL: $"+format.format(d));
+        modelo();
+        llenarTablaMes();
     }//GEN-LAST:event_BtnVerActionPerformed
-
-    private void BtnVer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnVer1ActionPerformed
 
     private void BtnVer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer2ActionPerformed
         // TODO add your handling code here:
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = d / 365;
+        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION DIARIA: $"+format.format(d));
+        modelo();
+        llenarTablaDia();
     }//GEN-LAST:event_BtnVer2ActionPerformed
 
     private void BtnVer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer3ActionPerformed
         // TODO add your handling code here:
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION ANUAL: $"+format.format(d));
+        modelo();
+        llenarTabla();
     }//GEN-LAST:event_BtnVer3ActionPerformed
-
-    private void BtnVer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnVer4ActionPerformed
-
-    private void BtnVer5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnVer5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVer;
-    private javax.swing.JButton BtnVer1;
     private javax.swing.JButton BtnVer2;
     private javax.swing.JButton BtnVer3;
-    private javax.swing.JButton BtnVer4;
-    private javax.swing.JButton BtnVer5;
-    private javax.swing.JTable Tablacliente;
+    private javax.swing.JTable Tabla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void llenarTabla() {
+        listaDepreciacion = new ArrayList<>();
+        listaDepreciacion = obtenerLista();
+
+        modelo.setRowCount(listaDepreciacion.size());
+
+        for (int i = 0; i < listaDepreciacion.size(); i++) {
+
+            modelo.setValueAt(listaDepreciacion.get(i).getNumeroAnio(), i, 0);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAnual()), i, 1);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAcumulada()), i, 2);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getValorLibros()), i, 3);
+        }
+
+        Tabla.setModel(modelo);
+    }
+
+    private void llenarTablaMes() {
+        listaDepreciacion = new ArrayList<>();
+        listaDepreciacion = obtenerListaCondicionada(12);
+
+        modelo.setRowCount(listaDepreciacion.size());
+
+        for (int i = 0; i < listaDepreciacion.size(); i++) {
+
+            modelo.setValueAt(listaDepreciacion.get(i).getNumeroAnio(), i, 0);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAnual()), i, 1);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAcumulada()), i, 2);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getValorLibros()), i, 3);
+        }
+
+        Tabla.setModel(modelo);
+    }
+
+    private void llenarTablaDia() {
+        listaDepreciacion = new ArrayList<>();
+        listaDepreciacion = obtenerListaCondicionada(365);
+
+        modelo.setRowCount(listaDepreciacion.size());
+
+        for (int i = 0; i < listaDepreciacion.size(); i++) {
+
+            modelo.setValueAt(listaDepreciacion.get(i).getNumeroAnio(), i, 0);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAnual()), i, 1);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getDepreciacionAcumulada()), i, 2);
+            modelo.setValueAt(format.format(listaDepreciacion.get(i).getValorLibros()), i, 3);
+        }
+
+        Tabla.setModel(modelo);
+    }
+
+    private ArrayList<DepreciacionAcumulada> obtenerLista() {
+        ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
+        Double d;
+        Double acumulada = 0.0;
+        Double valorLibro = 0.0;
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+
+        for (int i = 1; i <= depreciacion.getN(); i++) {
+            acumulada = acumulada + d;
+            valorLibro = depreciacion.getP() - acumulada;
+            lista.add(new DepreciacionAcumulada(i, d, acumulada, valorLibro));
+        }
+
+        return lista;
+    }
+
+    private ArrayList<DepreciacionAcumulada> obtenerListaCondicionada(int var) {
+        ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
+        Double acumulada = 0.0;
+        Double valorLibro = 0.0;
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = d / var;
+
+        for (int i = 1; i <= depreciacion.getN() * var; i++) {
+            acumulada = acumulada + d;
+            valorLibro = depreciacion.getP() - acumulada;
+            lista.add(new DepreciacionAcumulada(i, d, acumulada, valorLibro));
+        }
+
+        return lista;
+    }
 }

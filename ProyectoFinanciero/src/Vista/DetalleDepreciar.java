@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Modelo.Activo;
+
 /**
  *
  * @author jose
@@ -14,9 +16,11 @@ public class DetalleDepreciar extends javax.swing.JFrame {
     /**
      * Creates new form DetalleCliente
      */
-    public DetalleDepreciar() {
+    Activo activo;
+    public DetalleDepreciar(Activo p) {
         initComponents();
         setLocationRelativeTo(null); 
+        activo=p;
     }
 
     /**
@@ -251,7 +255,7 @@ public class DetalleDepreciar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Depreciar vista = new Depreciar();
+        Depreciar vista = new Depreciar(activo);
         vista.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

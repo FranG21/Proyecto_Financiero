@@ -5,7 +5,15 @@
  */
 package Vista;
 
+import Controlador.ControladorVenta;
+import Modelo.Activo;
+import Modelo.Movimiento;
+import Modelo.Venta;
 import java.awt.Dimension;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,16 +25,41 @@ public class RegistrarVenta extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarClientes
      */
-    public RegistrarVenta() {
+    Activo activo;
+    SimpleDateFormat formaFecha;
+    Date fechaActual;
+    ControladorVenta controladorVenta;
+    ArrayList<Venta> listaVenta;
+    DecimalFormat formaFactura;
+    String codigo;
+    ArrayList<Movimiento> listaMovimiento;
+   
+    public RegistrarVenta(Activo x) {
         initComponents();
-       
+
+        activo = x;
+        listaVenta=new ArrayList<>();
+        listaMovimiento=new ArrayList<>();
+        formaFecha = new SimpleDateFormat("dd-MM-YYYY");
+        fechaActual = new Date();
+        controladorVenta=new ControladorVenta();
+        formaFactura=new DecimalFormat("00000");
+        codigo=obtenerCodigo();
+        
+        CajaFecha.setText(formaFecha.format(fechaActual));
+        CajaCodigoFatura.setText(codigo);
+        listaMovimiento=controladorVenta.obtenerListaMovimiento();
+        
+        llenarCombo();
         //Línea 1
         this.setSize(new Dimension(899, 450));
-        
+
         //Línea 2
         this.setMinimumSize(new Dimension(899, 450));
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,17 +70,17 @@ public class RegistrarVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CajaApellidos = new javax.swing.JTextField();
+        CajaCodigoFatura = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         TxtApellidos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TxtDui = new javax.swing.JLabel();
         TxtNit = new javax.swing.JLabel();
-        CajaDUI = new javax.swing.JTextField();
-        CajaNombre = new javax.swing.JTextField();
+        CajaFecha = new javax.swing.JTextField();
+        CajaPrecio = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboMovimiento = new javax.swing.JComboBox<>();
         CajaNit = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
@@ -58,8 +91,10 @@ public class RegistrarVenta extends javax.swing.JFrame {
         setMaximumSize(size());
         setSize(new java.awt.Dimension(799, 342));
         getContentPane().setLayout(null);
-        getContentPane().add(CajaApellidos);
-        CajaApellidos.setBounds(580, 10, 200, 30);
+
+        CajaCodigoFatura.setEnabled(false);
+        getContentPane().add(CajaCodigoFatura);
+        CajaCodigoFatura.setBounds(580, 10, 200, 30);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 80, 930, 20);
 
@@ -86,7 +121,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         TxtDui.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TxtDui.setText("FECHA DE TRANSACCION:");
         getContentPane().add(TxtDui);
-        TxtDui.setBounds(450, 180, 130, 30);
+        TxtDui.setBounds(450, 180, 160, 30);
 
         TxtNit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNit.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,10 +129,12 @@ public class RegistrarVenta extends javax.swing.JFrame {
         TxtNit.setText("PRECIO DE VENTA:");
         getContentPane().add(TxtNit);
         TxtNit.setBounds(450, 250, 130, 30);
-        getContentPane().add(CajaDUI);
-        CajaDUI.setBounds(600, 180, 200, 30);
-        getContentPane().add(CajaNombre);
-        CajaNombre.setBounds(210, 250, 200, 30);
+
+        CajaFecha.setEnabled(false);
+        getContentPane().add(CajaFecha);
+        CajaFecha.setBounds(620, 180, 200, 30);
+        getContentPane().add(CajaPrecio);
+        CajaPrecio.setBounds(210, 250, 200, 30);
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,11 +142,10 @@ public class RegistrarVenta extends javax.swing.JFrame {
         getContentPane().add(TxtNombre2);
         TxtNombre2.setBounds(90, 250, 120, 30);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VENTA DE ACTIVO", "DONACION DE ACTIVO" }));
-        getContentPane().add(jComboBox2);
-        jComboBox2.setBounds(210, 180, 200, 30);
+        getContentPane().add(comboMovimiento);
+        comboMovimiento.setBounds(210, 180, 200, 30);
         getContentPane().add(CajaNit);
-        CajaNit.setBounds(600, 250, 200, 30);
+        CajaNit.setBounds(620, 250, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -189,20 +225,35 @@ public class RegistrarVenta extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CajaApellidos;
-    private javax.swing.JTextField CajaDUI;
+    private javax.swing.JTextField CajaCodigoFatura;
+    private javax.swing.JTextField CajaFecha;
     private javax.swing.JTextField CajaNit;
-    private javax.swing.JTextField CajaNombre;
+    private javax.swing.JTextField CajaPrecio;
     private javax.swing.JLabel TxtApellidos;
     private javax.swing.JLabel TxtDui;
     private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
+    private javax.swing.JComboBox<String> comboMovimiento;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private String obtenerCodigo() {
+       listaVenta = controladorVenta.obtenerCodigo();
+        int cantidad = listaVenta.size() + 1;
+        String codi = formaFactura.format(cantidad);
+
+        return codi;
+    }
+
+    private void llenarCombo() {
+        comboMovimiento.addItem("SELECCIONE");
+        for (int i = 0; i < listaMovimiento.size(); i++) {
+            comboMovimiento.addItem(listaMovimiento.get(i).getNombre());
+        }
+    }
 }
