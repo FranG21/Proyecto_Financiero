@@ -219,7 +219,6 @@ public class ListaVenta extends javax.swing.JFrame {
     }
 
     void verTabla() {
-        //objeto = new Categoria();
         listaActivo = new ArrayList<>();
         listaActivo = controladorActivo.obtenerListaActivos();
 

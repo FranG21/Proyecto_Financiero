@@ -5,36 +5,85 @@
  */
 package Vista;
 
+import Controlador.ControladorCliente;
+import Modelo.Cliente;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jose
  */
-
-public class ListaClientenesNaturales extends javax.swing.JFrame {
+public class ListaClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
-    
-    public ListaClientenesNaturales() {
+    ControladorCliente controladorCliente;
+    ArrayList<Cliente> listaCliente;
+
+    public ListaClientes() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         modelo();
+        controladorCliente = new ControladorCliente();
+
+        verTabla();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        Tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ver(e); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
     }
-    
+
     private void modelo() {
-        
+
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
-        modelo.addColumn("NOMBRE");
         modelo.addColumn("NIT");
+        modelo.addColumn("NOMBRE");
         modelo.addColumn("OCUPACION O GIRO");
         modelo.addColumn("DEPARTAMENTO");
         modelo.addColumn("TIPO");
-        Tablacliente.setModel(modelo);
+        Tabla.setModel(modelo);
     }
 
     /**
@@ -52,7 +101,7 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablacliente = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -93,7 +142,7 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
         getContentPane().add(jComboBox3);
         jComboBox3.setBounds(530, 50, 140, 40);
 
-        Tablacliente.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -104,7 +153,7 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tablacliente);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(90, 200, 790, 380);
@@ -131,7 +180,12 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 51, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("NUEVO PRESTASMO");
+        jButton3.setText("NUEVO CLIENTE");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3);
         jButton3.setBounds(450, 130, 180, 30);
 
@@ -157,15 +211,20 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        RegistrarClientes vista = new RegistrarClientes();
+        vista.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnModifica;
     private javax.swing.JButton BtnVer;
-    private javax.swing.JTable Tablacliente;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -177,5 +236,40 @@ public class ListaClientenesNaturales extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void Ver(MouseEvent e) {
+//        int row = Tabla.rowAtPoint(e.getPoint());
+//        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
+//        objeto = new Activo();
+//        objeto = listaCliente.get(posicion - 1);
+//        BtnVer.setEnabled(true);
+//        btnVender.setEnabled(true);
+    }
+
+    void verTabla() {
+        //objeto = new Categoria();
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerLista();
+
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo()== 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);
+    }
+
 }

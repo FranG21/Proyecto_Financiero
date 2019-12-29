@@ -36,7 +36,6 @@ public class ControladorCategoria {
             String sql = "INSERT INTO categoria (nombre,cod,val,vidautil,vidaeco,estado) VALUES"
                     + " ('" + categoria.getNombre() + "','" + categoria.getCodigo() + "'," + categoria.getValorResidual() + "," + categoria.getVidaUtil() + "," + categoria.getVidaEconomica() + "," + 1 + ")";
             st.executeUpdate(sql);
-            System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println(e);

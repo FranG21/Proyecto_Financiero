@@ -6,7 +6,9 @@
 package Vista;
 
 import Controlador.ControladorCliente;
+import Controlador.ControladorCredito;
 import Modelo.Cliente;
+import Modelo.Credito;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -15,21 +17,20 @@ import javax.swing.JOptionPane;
  *
  * @author jose
  */
-public class RegistrarClientes extends javax.swing.JFrame {
+public class RegistrarCredito extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarClientes
      */
-    SimpleDateFormat forma;
-    ControladorCliente controladorCliente;
+    
+    ControladorCredito controladorCredito;
 
-    public RegistrarClientes() {
+    public RegistrarCredito() {
         initComponents();
         setSize(900, 660);
         setLocationRelativeTo(null);
-        forma = new SimpleDateFormat("dd-MM-YYYY");
-        CajaFecha.setText(forma.format(new Date()));
-        controladorCliente = new ControladorCliente();
+        
+        controladorCredito = new ControladorCredito();
     }
 
     /**
@@ -41,28 +42,19 @@ public class RegistrarClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CajaApellidos = new javax.swing.JTextField();
+        cajaCanMax = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         TxtApellidos = new javax.swing.JLabel();
-        comboDepartamento = new javax.swing.JComboBox<>();
+        comboTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        TxtDui = new javax.swing.JLabel();
-        TxtNit = new javax.swing.JLabel();
-        CajaDUI = new javax.swing.JTextField();
         CajaNombre = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
         Txt = new javax.swing.JLabel();
-        CajaFecha = new javax.swing.JTextField();
-        TxtOcupacion = new javax.swing.JLabel();
-        comboTipo = new javax.swing.JComboBox<>();
-        CajaOcupacion = new javax.swing.JTextField();
-        CajaNit = new javax.swing.JTextField();
+        CajaPlazoMax = new javax.swing.JTextField();
+        cajaCanMin = new javax.swing.JTextField();
         Txt2 = new javax.swing.JLabel();
-        CajaTel = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Direccion = new javax.swing.JTextArea();
+        cajaInteres = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -71,109 +63,63 @@ public class RegistrarClientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(600, 600));
         setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
         getContentPane().setLayout(null);
-        getContentPane().add(CajaApellidos);
-        CajaApellidos.setBounds(500, 180, 200, 30);
+        getContentPane().add(cajaCanMax);
+        cajaCanMax.setBounds(640, 220, 200, 30);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 80, 930, 20);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("NUEVO CLIENTE");
+        jLabel2.setText("NUEVO CREDITO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(30, 20, 310, 70);
 
         TxtApellidos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtApellidos.setForeground(new java.awt.Color(255, 255, 255));
-        TxtApellidos.setText("APELLIDOS");
+        TxtApellidos.setText("CANTIDAD MAXIMA A PRESTAR");
         getContentPane().add(TxtApellidos);
-        TxtApellidos.setBounds(540, 150, 130, 30);
+        TxtApellidos.setBounds(450, 220, 190, 30);
 
-        comboDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AGUACHAPAN", "SONSONATE", "SANTA ANA", "SAN SALVADOR", "CHALATENANGO", "CUSCATLAN", "CABAÑAS", "LA LIBERTAD", "LA PAZ", "SAN VICENTE", "USUALUTAN", "SAN MIGUEL", "MARAZAN", "LA UNION" }));
-        getContentPane().add(comboDepartamento);
-        comboDepartamento.setBounds(560, 320, 200, 30);
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AVAL", "HIPOTECATIO" }));
+        getContentPane().add(comboTipo);
+        comboTipo.setBounds(590, 320, 200, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("FECHA DE REGISTRO");
+        jLabel4.setText("PLAZO MAXIMO (MESES)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(400, 100, 130, 30);
-
-        TxtDui.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtDui.setForeground(new java.awt.Color(255, 255, 255));
-        TxtDui.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TxtDui.setText("DUI");
-        getContentPane().add(TxtDui);
-        TxtDui.setBounds(520, 220, 130, 30);
-
-        TxtNit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNit.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TxtNit.setText("NIT");
-        getContentPane().add(TxtNit);
-        TxtNit.setBounds(120, 220, 130, 30);
-        getContentPane().add(CajaDUI);
-        CajaDUI.setBounds(500, 260, 200, 30);
+        jLabel4.setBounds(450, 120, 140, 30);
         getContentPane().add(CajaNombre);
-        CajaNombre.setBounds(90, 180, 200, 30);
+        CajaNombre.setBounds(200, 120, 200, 30);
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("NOMBRE DEL CLIENTE");
+        TxtNombre2.setText("CANTIDAD MINIMA A PRESTAR");
         getContentPane().add(TxtNombre2);
-        TxtNombre2.setBounds(130, 150, 130, 30);
+        TxtNombre2.setBounds(20, 220, 190, 30);
 
         Txt.setBackground(new java.awt.Color(0, 51, 51));
         Txt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Txt.setForeground(new java.awt.Color(255, 255, 255));
         Txt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Txt.setText("DEPARTAMENTO");
+        Txt.setText("TIPO DE GARANTIA");
         getContentPane().add(Txt);
         Txt.setBounds(440, 320, 130, 30);
-
-        CajaFecha.setEnabled(false);
-        getContentPane().add(CajaFecha);
-        CajaFecha.setBounds(530, 100, 200, 30);
-
-        TxtOcupacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtOcupacion.setForeground(new java.awt.Color(255, 255, 255));
-        TxtOcupacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TxtOcupacion.setText("OCUPACION");
-        getContentPane().add(TxtOcupacion);
-        TxtOcupacion.setBounds(0, 390, 130, 30);
-
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PERSONA NATURAL", "PERSONA JURIDICA" }));
-        getContentPane().add(comboTipo);
-        comboTipo.setBounds(140, 100, 200, 30);
-        getContentPane().add(CajaOcupacion);
-        CajaOcupacion.setBounds(100, 390, 200, 30);
-        getContentPane().add(CajaNit);
-        CajaNit.setBounds(90, 260, 200, 30);
+        getContentPane().add(CajaPlazoMax);
+        CajaPlazoMax.setBounds(640, 120, 200, 30);
+        getContentPane().add(cajaCanMin);
+        cajaCanMin.setBounds(200, 220, 200, 30);
 
         Txt2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Txt2.setForeground(new java.awt.Color(255, 255, 255));
         Txt2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Txt2.setText("TELEFONO");
+        Txt2.setText("TASA DE INTERES (%)");
         getContentPane().add(Txt2);
-        Txt2.setBounds(0, 320, 130, 30);
-        getContentPane().add(CajaTel);
-        CajaTel.setBounds(100, 320, 200, 30);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("DIRECCION");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(460, 390, 100, 30);
-
-        Direccion.setColumns(20);
-        Direccion.setRows(5);
-        jScrollPane1.setViewportView(Direccion);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(540, 380, 230, 83);
+        Txt2.setBounds(30, 310, 130, 30);
+        getContentPane().add(cajaInteres);
+        cajaInteres.setBounds(200, 310, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -201,9 +147,9 @@ public class RegistrarClientes extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("TIPO DE CLIENTE");
+        jLabel5.setText("NOMBRE DEL CREDITO");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(20, 100, 130, 30);
+        jLabel5.setBounds(20, 120, 130, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,18 +171,15 @@ public class RegistrarClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (true) {
             String nombre = CajaNombre.getText();
-            String apellidos_Representante = CajaApellidos.getText();
-            String nit = CajaNit.getText();
-            String dui_Representante = CajaDUI.getText();
-            String telefono = CajaTel.getText();
-            String departamento = comboDepartamento.getSelectedItem().toString();
-            String ocupacion = CajaOcupacion.getText();
-            String direcion = Direccion.getText();
-            Date fecha = new Date();
-            Integer tipo = comboTipo.getSelectedIndex();
+            Integer plazoMax = Integer.parseInt(CajaPlazoMax.getText());
+            Double canMax = Double.parseDouble(cajaCanMax.getText());
+            Double canMin = Double.parseDouble(cajaCanMin.getText());
+            Double tasa = Double.parseDouble(cajaInteres.getText());
+            String garantia = comboTipo.getSelectedItem().toString();
+                      
             
-            Cliente cliente = new Cliente(nombre, apellidos_Representante, dui_Representante, nit, telefono, ocupacion, departamento, fecha, direcion, tipo);
-            controladorCliente.Agregar(cliente);
+            Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
+            controladorCredito.Agregar(credito);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             //limpiar();
         } else {
@@ -280,32 +223,23 @@ public class RegistrarClientes extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CajaApellidos;
-    private javax.swing.JTextField CajaDUI;
-    private javax.swing.JTextField CajaFecha;
-    private javax.swing.JTextField CajaNit;
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JTextField CajaNombre2;
-    private javax.swing.JTextField CajaOcupacion;
-    private javax.swing.JTextField CajaTel;
-    private javax.swing.JTextArea Direccion;
+    private javax.swing.JTextField CajaPlazoMax;
     private javax.swing.JLabel Txt;
     private javax.swing.JLabel Txt2;
     private javax.swing.JLabel TxtApellidos;
-    private javax.swing.JLabel TxtDui;
-    private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNombre2;
-    private javax.swing.JLabel TxtOcupacion;
     private javax.swing.JButton botonRegistrar;
-    private javax.swing.JComboBox<String> comboDepartamento;
+    private javax.swing.JTextField cajaCanMax;
+    private javax.swing.JTextField cajaCanMin;
+    private javax.swing.JTextField cajaInteres;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
