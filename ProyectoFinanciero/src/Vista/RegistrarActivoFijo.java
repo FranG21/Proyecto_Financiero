@@ -46,6 +46,8 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     ArrayList<Proveedor> listaProveedor;
     ArrayList<Marca> listaMarca;
 
+    Integer vidautilrestante = null;
+
     public RegistrarActivoFijo() {
         initComponents();
         setSize(900, 660);
@@ -287,47 +289,70 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
 
-        String donado = "";
-        String codigo = CajaCodigo.getText();
-        String descripcion = this.descripcion.getText();
-        int idSubCategoria = listaSubCategoria.get(comboSub.getSelectedIndex() - 1).getIdSubcategoria();
-        int idDepartamento = listaDepartamento.get(comboDepartamento.getSelectedIndex() - 1).getIdDep();
-        int idMarca = listaMarca.get(comboMarca.getSelectedIndex() - 1).getIdM();
-        String condicion = comboCondicion.getSelectedItem().toString();
-        String serie = CajaSerie.getText();
-        Double precio = Double.parseDouble(CajaPrecio.getText());
-        Date fecha = cajaFecha.getDate();
-        Integer vidautilrestante = null;
-
-        if (CajaVidaUilR.getText().equals("")) {
-            vidautilrestante = listaCategoria.get(comboCategoria.getSelectedIndex() - 1).getVidaUtil();
-        } else {
+//        if (CajaVidaUilR.getText().equals("")) {
+//           // vidautilrestante = listaCategoria.get(comboCategoria.getSelectedIndex() - 1).getVidaUtil();
+//            //CajaVidaUilR.setText("" + vidautilrestante);
+//        } else {
+//            
+//        }
+        if (validar()) {
+            String donado = "";
+            String codigo = CajaCodigo.getText();
+            String descripcion = this.descripcion.getText();
+            String condicion = comboCondicion.getSelectedItem().toString();
+            String serie = CajaSerie.getText();
             vidautilrestante = Integer.parseInt(CajaVidaUilR.getText());
-        }
+            CajaVidaUilR.setText("" + vidautilrestante);
 
-        if (chectDonado.isSelected()) {
-            donado = "SI";
-        } else {
-            donado = "NO";
-        }
+            if (chectDonado.isSelected()) {
+                donado = "SI";
+            } else {
+                donado = "NO";
+            }
 
-        if (true) {
+            Date fecha = cajaFecha.getDate();
+            int idSubCategoria = listaSubCategoria.get(comboSub.getSelectedIndex() - 1).getIdSubcategoria();
+            int idDepartamento = listaDepartamento.get(comboDepartamento.getSelectedIndex() - 1).getIdDep();
+            int idMarca = listaMarca.get(comboMarca.getSelectedIndex() - 1).getIdM();
+            Double precio = Double.parseDouble(CajaPrecio.getText());
+
             Activo x = new Activo(codigo, descripcion, idDepartamento, idSubCategoria, idMarca, "", 0);
             controladoActivo.Agregar(x);
             x.setId(controladoActivo.obtenerUltimoRegistro());
             DetalleActivo y = new DetalleActivo(serie, new Date(), fecha, precio, donado, vidautilrestante, x, condicion);
             controladoActivo.AgregarDetalle(y);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS");
-            
-           
+            limpiar();
+
         } else {
-
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
-
-       
 
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
+    private void limpiar() {
+        comboCategoria.setSelectedIndex(0);
+        comboDepartamento.setSelectedIndex(0);
+        comboSub.removeAll();
+        comboSub.addItem("SELECCIONE");
+        comboProveedor.setSelectedIndex(0);
+        comboMarca.removeAll();
+        comboMarca.addItem("SELECCIONE");
+        comboCondicion.setSelectedIndex(0);
+
+        chectDonado.setSelected(false);
+        cajaFecha.setDate(null);
+        cajaFecha.setEnabled(false);
+        descripcion.setText("");
+
+        CajaSerie.setText("");
+        CajaPrecio.setText("");
+        CajaCodigo.setText("");
+        CajaVidaUilR.setText("");
+        CajaVidaUilR.setEnabled(false);
+        generarCodigo();
+
+    }
     private void comboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaActionPerformed
         // TODO add your handling code here:
         listaSubCategoria = new ArrayList<SubCategoria>();
@@ -369,9 +394,14 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
             cajaFecha.setEnabled(false);
             cajaFecha.setDate(fecha);
             CajaVidaUilR.setEnabled(false);
+            vidautilrestante = listaCategoria.get(comboCategoria.getSelectedIndex() - 1).getVidaUtil();
+            CajaVidaUilR.setText("" + vidautilrestante);
+
         } else if (comboCondicion.getSelectedIndex() == 2) {
             cajaFecha.setEnabled(true);
             CajaVidaUilR.setEnabled(true);
+            
+
         }
     }//GEN-LAST:event_comboCondicionActionPerformed
 
@@ -487,5 +517,29 @@ public class RegistrarActivoFijo extends javax.swing.JFrame {
         String codi = "" + format.format(cantidad);
         CajaCodigo.setText(codi);
         CajaCodigo.setEnabled(false);
+    }
+
+    private boolean validar() {
+
+        if (comboCategoria.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboSub.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboDepartamento.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboProveedor.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboMarca.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboCondicion.getSelectedIndex() == 0) {
+            return false;
+        } else if (comboSub.getSelectedIndex() == 0) {
+            return false;
+        } else if (descripcion.getText().equals("") || CajaPrecio.getText().equals("") || CajaSerie.getText().equals("")) {
+            return false;
+        } else if (cajaFecha.getDate() == null || CajaVidaUilR.getText().equals("")) {
+            return false;
+        }
+        return true;
     }
 }

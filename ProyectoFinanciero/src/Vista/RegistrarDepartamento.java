@@ -25,17 +25,14 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
      * Creates new form RegistrarCategoria
      */
     ControladorDeparamento controladorDep;
- 
 
     public RegistrarDepartamento() {
         initComponents();
         setLocationRelativeTo(null);
-   
-        controladorDep = new ControladorDeparamento();
-       
-        CajaCodigo.setEnabled(false);
 
-        
+        controladorDep = new ControladorDeparamento();
+
+        CajaCodigo.setEnabled(false);
 
     }
 
@@ -128,14 +125,16 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        if (validar()) {
+            String nombre = CajaNombre.getText();
+            String codigo = CajaCodigo.getText();
 
-        String nombre = CajaNombre.getText();
-        String codigo = CajaCodigo.getText();
-        if (true) {
             Departamento dep = new Departamento(codigo, nombre);
             controladorDep.AgregarDepartamento(dep);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -175,7 +174,7 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
             if (codigo.charAt(i) == ' ') {
                 conta++;
                 if (conta == 2) {
-                    var = "" + codigo.charAt(i+1);
+                    var = "" + codigo.charAt(i + 1);
                 }
             }
 
@@ -186,5 +185,17 @@ public class RegistrarDepartamento extends javax.swing.JFrame {
         String codi = "D" + var + format.format(cantidad);
 
         return codi;
+    }
+
+    private void limpiar() {
+        CajaCodigo.setText("");
+        CajaNombre.setText("");
+    }
+
+    private boolean validar() {
+        if(CajaCodigo.getText().equals("") || CajaNombre.getText().equals("")){
+            return false;
+        }
+        return true;
     }
 }

@@ -76,7 +76,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
 
         TxtCod.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtCod.setForeground(new java.awt.Color(255, 255, 255));
-        TxtCod.setText("CODIGO");
+        TxtCod.setText("VIDA UTIL");
         getContentPane().add(TxtCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 130, 30));
         getContentPane().add(CajaCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, 30));
 

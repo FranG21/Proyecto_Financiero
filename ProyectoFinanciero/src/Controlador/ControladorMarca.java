@@ -64,6 +64,29 @@ public class ControladorMarca {
         }
         return listaMarca;
     }
+    
+    public ArrayList<Marca> obtenerListaCondicionada(int var,int estado) {
+        ArrayList<Marca> listaMarca = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM marca WHERE marca.idep=" + var + " AND marca.estado="+estado+" ORDER BY nombre ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Marca aux = new Marca();
+
+                aux.setIdM(rs.getInt("idMarca"));
+                aux.setNombre(rs.getString("nombre"));
+                aux.setEstado(rs.getInt("estado"));
+                listaMarca.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return listaMarca;
+    }
 
     public ArrayList<Marca> obtenerListaFiltrada(int x) {
         ArrayList<Marca> listaMarca = new ArrayList<>();

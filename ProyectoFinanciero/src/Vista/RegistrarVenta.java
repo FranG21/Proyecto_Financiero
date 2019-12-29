@@ -199,19 +199,20 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        if (validar()) {
+            int indice = comboMovimiento.getSelectedIndex();
+            String codigoVenta = CajaCodigoFatura.getText();
+            int idMovimiento = listaMovimiento.get(indice - 1).getIdMovimiento();
+            Double precioVenta = Double.parseDouble(CajaPrecio.getText());
+            String fechaVenta = CajaFecha.getText();
 
-        int indice = comboMovimiento.getSelectedIndex();
-        String codigoVenta = CajaCodigoFatura.getText();
-        int idMovimiento = listaMovimiento.get(indice - 1).getIdMovimiento();
-        Double precioVenta = Double.parseDouble(CajaPrecio.getText());
-        String fechaVenta = CajaFecha.getText();
-        if (true) {
             Venta x = new Venta(id, idMovimiento, codigoVenta, precioVenta, fechaActual);
             controladorVenta.Agregar(x);
             controladorActivo.ModificarEstadoVenta(activo.getId());
             JOptionPane.showMessageDialog(null, "VENTA REALIZADA", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
         } else {
-
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -315,5 +316,14 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
         precioVenta = precioVenta + precioVenta * (1 / depreciacion.getPorcentajeL());
         CajaPrecio.setText("" + formaPrecio.format(precioVenta));
+    }
+    
+    
+
+    private boolean validar() {
+        if (comboMovimiento.getSelectedIndex()==0) {
+            return false;
+        } 
+        return true;
     }
 }

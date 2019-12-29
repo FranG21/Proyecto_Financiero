@@ -22,9 +22,10 @@ public class RegistrarMarca extends javax.swing.JFrame {
      */
     ControladorMarca controlador;
     Proveedor pro;
+
     public RegistrarMarca(Proveedor p) {
         initComponents();
-        pro=p;
+        pro = p;
         controlador = new ControladorMarca();
         cajaProveedor.setEnabled(false);
         cajaProveedor.setText(pro.getNombre());
@@ -125,13 +126,15 @@ public class RegistrarMarca extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        String nombre = CajaNombre.getText();
-        
-        if (true) {
-            Marca m = new Marca(nombre,pro.getIdP());
+        if (validar()) {
+            String nombre = CajaNombre.getText();
+
+            Marca m = new Marca(nombre, pro.getIdP());
             controlador.Agregar(m);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
         } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -181,4 +184,16 @@ public class RegistrarMarca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        CajaNombre.setText("");
+
+    }
+
+    private boolean validar() {
+        if (CajaNombre.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
 }

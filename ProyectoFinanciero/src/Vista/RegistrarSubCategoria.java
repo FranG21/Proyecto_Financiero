@@ -143,14 +143,17 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        int indice = ComboCategoria.getSelectedIndex();
-        String nombre = CajaNombre.getText();
-        String codigo = CajaCodigo.getText();
-        if (true) {
+        if (validar()) {
+            int indice = ComboCategoria.getSelectedIndex();
+            String nombre = CajaNombre.getText();
+            String codigo = CajaCodigo.getText();
+
             SubCategoria sub = new SubCategoria(listaCategoria.get(indice - 1).getIdCategoria(), nombre, codigo);
             controladorS.AgregarSubCategoria(sub);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -191,5 +194,18 @@ public class RegistrarSubCategoria extends javax.swing.JFrame {
         String codi = "" + codigo.charAt(0) + codigo.charAt(1) + format.format(cantidad);
 
         return codi;
+    }
+
+    private void limpiar() {
+        CajaCodigo.setText("");
+        CajaNombre.setText("");
+        ComboCategoria.setSelectedIndex(0);
+    }
+
+    private boolean validar() {
+        if (CajaCodigo.getText().equals("") || CajaNombre.getText().equals("")) {
+            return false;
+        } 
+        return true;
     }
 }

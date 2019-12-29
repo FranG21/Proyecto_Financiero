@@ -27,10 +27,8 @@ public class RegistrarCategoria extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         controlador = new ControladorCategoria();
         CajaCodigo.setEnabled(false);
-        
+
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,28 +135,30 @@ public class RegistrarCategoria extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        if (validar()) {
+            String nombre = CajaNombre.getText();
+            String codigo = CajaCodigo.getText();
+            Integer vidaUtil = Integer.parseInt(CajaVidaUtil.getText());
+            //Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
+            Integer valorResidual = Integer.parseInt(CajaValorResidual.getText());
 
-        String nombre = CajaNombre.getText();
-        String codigo = CajaCodigo.getText();
-        Integer vidaUtil = Integer.parseInt(CajaVidaUtil.getText());
-        //Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
-        Integer valorResidual = Integer.parseInt(CajaValorResidual.getText());
-
-        if (true) {
             Categoria categoria = new Categoria(nombre, codigo, vidaUtil, 0, valorResidual, 0);
             controlador.AgregarCatgoria(categoria);
-            JOptionPane.showMessageDialog(null, "Lo Agrego");
+            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
+        }else{
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(CajaNombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "DEBE DE AGREGAR UN NOMBRE A SU NUEVA CATEGORIA", "ERROR", JOptionPane.WARNING_MESSAGE );
-        }else{
-           String codigo = ObtenerCodigo(CajaNombre.getText());
-           CajaCodigo.setText(codigo);
-           
+        if (CajaNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "DEBE DE AGREGAR UN NOMBRE A SU NUEVA CATEGORIA", "ERROR", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String codigo = ObtenerCodigo(CajaNombre.getText());
+            CajaCodigo.setText(codigo);
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -184,12 +184,28 @@ public class RegistrarCategoria extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private String ObtenerCodigo(String codigo) {
-        ArrayList<Categoria> lista=controlador.obtenerCategoriaCaracter(codigo);
-        DecimalFormat format=new DecimalFormat("0000");
-        int cantidad=lista.size()+1;
-        String aux=""+cantidad;
-        String codi=""+codigo.charAt(0)+codigo.charAt(1)+format.format(cantidad);
-        
+        ArrayList<Categoria> lista = controlador.obtenerCategoriaCaracter(codigo);
+        DecimalFormat format = new DecimalFormat("0000");
+        int cantidad = lista.size() + 1;
+        String aux = "" + cantidad;
+        String codi = "" + codigo.charAt(0) + codigo.charAt(1) + format.format(cantidad);
+
         return codi;
+    }
+
+    private void limpiar() {
+        CajaCodigo.setText("");
+        CajaNombre.setText("");
+        CajaValorResidual.setText("");
+        CajaVidaUtil.setText("");
+    }
+
+    private boolean validar() {
+        if(CajaCodigo.getText().equals("") || CajaNombre.getText().equals("")){
+            return false;
+        }else if(CajaValorResidual.getText().equals("") || CajaVidaUtil.getText().equals("")){
+            return false;
+        }
+        return true;
     }
 }

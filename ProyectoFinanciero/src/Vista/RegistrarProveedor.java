@@ -170,19 +170,21 @@ public class RegistrarProveedor extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        String nit = CajaNit.getText();
-        String nombre = CajaProveddor.getText();
-        String representante = CajaRepresentante.getText();
-        String correo = CajaCorreo.getText();
-        String telefono = CajaTelefono.getText();
-        String direccion = Direccion.getText();
-        String descripcion = Descripcion.getText();
+        if (validar()) {
+            String nit = CajaNit.getText();
+            String nombre = CajaProveddor.getText();
+            String representante = CajaRepresentante.getText();
+            String correo = CajaCorreo.getText();
+            String telefono = CajaTelefono.getText();
+            String direccion = Direccion.getText();
+            String descripcion = Descripcion.getText();
 
-        if (true) {
             Proveedor pro = new Proveedor(nombre, direccion, nit, representante, telefono, correo, descripcion, 1);
             controladorProveedor.Agregar(pro);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
         } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -244,5 +246,28 @@ public class RegistrarProveedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        CajaCorreo.setText("");
+        CajaNit.setText("");
+        CajaProveddor.setText("");
+        CajaRepresentante.setText("");
+        CajaTelefono.setText("");
+        Descripcion.setText("");
+        Direccion.setText("");
+    }
+
+    private boolean validar() {
+        if (CajaCorreo.getText().equals("") || CajaNit.getText().equals("")) {
+            return false;
+        } else if (CajaProveddor.getText().equals("") || CajaRepresentante.getText().equals("")) {
+            return false;
+        }else if (CajaTelefono.getText().equals("") || Descripcion.getText().equals("")) {
+            return false;
+        }else if (Direccion.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -26,14 +26,14 @@ public class ModificarDepartamento extends javax.swing.JFrame {
      */
     ControladorDeparamento controladorDep;
     int idDep;
-    
+
     public ModificarDepartamento(Departamento dep) {
         initComponents();
         setLocationRelativeTo(null);
         CajaNombre.setText(dep.getNombreDep());
-        idDep=dep.getIdDep();
+        idDep = dep.getIdDep();
         controladorDep = new ControladorDeparamento();
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class ModificarDepartamento extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-
-        String nombre = CajaNombre.getText();
-        
-        if (true) {
+        if (validar()) {
+            String nombre = CajaNombre.getText();
             Departamento dep = new Departamento("", nombre);
-            controladorDep.ModificarDepartamento(nombre,idDep);
+            controladorDep.ModificarDepartamento(nombre, idDep);
             JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-            
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
@@ -130,5 +130,11 @@ public class ModificarDepartamento extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
+    private boolean validar() {
+        if(CajaNombre.getText().equals("")){
+            return false;
+        }
+        return true;
+    }
 
 }

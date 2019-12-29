@@ -179,15 +179,15 @@ public class ModificarProveedor extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        String nit = CajaNit.getText();
-        String nombre = CajaProveddor.getText();
-        String representante = CajaRepresentante.getText();
-        String correo = CajaCorreo.getText();
-        String telefono = CajaTelefono.getText();
-        String direccion = Direccion.getText();
-        String descripcion = Descripcion.getText();
+        if (validar()) {
+            String nit = CajaNit.getText();
+            String nombre = CajaProveddor.getText();
+            String representante = CajaRepresentante.getText();
+            String correo = CajaCorreo.getText();
+            String telefono = CajaTelefono.getText();
+            String direccion = Direccion.getText();
+            String descripcion = Descripcion.getText();
 
-        if (true) {
             pro.setNit(nit);
             pro.setNombre(nombre);
             pro.setResponsable(representante);
@@ -198,8 +198,9 @@ public class ModificarProveedor extends javax.swing.JFrame {
 
             if (controladorProveedor.Modificar(pro)) {
                 JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "ERROR", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
         }
@@ -264,4 +265,16 @@ public class ModificarProveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
+    private boolean validar() {
+        if (CajaCorreo.getText().equals("") || CajaNit.getText().equals("")) {
+            return false;
+        } else if (CajaProveddor.getText().equals("") || CajaRepresentante.getText().equals("")) {
+            return false;
+        } else if (CajaTelefono.getText().equals("") || Descripcion.getText().equals("")) {
+            return false;
+        } else if (Direccion.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
 }

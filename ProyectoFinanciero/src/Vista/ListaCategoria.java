@@ -100,7 +100,7 @@ public class ListaCategoria extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboEstado = new javax.swing.JComboBox<>();
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -114,7 +114,7 @@ public class ListaCategoria extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LISTA DE CATORIAS");
+        jLabel2.setText("LISTA DE CATEGORIAS");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 70));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -123,8 +123,13 @@ public class ListaCategoria extends javax.swing.JFrame {
         jLabel4.setText("ESTADO");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 70, 30));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 140, 40));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVO", "INACTIVO" }));
+        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEstadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 140, 40));
 
         BtnVer.setBackground(new java.awt.Color(102, 153, 255));
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -236,6 +241,18 @@ public class ListaCategoria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEstadoActionPerformed
 
+    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
+        // TODO add your handling code here:
+        modelo();
+        if (comboEstado.getSelectedIndex() == 0) {
+            verTabla();
+        } else if (comboEstado.getSelectedIndex() == 1) {
+            verTablaCondicionada(1);
+        } else if (comboEstado.getSelectedIndex() == 2) {
+            verTablaCondicionada(0);
+        }
+    }//GEN-LAST:event_comboEstadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -245,8 +262,8 @@ public class ListaCategoria extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable TablaCat;
     private javax.swing.JButton btnEstado;
+    private javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -276,6 +293,29 @@ public class ListaCategoria extends javax.swing.JFrame {
         //objeto = new Categoria();
         categoria = new ArrayList<>();
         categoria = ctrCategoria.obtenerCuentas();
+
+        modelo.setRowCount(categoria.size());
+
+        for (int i = 0; i < categoria.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(categoria.get(i).getCodigo(), i, 1);
+            modelo.setValueAt(categoria.get(i).getNombre(), i, 2);
+            if (categoria.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 3);
+            } else {
+                modelo.setValueAt("ACTIVO", i, 3);
+            }
+
+        }
+
+        TablaCat.setModel(modelo);
+    }
+    
+    void verTablaCondicionada(int x) {
+        //objeto = new Categoria();
+        categoria = new ArrayList<>();
+        categoria = ctrCategoria.obtenerCuentasCondicionada(x);
 
         modelo.setRowCount(categoria.size());
 

@@ -86,6 +86,28 @@ public class ControladorVenta {
         }
         return lista;
     }
+    
+    public ArrayList<Movimiento> obtenerListaMovimientoCondicionada(String algo) {
+        ArrayList<Movimiento> lista = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM movimiento WHERE nombre='"+algo+"'";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Movimiento x = new Movimiento();
+                x.setIdMovimiento(rs.getInt(1));
+                x.setNombre(rs.getString(2));
+                x.setEstado(rs.getInt(3));
+                lista.add(x);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return lista;
+    }
 
     public Integer obtenerMeses(int id) {
         int x = -1;
@@ -141,6 +163,65 @@ public class ControladorVenta {
                     + "INNER JOIN movimiento ON venta.idMovi = movimiento.idMov "
                     + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
                     + "WHERE activo.estado=2 "
+                    + "ORDER BY categoria.cod ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Activo aux = new Activo();
+
+                aux.setId(rs.getInt("idAc"));
+                aux.setCodigo(rs.getString("cod") + "-" + rs.getString("codigo") + "-" + rs.getString(11) + "-" + rs.getString("codAct"));
+                aux.setDescripcion(rs.getString("descrip"));
+                aux.setIdDepartamento(rs.getInt("idDep"));
+                aux.setIdSubcategoria(rs.getInt("idSub"));
+                aux.setIdMarca(rs.getInt("idMarca"));
+                aux.setDescripcionEstado(rs.getString("descripcionEstado"));
+                aux.setEstado(rs.getInt("estado"));
+                aux.setSub(rs.getString(12));
+                aux.setCat(rs.getString(13));
+                aux.setPrecioVenta(rs.getDouble(14));
+                aux.setMovimiento(rs.getString(15));
+                aux.setFecha(rs.getDate(16));
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
+    
+    public ArrayList<Activo> obtenerListaVentasCondicionada(String algo) {
+        ArrayList<Activo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "activo.idAc, "
+                    + "activo.codAct, "
+                    + "activo.descrip, "
+                    + "activo.idDep, "
+                    + "activo.idSub, "
+                    + "activo.estado, "
+                    + "activo.idMarca, "
+                    + "activo.descripcionEstado, "
+                    + "categoria.cod, "
+                    + "subcategoria.codigo, "
+                    + "departamento.codigo, "
+                    + "subcategoria.nombre, "
+                    + "categoria.nombre, "
+                    + "venta.precVenta, "
+                    + "movimiento.nombre, "
+                    + "venta.fecha "
+                    + "FROM "
+                    + "activo "
+                    + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
+                    + "INNER JOIN categoria ON subcategoria.idcat = categoria.idCat "
+                    + "INNER JOIN detalle_activo ON detalle_activo.activofijo_id = activo.idAc "
+                    + "INNER JOIN venta ON venta.id_de = detalle_activo.id "
+                    + "INNER JOIN movimiento ON venta.idMovi = movimiento.idMov "
+                    + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
+                    + "WHERE activo.estado=2 AND movimiento.nombre='"+algo+"' "
                     + "ORDER BY categoria.cod ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();

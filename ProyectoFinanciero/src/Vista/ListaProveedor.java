@@ -106,7 +106,7 @@ public class ListaProveedor extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboEstado = new javax.swing.JComboBox<>();
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -129,8 +129,13 @@ public class ListaProveedor extends javax.swing.JFrame {
         jLabel4.setText("ESTADO");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 70, 30));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 140, 40));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVO", "INACTIVO" }));
+        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEstadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 140, 40));
 
         BtnVer.setBackground(new java.awt.Color(0, 153, 0));
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -244,6 +249,18 @@ public class ListaProveedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEstadoActionPerformed
 
+    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
+        // TODO add your handling code here:
+        modelo();
+        if (comboEstado.getSelectedIndex() == 0) {
+            verTabla();
+        } else if (comboEstado.getSelectedIndex() == 1) {
+            verTablaCondicionada(1);
+        } else if (comboEstado.getSelectedIndex() == 2) {
+            verTablaCondicionada(0);
+        }
+    }//GEN-LAST:event_comboEstadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -253,8 +270,8 @@ public class ListaProveedor extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable TablaSCat;
     private javax.swing.JButton btnEstado;
+    private javax.swing.JComboBox<String> comboEstado;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -281,7 +298,6 @@ public class ListaProveedor extends javax.swing.JFrame {
     }
 
     void verTabla() {
-        //objeto = new Categoria();
         listaProveedor = new ArrayList<>();
         listaProveedor = ctrProveedor.obtenerLista();
 
@@ -305,4 +321,27 @@ public class ListaProveedor extends javax.swing.JFrame {
         TablaSCat.setModel(modelo);
     }
 
+    void verTablaCondicionada(int x) {
+        listaProveedor = new ArrayList<>();
+        listaProveedor = ctrProveedor.obtenerListaCondicionada(x);
+
+        modelo.setRowCount(listaProveedor.size());
+
+        for (int i = 0; i < listaProveedor.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaProveedor.get(i).getNit(), i, 1);
+            modelo.setValueAt(listaProveedor.get(i).getNombre(), i, 2);
+            modelo.setValueAt(listaProveedor.get(i).getCorreo(), i, 3);
+            modelo.setValueAt(listaProveedor.get(i).getTelefono(), i, 4);
+            if (listaProveedor.get(i).getEstado() == 0) {
+                modelo.setValueAt("INACTIVO", i, 5);
+            } else {
+                modelo.setValueAt("ACTIVO", i, 5);
+            }
+
+        }
+
+        TablaSCat.setModel(modelo);
+    }
 }

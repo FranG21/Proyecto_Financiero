@@ -10,6 +10,7 @@ import Controlador.ControladorCategoria;
 import Controlador.ControladorSubCategoria;
 import Controlador.ControladorVenta;
 import Modelo.Activo;
+import Modelo.Movimiento;
 import Modelo.SubCategoria;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -38,6 +39,7 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
     ArrayList<Activo> listaActivo;
     int posicion = -1;
     Activo objeto;
+    ArrayList<Movimiento> listaMovimiento;
 
     public ListaVentasRealizadas() {
         initComponents();
@@ -45,12 +47,16 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         listaActivo = new ArrayList<>();
+        listaMovimiento=new ArrayList<>();
         modelo();
         controladorActivo = new ControladorActivo();
         controladorSub = new ControladorSubCategoria();
         controladorCategoria = new ControladorCategoria();
         controladorVenta = new ControladorVenta();
-
+        
+        listaMovimiento = controladorVenta.obtenerListaMovimiento();
+        
+        llenarCombo();
         verTabla();
         this.addWindowListener(new WindowListener() {
             @Override
@@ -117,7 +123,7 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboEstado = new javax.swing.JComboBox<>();
+        comboMovimiento = new javax.swing.JComboBox<>();
         BtnVer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
@@ -128,7 +134,7 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LISTA DE ACTIVO FIJO");
+        jLabel2.setText("LISTA DE VENTAS REALIZADAS");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 70));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -137,13 +143,12 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
         jLabel4.setText("MOVIMIENTO");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 110, 30));
 
-        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVO", "INACTIVO" }));
-        comboEstado.addActionListener(new java.awt.event.ActionListener() {
+        comboMovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEstadoActionPerformed(evt);
+                comboMovimientoActionPerformed(evt);
             }
         });
-        getContentPane().add(comboEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 310, 30));
+        getContentPane().add(comboMovimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 310, 30));
 
         BtnVer.setBackground(new java.awt.Color(0, 153, 0));
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -184,17 +189,15 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
-    private void comboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEstadoActionPerformed
+    private void comboMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMovimientoActionPerformed
         // TODO add your handling code here:
         modelo();
-        if (comboEstado.getSelectedIndex() == 0) {
+        if (comboMovimiento.getSelectedIndex() == 0) {
             verTabla();
-        } else if (comboEstado.getSelectedIndex() == 1) {
-            verTablaCondicionada(1);
-        } else if (comboEstado.getSelectedIndex() == 2) {
-            verTablaCondicionada(0);
+        } else {
+            verTablaCondicionada(comboMovimiento.getSelectedItem().toString());
         }
-    }//GEN-LAST:event_comboEstadoActionPerformed
+    }//GEN-LAST:event_comboMovimientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +206,7 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
-    private javax.swing.JComboBox<String> comboEstado;
+    private javax.swing.JComboBox<String> comboMovimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -218,6 +221,13 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
         BtnVer.setEnabled(true);
         
 
+    }
+    
+    private void llenarCombo() {
+        comboMovimiento.addItem("SELECCIONE");
+        for (int i = 0; i < listaMovimiento.size(); i++) {
+            comboMovimiento.addItem(listaMovimiento.get(i).getNombre());
+        }
     }
 
     void verTabla() {
@@ -241,10 +251,10 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
         Tabla.setModel(modelo);
     }
 
-    private void verTablaCondicionada(int estado) {
+    private void verTablaCondicionada(String estado) {
         SimpleDateFormat forma=new SimpleDateFormat("dd-MM-YYYY");
         listaActivo = new ArrayList<>();
-        listaActivo = controladorActivo.obtenerListaCondicionada(estado);
+        listaActivo = controladorVenta.obtenerListaVentasCondicionada(estado);
 
         modelo.setRowCount(listaActivo.size());
 
