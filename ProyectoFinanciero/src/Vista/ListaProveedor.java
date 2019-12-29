@@ -224,10 +224,6 @@ public class ListaProveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (objeto.getEstado() == 0) {
             if (ctrProveedor.ModificarEstado(1, objeto.getIdP())) {
-                /* BtnVer.setEnabled(false);
-                BtnModifica.setEnabled(false);
-                btnEstado.setEnabled(false);
-                 */
                 verTabla();
                 objeto.setEstado(1);
                 btnEstado.setBackground(Color.RED);

@@ -5,36 +5,89 @@
  */
 package Vista;
 
+import Controlador.ControladorCredito;
+import Modelo.Credito;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jose
  */
-
 public class ListaCreditos extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaClitenesNaturales
      */
     DefaultTableModel modelo;
+    Controlador.ControladorCredito controladorCredito;
+    ArrayList<Credito> listaCredito;
+    DecimalFormat forma;
+    int posicion=-1;
+    Credito objeto;
     
     public ListaCreditos() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         modelo();
+        controladorCredito = new ControladorCredito();
+        forma=new DecimalFormat("0.00");
+        verTabla();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        Tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ver(e); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
     }
-    
+
     private void modelo() {
-        
+
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("NIT");
-        modelo.addColumn("OCUPACION O GIRO");
-        modelo.addColumn("DEPARTAMENTO");
         modelo.addColumn("TIPO");
-        Tablacliente.setModel(modelo);
+        modelo.addColumn("MINIMO A PRESTAR $");
+        modelo.addColumn("MAXIMO A PRESTAR $");
+        modelo.addColumn("INTERES ANUAL (%)");
+        modelo.addColumn("PLAZO MAXIMO");
+        Tabla.setModel(modelo);
     }
 
     /**
@@ -47,16 +100,12 @@ public class ListaCreditos extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablacliente = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -65,33 +114,11 @@ public class ListaCreditos extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LISTA DE CLIENTES");
+        jLabel2.setText("LISTA DE CREDITOS");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 20, 400, 70);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("ESTADO");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(570, 20, 70, 30);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CARTERA");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(750, 20, 80, 30);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS LOS CLIENTES", "NORMALES", "MOROSOS", "INCOBRABLES" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(710, 50, 180, 40);
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        getContentPane().add(jComboBox3);
-        jComboBox3.setBounds(530, 50, 140, 40);
-
-        Tablacliente.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -102,7 +129,7 @@ public class ListaCreditos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Tablacliente);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(90, 200, 790, 380);
@@ -111,6 +138,7 @@ public class ListaCreditos extends javax.swing.JFrame {
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnVer.setForeground(new java.awt.Color(255, 255, 255));
         BtnVer.setText("VER");
+        BtnVer.setEnabled(false);
         BtnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVerActionPerformed(evt);
@@ -123,6 +151,7 @@ public class ListaCreditos extends javax.swing.JFrame {
         BtnModifica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
         BtnModifica.setText("MODIFICAR");
+        BtnModifica.setEnabled(false);
         getContentPane().add(BtnModifica);
         BtnModifica.setBounds(290, 130, 120, 30);
 
@@ -138,12 +167,13 @@ public class ListaCreditos extends javax.swing.JFrame {
         getContentPane().add(jButton3);
         jButton3.setBounds(450, 130, 180, 30);
 
-        jButton4.setBackground(new java.awt.Color(204, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("DAR DE BAJA");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(650, 130, 120, 30);
+        btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setEnabled(false);
+        getContentPane().add(btnEliminar);
+        btnEliminar.setBounds(650, 130, 120, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,22 +199,45 @@ public class ListaCreditos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnModifica;
     private javax.swing.JButton BtnVer;
-    private javax.swing.JTable Tablacliente;
+    private javax.swing.JTable Tabla;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    
+    private void Ver(MouseEvent e) {
+        int row = Tabla.rowAtPoint(e.getPoint());
+        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
+        objeto = new Credito();
+        objeto = listaCredito.get(posicion - 1);
+        BtnVer.setEnabled(true);
+        BtnModifica.setEnabled(true);
+        btnEliminar.setEnabled(true);
+    }
+
+    void verTabla() {
+        //objeto = new Categoria();
+        listaCredito = new ArrayList<>();
+        listaCredito = controladorCredito.obtenerLista();
+
+        modelo.setRowCount(listaCredito.size());
+
+        for (int i = 0; i < listaCredito.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCredito.get(i).getTipo(), i, 1);
+            modelo.setValueAt(forma.format(listaCredito.get(i).getCantidadMin()), i, 2);
+            modelo.setValueAt(forma.format(listaCredito.get(i).getCantidadMax()), i, 3);
+            modelo.setValueAt(forma.format(listaCredito.get(i).getInteres()), i, 4);
+            modelo.setValueAt(listaCredito.get(i).getPlazoMax()+" MESES", i, 5);
+
+        }
+        Tabla.setModel(modelo);
+    }
 }
