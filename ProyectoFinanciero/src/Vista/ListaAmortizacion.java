@@ -9,12 +9,12 @@ package Vista;
  *
  * @author jose
  */
-public class Amortizacion extends javax.swing.JFrame {
+public class ListaAmortizacion extends javax.swing.JFrame {
 
     /**
      * Creates new form Amortizacion
      */
-    public Amortizacion() {
+    public ListaAmortizacion() {
         initComponents();
         setLocationRelativeTo(null); 
     }

@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.ControladorCliente;
 import Modelo.Cliente;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -26,6 +27,8 @@ public class ListaClientes extends javax.swing.JFrame {
     DefaultTableModel modelo;
     ControladorCliente controladorCliente;
     ArrayList<Cliente> listaCliente;
+    Cliente objeto;
+    int posicion = -1;
 
     public ListaClientes() {
         initComponents();
@@ -105,7 +108,7 @@ public class ListaClientes extends javax.swing.JFrame {
         BtnVer = new javax.swing.JButton();
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEstado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -162,6 +165,7 @@ public class ListaClientes extends javax.swing.JFrame {
         BtnVer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnVer.setForeground(new java.awt.Color(255, 255, 255));
         BtnVer.setText("VER");
+        BtnVer.setEnabled(false);
         BtnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVerActionPerformed(evt);
@@ -174,6 +178,7 @@ public class ListaClientes extends javax.swing.JFrame {
         BtnModifica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
         BtnModifica.setText("MODIFICAR");
+        BtnModifica.setEnabled(false);
         getContentPane().add(BtnModifica);
         BtnModifica.setBounds(290, 130, 120, 30);
 
@@ -189,12 +194,13 @@ public class ListaClientes extends javax.swing.JFrame {
         getContentPane().add(jButton3);
         jButton3.setBounds(450, 130, 180, 30);
 
-        jButton4.setBackground(new java.awt.Color(204, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("DAR DE BAJA");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(650, 130, 120, 30);
+        btnEstado.setBackground(new java.awt.Color(204, 0, 0));
+        btnEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEstado.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstado.setText("DAR DE BAJA");
+        btnEstado.setEnabled(false);
+        getContentPane().add(btnEstado);
+        btnEstado.setBounds(650, 130, 120, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,7 +213,7 @@ public class ListaClientes extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleCliente vista = new DetalleCliente();
+        DetalleCliente vista = new DetalleCliente(objeto);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
@@ -225,8 +231,8 @@ public class ListaClientes extends javax.swing.JFrame {
     private javax.swing.JButton BtnModifica;
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
+    private javax.swing.JButton btnEstado;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -237,12 +243,21 @@ public class ListaClientes extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void Ver(MouseEvent e) {
-//        int row = Tabla.rowAtPoint(e.getPoint());
-//        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
-//        objeto = new Activo();
-//        objeto = listaCliente.get(posicion - 1);
-//        BtnVer.setEnabled(true);
-//        btnVender.setEnabled(true);
+        int row = Tabla.rowAtPoint(e.getPoint());
+        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
+        objeto = new Cliente();
+        objeto = listaCliente.get(posicion - 1);
+        BtnVer.setEnabled(true);
+        BtnModifica.setEnabled(true);
+        btnEstado.setEnabled(true);
+        if (objeto.getEstado() == 0) {
+            btnEstado.setBackground(Color.GREEN);
+            btnEstado.setText("DAR DE ALTA");
+
+        } else {
+            btnEstado.setBackground(Color.RED);
+            btnEstado.setText("DAR DE BAJA");
+        }
     }
 
     void verTabla() {
@@ -256,7 +271,7 @@ public class ListaClientes extends javax.swing.JFrame {
 
             modelo.setValueAt(i + 1, i, 0);
             modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
-            if (listaCliente.get(i).getTipo()== 0) {
+            if (listaCliente.get(i).getTipo() == 0) {
                 modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
             } else {
                 modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);

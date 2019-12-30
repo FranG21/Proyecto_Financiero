@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Modelo.Cliente;
+
 /**
  *
  * @author jose
@@ -14,9 +16,12 @@ public class DetalleCliente extends javax.swing.JFrame {
     /**
      * Creates new form DetalleCliente
      */
-    public DetalleCliente() {
+    Cliente cliente;
+    public DetalleCliente(Cliente obj) {
         initComponents();
         setLocationRelativeTo(null); 
+        cliente=obj;
+        
     }
 
     /**
@@ -229,7 +234,7 @@ public class DetalleCliente extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(140, 60, 488, 609);
+        jPanel1.setBounds(140, 60, 488, 607);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -240,7 +245,7 @@ public class DetalleCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        VerPrestamoCliente vista = new VerPrestamoCliente();
+        ListaPrestamo vista = new ListaPrestamo(cliente);
         vista.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

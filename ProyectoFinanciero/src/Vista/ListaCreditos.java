@@ -186,8 +186,8 @@ public class ListaCreditos extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleCliente vista = new DetalleCliente();
-        vista.setVisible(true);
+       // DetalleCliente vista = new DetalleCliente();
+       // vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
