@@ -25,6 +25,17 @@ public class Prestamo {
     public Prestamo() {
     }
 
+    public Prestamo(Double monto, Integer plazo, Date fechaInicio, Double cuota, Integer idCliente, Integer idCredito) {
+        this.monto = monto;
+        this.plazo = plazo;
+        this.fechaInicio = fechaInicio;
+        this.cuota = cuota;
+        this.idCliente = idCliente;
+        this.idCredito = idCredito;
+    }
+
+    
+    
     public Double getCuota() {
         return cuota;
     }

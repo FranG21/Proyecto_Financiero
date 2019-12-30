@@ -8,6 +8,7 @@ package Vista;
 import Controlador.ControladorActivo;
 import Controlador.ControladorCredito;
 import Controlador.ControladorDepreciacion;
+import Controlador.ControladorPrestamo;
 import Controlador.ControladorVenta;
 import Modelo.Activo;
 import Modelo.Amortizacion;
@@ -46,6 +47,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     Double cuota = -1.00;
     Credito credito;
     ArrayList<Amortizacion> listaAmortizacion;
+    ControladorPrestamo controladorPrestamo;
 
     public RegistrarPrestamo(Cliente obj) {
         initComponents();
@@ -53,6 +55,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         cliente = obj;
 
         controladorCredito = new ControladorCredito();
+        controladorPrestamo=new ControladorPrestamo();
         formaFecha = new SimpleDateFormat("dd-MM-YYYY");
         fechaActual = new Date();
         formaPrecio = new DecimalFormat("0.00");
@@ -244,14 +247,23 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
         if (validar()) {
-            int plazo = Integer.parseInt(CajaPlazo.getText());
+            
+            Integer idCliente=cliente.getId();
+            Integer idCredito=listaCreditos.get(comboTipo.getSelectedIndex()-1).getId();
             Double monto = Double.parseDouble(CajaMonto.getText());
+            int plazo = Integer.parseInt(CajaPlazo.getText());
             Double intereses = 0.00;
             Double saldoFinal = 0.00;
             Amortizacion amortizacion;
             
             
-
+            Prestamo x=new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
+            //controladorPrestamo.Agregar(x);
+            x.setId(controladorPrestamo.obtenerUltimoRegistro());
+            
+            JOptionPane.showMessageDialog(null, ""+x.getId());
+            
+            
             for (int i = 0; i < plazo; i++) {
                 intereses = monto * (2.5 / 100);
 
@@ -264,13 +276,13 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
                 monto = monto - (cuota - intereses);
                 amortizacion.setSaldoFinal(monto);
                 
+                                
                 listaAmortizacion.add(amortizacion);
             }
 
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
             for(int y=0;y<listaAmortizacion.size();y++){
-                JOptionPane.showMessageDialog(null, listaAmortizacion.get(y).toString(), "EXITO", JOptionPane.INFORMATION_MESSAGE);
-                
+                JOptionPane.showMessageDialog(null, listaAmortizacion.get(y).toString(), "EXITO", JOptionPane.INFORMATION_MESSAGE);               
             }
             dispose();
         } else {

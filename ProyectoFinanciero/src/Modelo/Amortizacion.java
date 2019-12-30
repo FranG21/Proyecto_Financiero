@@ -22,6 +22,7 @@ public class Amortizacion {
     private Double interes;
     private Double SaldoFinal;
     private Double cuota;
+    private Integer estado; 
     private Integer idPrestamo;
 
     public Amortizacion() {
@@ -107,6 +108,14 @@ public class Amortizacion {
         SimpleDateFormat forma=new SimpleDateFormat("dd-MM-YYYY");
         DecimalFormat fomaN=new DecimalFormat("0.00");
         return "fecha=" + forma.format(fecha) + ", SaldoInicial=" + fomaN.format(SaldoInicial) + ", amortizacion=" + fomaN.format(amortizacion) + ", interes=" + fomaN.format(interes) + ", SaldoFinal=" + fomaN.format(SaldoFinal) + ", idPrestamo=" + idPrestamo ;
+    }
+
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
     
     

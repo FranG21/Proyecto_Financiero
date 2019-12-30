@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Modelo/Prestamo.java</file>
             <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorPrestamo.java</file>
-            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorMarca.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/RegistrarActivoFijo.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorSubCategoria.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/RegistrarPrestamo.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorAmortizacion.java</file>
         </group>
     </open-files>
 </project-private>
