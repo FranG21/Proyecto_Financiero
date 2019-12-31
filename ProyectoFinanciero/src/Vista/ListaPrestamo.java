@@ -54,11 +54,14 @@ public class ListaPrestamo extends javax.swing.JFrame {
         forma = new SimpleDateFormat("dd-MM-YYYY");
         formaPrecio = new DecimalFormat("0.00");
         // listaPrestamo=controladorPrestamo.obtenerLista(cliente.getId());
+
+        validarAgregar();
         modelo();
         verTabla();
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
+                validarAgregar();
                 verTabla();
             }
 
@@ -80,6 +83,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
 
             @Override
             public void windowActivated(WindowEvent e) {
+                validarAgregar();
                 verTabla();
             }
 
@@ -122,7 +126,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         BtnVer = new javax.swing.JButton();
         BtnAmortizacion = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaSCat = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -159,16 +163,17 @@ public class ListaPrestamo extends javax.swing.JFrame {
         });
         getContentPane().add(BtnAmortizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 130, 30));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("NUEVO PRESTAMO");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setBackground(new java.awt.Color(0, 51, 255));
+        btnAgregar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("NUEVO PRESTAMO");
+        btnAgregar.setEnabled(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 180, 30));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 180, 30));
 
         TablaSCat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,13 +200,13 @@ public class ListaPrestamo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_BtnVerActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         RegistrarPrestamo vista = new RegistrarPrestamo(cliente);
         vista.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void BtnAmortizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAmortizacionActionPerformed
-        ListaAmortizacion vista = new ListaAmortizacion(objeto);
+        ListaAmortizacion vista = new ListaAmortizacion(objeto,cliente);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnAmortizacionActionPerformed
 
@@ -213,7 +218,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton BtnAmortizacion;
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable TablaSCat;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -230,9 +235,6 @@ public class ListaPrestamo extends javax.swing.JFrame {
     }
 
     void verTabla() {
-
-        listaPrestamo = new ArrayList<>();
-        listaPrestamo = controladorPrestamo.obtenerLista(cliente.getId());
 
         modelo.setRowCount(listaPrestamo.size());
 
@@ -254,6 +256,32 @@ public class ListaPrestamo extends javax.swing.JFrame {
         }
 
         TablaSCat.setModel(modelo);
+    }
+
+    private void validarAgregar() {
+        listaPrestamo = new ArrayList<>();
+        listaPrestamo = controladorPrestamo.obtenerLista(cliente.getId());
+        int bandera = 0;
+        if (listaPrestamo.isEmpty()) {
+            btnAgregar.setEnabled(true);
+        } else {
+
+            for (int i = 0; i < listaPrestamo.size(); i++) {
+                if (listaPrestamo.get(i).getEstado() == 0) {
+                    bandera = 1;
+                }
+            }
+            if (bandera == 1) {
+                btnAgregar.setEnabled(false);
+            } else {
+                if(cliente.getCartera()!=2){
+                    btnAgregar.setEnabled(true);
+                }else{
+                   btnAgregar.setEnabled(false); 
+                }
+                
+            }
+        }
     }
 
 }

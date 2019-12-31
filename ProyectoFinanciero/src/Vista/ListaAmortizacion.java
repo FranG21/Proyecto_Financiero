@@ -6,8 +6,11 @@
 package Vista;
 
 import Controlador.ControladorAmortizacion;
+import Controlador.ControladorPrestamo;
 import Modelo.Amortizacion;
+import Modelo.Cliente;
 import Modelo.Prestamo;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -15,6 +18,7 @@ import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,18 +33,24 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     DefaultTableModel modelo;
     ControladorAmortizacion controladorAmortizacion;
     ArrayList<Amortizacion> listaAmortizacion;
+    ControladorPrestamo controladorPrestamo;
     Prestamo prestamo;
     Amortizacion objeto;
     SimpleDateFormat formatFecha;
     DecimalFormat forma;
+    int posicion = -1;
+    Cliente cliente;
+    Double cuota = -1.0;
+   
 
-    public ListaAmortizacion(Prestamo obj) {
+    public ListaAmortizacion(Prestamo obj, Cliente cli) {
         initComponents();
         setLocationRelativeTo(null);
-        prestamo=obj;
-        
+        prestamo = obj;
+        cliente = cli;
         modelo = new DefaultTableModel();
         controladorAmortizacion = new ControladorAmortizacion();
+        controladorPrestamo = new ControladorPrestamo();
 
         formatFecha = new SimpleDateFormat("dd-MM-YYYY");
         forma = new DecimalFormat("0.00");
@@ -110,11 +120,12 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        lblCuota = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -123,14 +134,13 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(900, 660));
         getContentPane().setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("CUADRO DE AMORTIZACION");
-        jLabel2.setInheritsPopupMenu(false);
-        jLabel2.setPreferredSize(new java.awt.Dimension(930, 690));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(229, 0, 400, 70);
+        lblCuota.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCuota.setForeground(new java.awt.Color(255, 255, 255));
+        lblCuota.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCuota.setInheritsPopupMenu(false);
+        lblCuota.setPreferredSize(new java.awt.Dimension(930, 690));
+        getContentPane().add(lblCuota);
+        lblCuota.setBounds(70, 80, 720, 70);
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,21 +156,41 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(58, 129, 739, 405);
+        jScrollPane1.setBounds(58, 154, 739, 380);
 
-        jButton1.setBackground(new java.awt.Color(255, 51, 51));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("PAGAR CUOTA");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(360, 560, 210, 50);
+        btnPagar.setBackground(new java.awt.Color(255, 51, 51));
+        btnPagar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnPagar.setForeground(new java.awt.Color(255, 255, 255));
+        btnPagar.setText("PAGAR CUOTA");
+        btnPagar.setEnabled(false);
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPagar);
+        btnPagar.setBounds(360, 560, 210, 50);
 
         jButton2.setBackground(new java.awt.Color(255, 153, 51));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("CERRAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
         jButton2.setBounds(600, 560, 190, 50);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("CUADRO DE AMORTIZACION");
+        jLabel3.setInheritsPopupMenu(false);
+        jLabel3.setPreferredSize(new java.awt.Dimension(930, 690));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(229, 0, 400, 70);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -169,33 +199,78 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        // TODO add your handling code here:
+        if (objeto.getEstado() == 0 && cliente.getEstado() == 1) {
+            if (controladorAmortizacion.ModificarEstado(cuota,1, objeto.getId())) {
+                verTabla();
+                objeto.setEstado(1);
+                btnPagar.setBackground(Color.GREEN);
+                btnPagar.setText("CUOTA CANCELADA");
+                JOptionPane.showMessageDialog(null, "CUOTA CANCELADA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } else {
+
+        }
+    }//GEN-LAST:event_btnPagarActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCuota;
     // End of variables declaration//GEN-END:variables
 
     private void Ver(MouseEvent e) {
-//        int row = TablaSCat.rowAtPoint(e.getPoint());
-//        posicion = Integer.parseInt(TablaSCat.getValueAt(row, 0).toString());
-//        objeto = new Prestamo();
-//        objeto = listaPrestamo.get(posicion - 1);
-//        BtnVer.setEnabled(true);
-//        BtnAmortizacion.setEnabled(true);
+        int row = Tabla.rowAtPoint(e.getPoint());
+        posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
+        objeto = new Amortizacion();
+        objeto = listaAmortizacion.get(posicion - 1);
+        btnPagar.setEnabled(true);
+
+        if (objeto.getEstado() == 0) {
+            btnPagar.setBackground(Color.RED);
+            btnPagar.setText("CANCELAR CUOTA");
+
+        } else {
+            btnPagar.setBackground(Color.GREEN);
+            btnPagar.setText("CUOTA CANCELADA");
+        }
+
+        if (objeto.getEstado() == 1) {
+            lblCuota.setText("CUOTA CANCELADA    CUOTA: $"+forma.format(objeto.getCuota()));
+        } else {
+            if (objeto.getMora() == 1) {
+                cuota = objeto.getCuotaMensual()+ objeto.getCuotaMensual()* 0.15;// si se quiere en la bd se puede meter taza de mora
+                lblCuota.setText("CUOTA CON MORA    CUOTA A CANCELAR: $"+forma.format(cuota));
+            } else {
+                cuota = objeto.getCuotaMensual();
+                lblCuota.setText("CUOTA PENDIENTE    CUOTA A CANCELAR: $"+forma.format(cuota));
+            }
+
+        }
 
     }
-    
+
     void verTabla() {
 
         listaAmortizacion = new ArrayList<>();
         listaAmortizacion = controladorAmortizacion.obtenerLista(prestamo.getId());
+
+        cambiarEstado();
 
         modelo.setRowCount(listaAmortizacion.size());
 
@@ -214,11 +289,22 @@ public class ListaAmortizacion extends javax.swing.JFrame {
                 modelo.setValueAt("CANCELADO", i, 7);
             }
 
-            
-
         }
 
         Tabla.setModel(modelo);
+    }
+
+    private void cambiarEstado() {
+        int bandera = 0;
+        for (int i = 0; i < listaAmortizacion.size(); i++) {
+            if (listaAmortizacion.get(i).getEstado() == 1) {
+                bandera = 1;
+            }
+        }
+
+        if (bandera == 0) {
+            controladorPrestamo.ModificarEstado(prestamo.getId());
+        }
     }
 
 }

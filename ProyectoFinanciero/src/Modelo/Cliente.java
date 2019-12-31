@@ -25,6 +25,7 @@ public class Cliente {
     private String direccion;
     private Integer estado;
     private Integer tipo;
+    private Integer cartera;
 
     public Cliente() {
     }
@@ -136,6 +137,14 @@ public class Cliente {
 
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getCartera() {
+        return cartera;
+    }
+
+    public void setCartera(Integer cartera) {
+        this.cartera = cartera;
     }
     
     

@@ -25,6 +25,8 @@ public class Amortizacion {
     private Double cuota;
     private Integer estado; 
     private Integer idPrestamo;
+    private Integer mora;
+    private Integer diferenciaDias;
 
     public Amortizacion() {
     }
@@ -127,7 +129,22 @@ public class Amortizacion {
     public void setCuotaMensual(Double cuotaMensual) {
         this.cuotaMensual = cuotaMensual;
     }
-    
-    
+
+    public Integer getDiferenciaDias() {
+        return diferenciaDias;
+    }
+
+    public void setDiferenciaDias(Integer diferenciaDias) {
+        this.diferenciaDias = diferenciaDias;
+    }
+
+    public Integer getMora() {
+        return mora;
+    }
+
+    public void setMora(Integer mora) {
+        this.mora = mora;
+    }
+        
     
 }

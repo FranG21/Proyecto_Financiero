@@ -91,6 +91,46 @@ public class ControladorPrestamo {
         return x.getId();
     }
      
+     public ArrayList<Prestamo> obtenerUltimoPrestamo(int id) {
+        ArrayList<Prestamo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM prestamo WHERE idCli="+id+" ORDER BY idPres DESC LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Prestamo aux = new Prestamo();
+
+                aux.setId(rs.getInt(1));
+                aux.setMonto(rs.getDouble(2));
+                aux.setPlazo(rs.getInt(3));
+                aux.setFechaInicio(rs.getDate(4));
+                aux.setCuota(rs.getDouble(5));
+                aux.setEstado(rs.getInt(7));
+                aux.setIdCliente(rs.getInt(8));
+                aux.setIdCredito(rs.getInt(9));
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
+    }
      
+     public boolean ModificarEstado(int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE prestamo SET estado=" + 1 + " WHERE idPres=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
     
 }

@@ -36,9 +36,9 @@ public class ControladorCliente {
             SimpleDateFormat forma = new SimpleDateFormat("YYYY-MM-dd");
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "INSERT INTO cliente (nombre,apellido,dui,nit,tel,ocupacion,depa,fecha,direc,estado,tipo) VALUES"
+            String sql = "INSERT INTO cliente (nombre,apellido,dui,nit,tel,ocupacion,depa,fecha,direc,estado,tipo,cartera) VALUES"
                     + " ('" + x.getNombre() + "','" + x.getApellidos_Representante() + "','" + x.getDui() + "','" + x.getNit() + "','" + x.getTelefono() + "','" + x.getOcupacion() + "','" + x.getDepartmento() + "',"
-                    + "'" + forma.format(x.getFechaIngreso()) + "','" + x.getDireccion() + "'," + 1 + "," + x.getTipo() + ")";
+                    + "'" + forma.format(x.getFechaIngreso()) + "','" + x.getDireccion() + "'," + 1 + "," + x.getTipo() + "," + 0 + ")";
             st.executeUpdate(sql);
             conexion.cerrarConexion();
         } catch (Exception e) {
@@ -69,6 +69,7 @@ public class ControladorCliente {
                 aux.setDireccion(rs.getString(11));
                 aux.setEstado(rs.getInt(12));
                 aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
                 auxs.add(aux);
             }
             conexion.cerrarConexion();
@@ -76,6 +77,34 @@ public class ControladorCliente {
             JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return auxs;
+    }
+
+    public boolean ModificarCartera(int cartera,int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE cliente SET cartera=" + 1 + " WHERE idCliente=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean ModificarCarteraEstado(int cartera,int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE cliente SET cartera=" + 2 + ", estado=0 WHERE idCliente=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
 }

@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.ControladorActivo;
 import Controlador.ControladorAmortizacion;
+import Controlador.ControladorCliente;
 import Controlador.ControladorCredito;
 import Controlador.ControladorDepreciacion;
 import Controlador.ControladorPrestamo;
@@ -50,15 +51,17 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     ArrayList<Amortizacion> listaAmortizacion;
     ControladorPrestamo controladorPrestamo;
     ControladorAmortizacion controladorAmortizacion;
+    ControladorCliente controladorCliente;
 
     public RegistrarPrestamo(Cliente obj) {
         initComponents();
 
         cliente = obj;
 
+        controladorCliente = new ControladorCliente();
         controladorCredito = new ControladorCredito();
-        controladorPrestamo=new ControladorPrestamo();
-        controladorAmortizacion=new ControladorAmortizacion();
+        controladorPrestamo = new ControladorPrestamo();
+        controladorAmortizacion = new ControladorAmortizacion();
         formaFecha = new SimpleDateFormat("dd-MM-YYYY");
         fechaActual = new Date();
         formaPrecio = new DecimalFormat("0.00");
@@ -250,24 +253,23 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
         if (validar()) {
-            
-            Integer idCliente=cliente.getId();
-            Integer idCredito=listaCreditos.get(comboTipo.getSelectedIndex()-1).getId();
+
+            Integer idCliente = cliente.getId();
+            Integer idCredito = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getId();
             Double monto = Double.parseDouble(CajaMonto.getText());
             int plazo = Integer.parseInt(CajaPlazo.getText());
             Double intereses = 0.00;
             Double saldoFinal = 0.00;
             Amortizacion amortizacion;
-            Double in=listaCreditos.get(comboTipo.getSelectedIndex()-1).getInteres()/12;
-            in=in/100;
-            
-            Prestamo x=new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
+            Double in = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getInteres() / 12;
+            in = in / 100;
+
+            asignarTipo();
+
+            Prestamo x = new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
             controladorPrestamo.Agregar(x);
             x.setId(controladorPrestamo.obtenerUltimoRegistro());
-            
-            JOptionPane.showMessageDialog(null, ""+x.getId());
-            
-            
+
             for (int i = 0; i < plazo; i++) {
                 intereses = monto * in;
 
@@ -276,18 +278,15 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
                 calendar.add(Calendar.MONTH, 1);
                 fechaActual = calendar.getTime();
 
-                amortizacion = new Amortizacion(fechaActual, monto, cuota-intereses, intereses,cuota, monto, x.getId());
+                amortizacion = new Amortizacion(fechaActual, monto, cuota - intereses, intereses, cuota, monto, x.getId());
                 monto = monto - (cuota - intereses);
                 amortizacion.setSaldoFinal(monto);
-                
+
                 controladorAmortizacion.Agregar(amortizacion);
                 listaAmortizacion.add(amortizacion);
             }
 
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
-//            for(int y=0;y<listaAmortizacion.size();y++){
-//                JOptionPane.showMessageDialog(null, listaAmortizacion.get(y).toString(), "EXITO", JOptionPane.INFORMATION_MESSAGE);               
-//            }
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
@@ -297,7 +296,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private void botonRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrar1ActionPerformed
         // TODO add your handling code here:
         if (comboTipo.getSelectedIndex() != 0 && !CajaMonto.getText().equals("")) {
-            credito = listaCreditos.get(listaCreditos.size() - 1);
+            credito = listaCreditos.get(comboTipo.getSelectedIndex() - 1);
             cuota = obtenerCuota();
             CajaCuota.setText("" + formaPrecio.format(cuota));
         } else {
@@ -385,12 +384,23 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private Double obtenerCuota() {
         Double pagoMensual = 0.00;
         Double p = Double.parseDouble(CajaMonto.getText());
+        JOptionPane.showMessageDialog(null, "" + credito.getInteres());
         Double i = credito.getInteres() / 12;
         int n = Integer.parseInt(CajaPlazo.getText());
+        i = i / 100;
 
-        i=i/100;
         pagoMensual = (p * i) / (1 - Math.pow(1 / (1 + i), n));
 
         return pagoMensual;
+    }
+
+    private void asignarTipo() {
+
+        listaPrestamos = new ArrayList<>();
+        listaPrestamos = controladorPrestamo.obtenerLista(cliente.getId());
+
+        if (listaPrestamos.isEmpty()) {
+            controladorCliente.ModificarCartera(1, cliente.getId());
+        }
     }
 }

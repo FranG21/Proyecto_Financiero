@@ -5,14 +5,21 @@
  */
 package Vista;
 
+import Controlador.ControladorAmortizacion;
 import Controlador.ControladorCliente;
+import Controlador.ControladorPrestamo;
+import Modelo.Amortizacion;
 import Modelo.Cliente;
+import Modelo.Prestamo;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,11 +37,28 @@ public class ListaClientes extends javax.swing.JFrame {
     Cliente objeto;
     int posicion = -1;
 
+    Date fechaActual;
+    ControladorPrestamo controladorPrestamo;
+    ArrayList<Prestamo> listaPrestamo;
+    ControladorAmortizacion controladorAmortizacion;
+    ArrayList<Amortizacion> listaAmortizacion;
+
+    long finMS = 0;
+    long inicioMS = 0;
+    int diferencia = 0;
+    int bandera = 0;
+
     public ListaClientes() {
         initComponents();
         setLocationRelativeTo(null);
         modelo();
+
         controladorCliente = new ControladorCliente();
+        controladorPrestamo = new ControladorPrestamo();
+        controladorAmortizacion = new ControladorAmortizacion();
+
+        fechaActual = new Date();
+        actualizarCarteras();
 
         verTabla();
         this.addWindowListener(new WindowListener() {
@@ -262,8 +286,8 @@ public class ListaClientes extends javax.swing.JFrame {
 
     void verTabla() {
         //objeto = new Categoria();
-        listaCliente = new ArrayList<>();
-        listaCliente = controladorCliente.obtenerLista();
+        //listaCliente = new ArrayList<>();
+        //listaCliente = controladorCliente.obtenerLista();
 
         modelo.setRowCount(listaCliente.size());
 
@@ -285,6 +309,66 @@ public class ListaClientes extends javax.swing.JFrame {
             }
         }
         Tabla.setModel(modelo);
+    }
+
+    private void actualizarCarteras() {
+
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerLista();
+
+        for (int j = 0; j < listaCliente.size(); j++) {
+            //JOptionPane.showConfirmDialog(null, ""+listaCliente.get(j).getId());
+            actualizarCarteras1(listaCliente.get(j));
+
+        }
+    }
+
+    private void actualizarCarteras1(Cliente cli) {
+        JOptionPane.showMessageDialog(null, "ID CLIENTE: " + cli.getId());
+        listaPrestamo = controladorPrestamo.obtenerLista(cli.getId());
+        if (listaPrestamo.isEmpty()) {
+            //JOptionPane.showMessageDialog(null, "NULO: ");
+        } else {
+           // JOptionPane.showMessageDialog(null, "ID PRESTAMO: " + listaPrestamo.get(0).getId());
+            if (listaPrestamo.get(0).getEstado() == 1) {
+                //JOptionPane.showMessageDialog(null, "PAGADO");
+            } else {
+                actualizarCartera2(listaPrestamo.get(0),cli);
+            }
+
+        }
+    }
+
+    private void actualizarCartera2(Prestamo pre,Cliente cli) {
+        Amortizacion amor=null;
+        listaAmortizacion = controladorAmortizacion.obtenerListaConDias(pre.getId());
+
+        for (int k = 0; k < listaAmortizacion.size(); k++) {
+            if (listaAmortizacion.get(k).getEstado()== 0 && listaAmortizacion.get(k).getDiferenciaDias() <= 0) {
+                amor=listaAmortizacion.get(k);
+                amor.setMora(1);
+                listaAmortizacion.set(k,amor);
+                controladorAmortizacion.ModificarMora(listaAmortizacion.get(k).getId());
+            } else {
+                //JOptionPane.showMessageDialog(null, "CUOTA");
+            }
+        }
+        
+        for(int l=0;l<listaAmortizacion.size();l++){
+            if(listaAmortizacion.get(l).getMora() == 1 && listaAmortizacion.get(l).getDiferenciaDias() <= 0){
+                bandera++;
+            }
+        }
+        
+        if(bandera>3 && cli.getCartera()!=2){
+            controladorCliente.ModificarCarteraEstado(2, cli.getId());
+        }else{
+            if(bandera>0 && cli.getCartera()==0){
+                controladorCliente.ModificarCartera(1,cli.getId());
+            }else{
+                JOptionPane.showMessageDialog(null, "CLIENTE SANO");
+            }
+        }
     }
 
 }
