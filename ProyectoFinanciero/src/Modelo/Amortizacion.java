@@ -20,6 +20,7 @@ public class Amortizacion {
     private Double SaldoInicial;
     private Double amortizacion;
     private Double interes;
+    private Double cuotaMensual;
     private Double SaldoFinal;
     private Double cuota;
     private Integer estado; 
@@ -28,11 +29,12 @@ public class Amortizacion {
     public Amortizacion() {
     }
 
-    public Amortizacion(Date fecha, Double SaldoInicial, Double amortizacion, Double interes,Double cuota, Double SaldoFinal, Integer idPrestamo) {
+    public Amortizacion(Date fecha, Double SaldoInicial, Double amortizacion, Double interes,Double cuotaMensual, Double SaldoFinal, Integer idPrestamo) {
         this.fecha = fecha;
         this.SaldoInicial = SaldoInicial;
         this.amortizacion = amortizacion;
         this.interes = interes;
+        this.cuotaMensual=cuotaMensual;
         this.SaldoFinal = SaldoFinal;
         this.idPrestamo = idPrestamo;
     }
@@ -116,6 +118,14 @@ public class Amortizacion {
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public Double getCuotaMensual() {
+        return cuotaMensual;
+    }
+
+    public void setCuotaMensual(Double cuotaMensual) {
+        this.cuotaMensual = cuotaMensual;
     }
     
     

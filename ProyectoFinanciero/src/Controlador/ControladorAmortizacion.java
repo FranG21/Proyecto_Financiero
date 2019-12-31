@@ -37,8 +37,8 @@ public class ControladorAmortizacion {
             SimpleDateFormat forma=new SimpleDateFormat("YYY-MM-dd");
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "INSERT INTO amortizacion (fecha,saldoInicial,amortizacion,interes,saldoFinal,estado,idPrestamo) VALUES"
-                    + " ('" + forma.format(x.getFecha()) + "'," + x.getSaldoInicial()+ "," + x.getAmortizacion()+ "," + x.getInteres()+ "," + x.getSaldoFinal() + "," + 0 + "," + x.getIdPrestamo()+ ")";
+            String sql = "INSERT INTO amortizacion (fecha,saldoInicial,amortizacion,cuotaMensual,interes,saldoFinal,estado,idPrestamo) VALUES"
+                    + " ('" + forma.format(x.getFecha()) + "'," + x.getSaldoInicial()+ "," + x.getAmortizacion()+ ","+x.getCuotaMensual()+"," + x.getInteres()+ "," + x.getSaldoFinal() + "," + 0 + "," + x.getIdPrestamo()+ ")";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
@@ -52,7 +52,7 @@ public class ControladorAmortizacion {
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM amortizacion WHERE idAmortizacion="+id;
+            String sql = "SELECT * FROM amortizacion WHERE amortizacion.idPrestamo="+id;
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -62,8 +62,9 @@ public class ControladorAmortizacion {
                 aux.setFecha(rs.getDate(2));
                 aux.setSaldoInicial(rs.getDouble(3));
                 aux.setAmortizacion(rs.getDouble(4));
-                aux.setInteres(rs.getDouble(5));
-                aux.setSaldoFinal(rs.getDouble(6));                
+                aux.setCuotaMensual(rs.getDouble(5));
+                aux.setInteres(rs.getDouble(6));
+                aux.setSaldoFinal(rs.getDouble(7));                
                 aux.setEstado(rs.getInt("estado"));
                 auxs.add(aux);
             }

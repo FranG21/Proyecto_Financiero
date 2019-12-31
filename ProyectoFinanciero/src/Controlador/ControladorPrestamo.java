@@ -35,7 +35,7 @@ public class ControladorPrestamo {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO prestamo (monto,plazo,fechafinan,cuota,estado,idCli,idCre) VALUES"
-                    + " (" + x.getMonto()+ "," + x.getPlazo()+ ",'" + forma.format(x.getFechaInicio()) + "'," + x.getCuota()+ "," + 1 + "," + x.getIdCliente()+ ",," + x.getIdCredito()+ ")";
+                    + " (" + x.getMonto()+ "," + x.getPlazo()+ ",'" + forma.format(x.getFechaInicio()) + "'," + x.getCuota()+ "," + 0 + "," + x.getIdCliente()+ "," + x.getIdCredito()+ ")";
             st.executeUpdate(sql);
             conexion.cerrarConexion();
         } catch (Exception e) {

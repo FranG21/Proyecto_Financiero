@@ -5,6 +5,18 @@
  */
 package Vista;
 
+import Controlador.ControladorAmortizacion;
+import Modelo.Amortizacion;
+import Modelo.Prestamo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jose
@@ -14,9 +26,79 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     /**
      * Creates new form Amortizacion
      */
-    public ListaAmortizacion() {
+    DefaultTableModel modelo;
+    ControladorAmortizacion controladorAmortizacion;
+    ArrayList<Amortizacion> listaAmortizacion;
+    Prestamo prestamo;
+    Amortizacion objeto;
+    SimpleDateFormat formatFecha;
+    DecimalFormat forma;
+
+    public ListaAmortizacion(Prestamo obj) {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
+        prestamo=obj;
+        
+        modelo = new DefaultTableModel();
+        controladorAmortizacion = new ControladorAmortizacion();
+
+        formatFecha = new SimpleDateFormat("dd-MM-YYYY");
+        forma = new DecimalFormat("0.00");
+
+        modelo();
+        verTabla();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                verTabla();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        Tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ver(e); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
+    }
+
+    private void modelo() {
+
+        modelo = new DefaultTableModel();
+        modelo.addColumn("N°");
+        modelo.addColumn("FECHA");
+        modelo.addColumn("SALDO INICIAL");
+        modelo.addColumn("AMORTIZACION");
+        modelo.addColumn("INTERESES");
+        modelo.addColumn("CUOTA");
+        modelo.addColumn("SALDO FINAL");
+        modelo.addColumn("ESTADO");
+        Tabla.setModel(modelo);
     }
 
     /**
@@ -30,7 +112,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -50,7 +132,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(229, 0, 400, 70);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -61,7 +143,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(58, 129, 739, 405);
@@ -90,14 +172,53 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void Ver(MouseEvent e) {
+//        int row = TablaSCat.rowAtPoint(e.getPoint());
+//        posicion = Integer.parseInt(TablaSCat.getValueAt(row, 0).toString());
+//        objeto = new Prestamo();
+//        objeto = listaPrestamo.get(posicion - 1);
+//        BtnVer.setEnabled(true);
+//        BtnAmortizacion.setEnabled(true);
+
+    }
+    
+    void verTabla() {
+
+        listaAmortizacion = new ArrayList<>();
+        listaAmortizacion = controladorAmortizacion.obtenerLista(prestamo.getId());
+
+        modelo.setRowCount(listaAmortizacion.size());
+
+        for (int i = 0; i < listaAmortizacion.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(formatFecha.format(listaAmortizacion.get(i).getFecha()), i, 1);
+            modelo.setValueAt(forma.format(listaAmortizacion.get(i).getSaldoInicial()), i, 2);
+            modelo.setValueAt(forma.format(listaAmortizacion.get(i).getAmortizacion()), i, 3);
+            modelo.setValueAt(forma.format(listaAmortizacion.get(i).getInteres()), i, 4);
+            modelo.setValueAt(forma.format(listaAmortizacion.get(i).getCuotaMensual()), i, 5);
+            modelo.setValueAt(forma.format(Math.abs(listaAmortizacion.get(i).getSaldoFinal())), i, 6);
+            if (listaAmortizacion.get(i).getEstado() == 0) {
+                modelo.setValueAt("PENDIENTE", i, 7);
+            } else {
+                modelo.setValueAt("CANCELADO", i, 7);
+            }
+
+            
+
+        }
+
+        Tabla.setModel(modelo);
+    }
+
 }
