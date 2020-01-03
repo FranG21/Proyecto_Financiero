@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Controlador.ControladorActivo;
+import Modelo.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author jose
@@ -14,9 +18,25 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
     /**
      * Creates new form DetalleCliente
      */
-    public DetalleActivoFijo() {
+    Activo activo;
+    ControladorActivo controladorActivo;
+    ArrayList<DetalleActivo> listaDetalle;
+    DetalleActivo detalle;
+    
+    public DetalleActivoFijo(Activo obj) {
         initComponents();
         setLocationRelativeTo(null); 
+        activo=obj;
+        
+        listaDetalle=new ArrayList<>();
+        controladorActivo=new ControladorActivo();
+        
+        listaDetalle=controladorActivo.obtenerListaDetalle(activo.getId());
+        detalle=listaDetalle.get(0);
+        
+        
+        
+        
     }
 
     /**

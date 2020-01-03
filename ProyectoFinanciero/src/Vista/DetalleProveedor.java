@@ -67,11 +67,11 @@ public class DetalleProveedor extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("DETALLE ");
+        jLabel2.setText("DETALLE PROVEEDOR");
         jLabel2.setInheritsPopupMenu(false);
         jLabel2.setPreferredSize(new java.awt.Dimension(930, 690));
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(330, 0, 180, 70);
+        jLabel2.setBounds(320, 0, 270, 70);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
@@ -237,7 +237,7 @@ public class DetalleProveedor extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(130, 50, 540, 580);
+        jPanel1.setBounds(130, 60, 540, 580);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);

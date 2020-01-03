@@ -5,7 +5,16 @@
  */
 package Vista;
 
+import Controlador.ControladorAmortizacion;
+import Controlador.ControladorCredito;
+import Modelo.Amortizacion;
+import Modelo.Cliente;
+import Modelo.Credito;
 import Modelo.Prestamo;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +26,71 @@ public class DetallePrestamo extends javax.swing.JFrame {
      * Creates new form DetallePrestamo
      */
     Prestamo prestamo;
-    public DetallePrestamo(Prestamo obj) {
+    Cliente cliente;
+    SimpleDateFormat formaFecha;
+    DecimalFormat format;
+
+    ControladorCredito controladorCredito;
+    ArrayList<Credito> listaCredito;
+    Credito credito;
+
+    ControladorAmortizacion controladorAmortizacion;
+    ArrayList<Amortizacion> listaAmortizacion;
+    Double saldoPagado = 0.00;
+
+    public DetallePrestamo(Prestamo obj, Cliente cli) {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
+        cliente = cli;
+        prestamo = obj;
+
+        listaCredito = new ArrayList<>();
+        controladorCredito = new ControladorCredito();
+        listaAmortizacion = new ArrayList<>();
+        controladorAmortizacion = new ControladorAmortizacion();
+        formaFecha = new SimpleDateFormat("dd-MM-YYYY");
+        format = new DecimalFormat("0.00");
+
+        listaCredito = controladorCredito.obtenerListaUnica(prestamo.getIdCredito());
+        credito = listaCredito.get(0);
+
+        listaAmortizacion = controladorAmortizacion.obtenerLista(prestamo.getId());
+
+        for (int i = 0; i < listaAmortizacion.size(); i++) {
+            if (listaAmortizacion.get(i).getEstado() == 1) {
+                saldoPagado=saldoPagado+listaAmortizacion.get(i).getCuota();
+            }
+        }
+
+        if (cliente.getTipo() == 0) {
+            lbl10.setText(cliente.getNombre());
+            lbl11.setText(cliente.getApellidos_Representante());
+            lbl12.setText(cliente.getNit());
+
+        } else {
+            lbl1.setText("NOMBRE DE LA EMPRESA");
+            lbl2.setText("REPRESENTANTE LEGAL");
+            lbl3.setText("NIT DE LA EMPRESA");
+
+            lbl10.setText(cliente.getNombre());
+            lbl11.setText(cliente.getApellidos_Representante());
+            lbl12.setText(cliente.getNit());
+
+        }
+
+        lbl14.setText("" + credito.getTipo());
+        lbl13.setText("" + format.format(credito.getInteres()) + "%");
+        lbl15.setText("" + prestamo.getPlazo());
+        lbl16.setText("$" + format.format(prestamo.getMonto()));
+        lbl17.setText("$" + format.format(prestamo.getCuota()));
+        lbl18.setText("$" + format.format(saldoPagado));
+        lbl20.setText(formaFecha.format(cliente.getFechaIngreso()));
+        if (prestamo.getEstado() == 1) {
+            lbl22.setText("CANCELADO");
+        } else {
+            lbl22.setText("PENDIENTE");
+        }
+
     }
 
     /**
@@ -149,7 +220,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 102, 51));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cerrar");
+        jButton1.setText("CERRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -193,17 +264,19 @@ public class DetallePrestamo extends javax.swing.JFrame {
                         .addComponent(lbl20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl9, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                            .addComponent(lbl3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl9, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 47, Short.MAX_VALUE))
+                            .addComponent(lbl2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lbl11, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -249,10 +322,10 @@ public class DetallePrestamo extends javax.swing.JFrame {
                     .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl17, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,7 +360,6 @@ public class DetallePrestamo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

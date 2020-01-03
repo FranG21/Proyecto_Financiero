@@ -261,7 +261,7 @@ public class ControladorActivo {
                     + "detalle_activo.id "
                     + "FROM "
                     + "detalle_activo "
-                    + "WHERE activofijo_id="+id;
+                    + "WHERE activofijo_id=" + id;
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -289,7 +289,7 @@ public class ControladorActivo {
         }
         return false;
     }
-    
+
     public boolean ModificarEstadoVenta(int id) {
         try {
             conexion.abrirConexion();
@@ -302,6 +302,34 @@ public class ControladorActivo {
             System.out.println(e);
         }
         return false;
+    }
+
+    public ArrayList<DetalleActivo> obtenerListaDetalle(int var) {
+        ArrayList<DetalleActivo> x = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM detalle_activo WHERE activofijo_id=" + var;
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                DetalleActivo aux = new DetalleActivo();
+
+                aux.setIdDetalle(rs.getInt(1));
+                aux.setSerie(rs.getString(2));
+                aux.setFechaCompra(rs.getDate(3));
+                aux.setFechaInicio(rs.getDate(4));
+                aux.setPrecio(rs.getDouble(5));
+                aux.setDonado(rs.getString(6));
+                aux.setVidaUtilRestante(rs.getInt(7));
+
+                x.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return x;
     }
 
 }

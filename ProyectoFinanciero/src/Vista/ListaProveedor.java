@@ -120,7 +120,7 @@ public class ListaProveedor extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("LISTA DE SUBCATORIAS");
+        jLabel2.setText("LISTA DE PROVEEDORES");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 400, 70));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

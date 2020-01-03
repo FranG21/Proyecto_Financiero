@@ -126,7 +126,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("VENTA DE ACTIVO");
+        jLabel2.setText("REGISTRAR PRESTAMO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(30, 20, 310, 70);
 

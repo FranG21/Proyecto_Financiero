@@ -95,24 +95,24 @@ public class ModificarCategoria extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
+        jButton1.setText("CANCELAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 110, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 130, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botonRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar.setText("Guardar");
+        botonRegistrar.setText("MODIFICAR");
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 110, 30));
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 130, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,6 +139,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
                 c.setValorResidual(valr);
                 if (cc.ModificarCategoria(c)) {
                     JOptionPane.showMessageDialog(rootPane, "CATEGORIA MODIFICADA EXITOSAMENTE", "MODIFICAR CATEGORIA", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "ERROR AL MODIFICAR CATEGORIA!", "MODIFICAR CATEGORIA", JOptionPane.ERROR_MESSAGE);
                 }

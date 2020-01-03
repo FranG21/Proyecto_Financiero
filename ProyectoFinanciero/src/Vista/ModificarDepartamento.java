@@ -58,8 +58,8 @@ public class ModificarDepartamento extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("NUEVA DEPARTAMENTO");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 310, 70));
+        jLabel2.setText("MODIFICAR DEPARTAMENTO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 370, 70));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 930, 20));
 
         TxtNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -77,18 +77,18 @@ public class ModificarDepartamento extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, 100, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, 120, 30));
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botonRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar.setText("Registrar");
+        botonRegistrar.setText("MODIFICAR");
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 110, 30));
+        getContentPane().add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, 130, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

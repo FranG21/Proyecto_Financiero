@@ -199,11 +199,6 @@ public class ListaCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_BtnVerActionPerformed
-
     private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
         ModificarCategoria vista = new ModificarCategoria(objeto);
         vista.setC(objeto);
@@ -252,6 +247,12 @@ public class ListaCategoria extends javax.swing.JFrame {
             verTablaCondicionada(0);
         }
     }//GEN-LAST:event_comboEstadoActionPerformed
+
+    private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
+        // TODO add your handling code here:
+        DetalleCategoria vista = new DetalleCategoria(objeto);
+        vista.setVisible(true);
+    }//GEN-LAST:event_BtnVerActionPerformed
 
     /**
      * @param args the command line arguments

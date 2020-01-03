@@ -197,7 +197,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
-        DetallePrestamo vista = new DetallePrestamo(objeto);
+        DetallePrestamo vista = new DetallePrestamo(objeto,cliente);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 

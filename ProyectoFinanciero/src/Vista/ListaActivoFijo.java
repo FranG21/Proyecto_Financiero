@@ -200,7 +200,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleActivoFijo vista = new DetalleActivoFijo();
+        DetalleActivoFijo vista = new DetalleActivoFijo(objeto);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
