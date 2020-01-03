@@ -300,7 +300,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             cuota = obtenerCuota();
             CajaCuota.setText("" + formaPrecio.format(cuota));
         } else {
-            JOptionPane.showMessageDialog(null, "SELECIONE UN TIPO DE CREDITOY INGRESE MONTO", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "SELECIONE UN TIPO DE CREDITO Y INGRESE MONTO", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrar1ActionPerformed
 
@@ -375,7 +375,9 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     }
 
     private boolean validar() {
-        if (comboTipo.getSelectedIndex() == 0) {
+        if (comboTipo.getSelectedIndex() == 0 || CajaMonto.getText().equals("")) {
+            return false;
+        } else if (CajaPlazo.getText().equals("") || CajaCuota.getText().equals("")) {
             return false;
         }
         return true;

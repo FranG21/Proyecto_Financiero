@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Modelo.Prestamo;
+
 /**
  *
  * @author jose
@@ -14,7 +16,8 @@ public class DetallePrestamo extends javax.swing.JFrame {
     /**
      * Creates new form DetallePrestamo
      */
-    public DetallePrestamo() {
+    Prestamo prestamo;
+    public DetallePrestamo(Prestamo obj) {
         initComponents();
         setLocationRelativeTo(null); 
     }
@@ -267,7 +270,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(151, 79, 472, 574);
+        jPanel1.setBounds(151, 79, 472, 581);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);

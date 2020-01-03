@@ -125,8 +125,8 @@ public class ListaClientes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboCartera = new javax.swing.JComboBox<>();
+        comboSelecione = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
@@ -161,13 +161,33 @@ public class ListaClientes extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(750, 20, 80, 30);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS LOS CLIENTES", "NORMALES", "MOROSOS", "INCOBRABLES" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(710, 50, 180, 40);
+        comboCartera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS LOS CLIENTES", "NORMALES", "MOROSOS", "INCOBRABLES" }));
+        comboCartera.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCarteraItemStateChanged(evt);
+            }
+        });
+        comboCartera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCarteraActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboCartera);
+        comboCartera.setBounds(710, 50, 180, 40);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
-        getContentPane().add(jComboBox3);
-        jComboBox3.setBounds(530, 50, 140, 40);
+        comboSelecione.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVO", "INACTIVO" }));
+        comboSelecione.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboSelecioneItemStateChanged(evt);
+            }
+        });
+        comboSelecione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSelecioneActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboSelecione);
+        comboSelecione.setBounds(530, 50, 140, 40);
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -247,6 +267,41 @@ public class ListaClientes extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void comboSelecioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSelecioneActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_comboSelecioneActionPerformed
+
+    private void comboCarteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCarteraActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_comboCarteraActionPerformed
+
+    private void comboSelecioneItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSelecioneItemStateChanged
+        // TODO add your handling code here:
+        if (comboSelecione.getSelectedIndex() == 0) {
+            verTablaX();
+        } else if (comboSelecione.getSelectedIndex() == 1) {
+            verTablaCondicionada(1);
+        } else if (comboSelecione.getSelectedIndex() == 2) {
+            verTablaCondicionada(0);
+        }
+    }//GEN-LAST:event_comboSelecioneItemStateChanged
+
+    private void comboCarteraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCarteraItemStateChanged
+        // TODO add your handling code here:
+        if (comboCartera.getSelectedIndex() == 0) {
+            verTablaY();
+        } else if (comboCartera.getSelectedIndex() == 1) {
+            verTablaCondicionadaCarteras(0);
+        } else if (comboCartera.getSelectedIndex() == 2) {
+            verTablaCondicionadaCarteras(1);
+        } else if (comboCartera.getSelectedIndex() == 3) {
+            verTablaCondicionadaCarteras(2);
+        }
+    }//GEN-LAST:event_comboCarteraItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -256,9 +311,9 @@ public class ListaClientes extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnEstado;
+    private javax.swing.JComboBox<String> comboCartera;
+    private javax.swing.JComboBox<String> comboSelecione;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -324,51 +379,163 @@ public class ListaClientes extends javax.swing.JFrame {
     }
 
     private void actualizarCarteras1(Cliente cli) {
-        JOptionPane.showMessageDialog(null, "ID CLIENTE: " + cli.getId());
+        //JOptionPane.showMessageDialog(null, "ID CLIENTE: " + cli.getId());
         listaPrestamo = controladorPrestamo.obtenerLista(cli.getId());
         if (listaPrestamo.isEmpty()) {
             //JOptionPane.showMessageDialog(null, "NULO: ");
         } else {
-           // JOptionPane.showMessageDialog(null, "ID PRESTAMO: " + listaPrestamo.get(0).getId());
+            // JOptionPane.showMessageDialog(null, "ID PRESTAMO: " + listaPrestamo.get(0).getId());
             if (listaPrestamo.get(0).getEstado() == 1) {
                 //JOptionPane.showMessageDialog(null, "PAGADO");
             } else {
-                actualizarCartera2(listaPrestamo.get(0),cli);
+                actualizarCartera2(listaPrestamo.get(0), cli);
             }
 
         }
     }
 
-    private void actualizarCartera2(Prestamo pre,Cliente cli) {
-        Amortizacion amor=null;
+    private void actualizarCartera2(Prestamo pre, Cliente cli) {
+        Amortizacion amor = null;
         listaAmortizacion = controladorAmortizacion.obtenerListaConDias(pre.getId());
 
         for (int k = 0; k < listaAmortizacion.size(); k++) {
-            if (listaAmortizacion.get(k).getEstado()== 0 && listaAmortizacion.get(k).getDiferenciaDias() <= 0) {
-                amor=listaAmortizacion.get(k);
+            if (listaAmortizacion.get(k).getEstado() == 0 && listaAmortizacion.get(k).getDiferenciaDias() <= 0) {
+                amor = listaAmortizacion.get(k);
                 amor.setMora(1);
-                listaAmortizacion.set(k,amor);
+                listaAmortizacion.set(k, amor);
                 controladorAmortizacion.ModificarMora(listaAmortizacion.get(k).getId());
             } else {
                 //JOptionPane.showMessageDialog(null, "CUOTA");
             }
         }
-        
-        for(int l=0;l<listaAmortizacion.size();l++){
-            if(listaAmortizacion.get(l).getMora() == 1 && listaAmortizacion.get(l).getDiferenciaDias() <= 0){
+
+        for (int l = 0; l < listaAmortizacion.size(); l++) {
+            if (listaAmortizacion.get(l).getMora() == 1 && listaAmortizacion.get(l).getDiferenciaDias() <= 0) {
                 bandera++;
             }
         }
-        
-        if(bandera>3 && cli.getCartera()!=2){
+
+        if (bandera > 3 && cli.getCartera() != 2) {
             controladorCliente.ModificarCarteraEstado(2, cli.getId());
-        }else{
-            if(bandera>0 && cli.getCartera()==0){
-                controladorCliente.ModificarCartera(1,cli.getId());
-            }else{
-                JOptionPane.showMessageDialog(null, "CLIENTE SANO");
+        } else {
+            if (bandera > 0 && cli.getCartera() == 0) {
+                controladorCliente.ModificarCartera(1, cli.getId());
+            } else {
+                //JOptionPane.showMessageDialog(null, "CLIENTE SANO");
             }
         }
+
+        bandera = 0;
     }
 
+    private void verTablaCondicionada(int estado) {
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerListaCondicionada(estado);
+
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);
+    }
+
+    private void verTablaCondicionadaCarteras(int estado) {
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerListaCondicionadaCartera(estado);
+
+        modelo.setRowCount(listaCliente.size());
+        
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);        
+    }
+    
+    private void verTablaX() {
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerLista();
+
+        modelo.setRowCount(listaCliente.size());
+        
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);        
+    }
+    
+    private void verTablaY() {
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerLista();
+
+        modelo.setRowCount(listaCliente.size());
+        
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);        
+    }
+    
 }

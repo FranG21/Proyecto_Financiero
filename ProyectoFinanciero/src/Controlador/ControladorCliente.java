@@ -106,5 +106,71 @@ public class ControladorCliente {
         }
         return false;
     }
+    
+    public ArrayList<Cliente> obtenerListaCondicionada(int estado) {
+        ArrayList<Cliente> auxs = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE estado="+estado+" ORDER BY nit";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente aux = new Cliente();
+
+                aux.setId(rs.getInt(1));
+                aux.setNombre(rs.getString(2));
+                aux.setApellidos_Representante(rs.getString(3));
+                aux.setDui(rs.getString(4));
+                aux.setNit(rs.getString(5));
+                aux.setTelefono(rs.getString(7));
+                aux.setOcupacion(rs.getString(8));
+                aux.setDepartmento(rs.getString(9));
+                aux.setFechaIngreso(rs.getDate(10));
+                aux.setDireccion(rs.getString(11));
+                aux.setEstado(rs.getInt(12));
+                aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
+                auxs.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return auxs;
+    }
+    
+    public ArrayList<Cliente> obtenerListaCondicionadaCartera(int estado) {
+        ArrayList<Cliente> auxs = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE cartera="+estado+" ORDER BY nit";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente aux = new Cliente();
+
+                aux.setId(rs.getInt(1));
+                aux.setNombre(rs.getString(2));
+                aux.setApellidos_Representante(rs.getString(3));
+                aux.setDui(rs.getString(4));
+                aux.setNit(rs.getString(5));
+                aux.setTelefono(rs.getString(7));
+                aux.setOcupacion(rs.getString(8));
+                aux.setDepartmento(rs.getString(9));
+                aux.setFechaIngreso(rs.getDate(10));
+                aux.setDireccion(rs.getString(11));
+                aux.setEstado(rs.getInt(12));
+                aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
+                auxs.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return auxs;
+    }
 
 }

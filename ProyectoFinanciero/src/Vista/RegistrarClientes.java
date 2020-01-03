@@ -51,7 +51,7 @@ public class RegistrarClientes extends javax.swing.JFrame {
         TxtNit = new javax.swing.JLabel();
         CajaDUI = new javax.swing.JTextField();
         CajaNombre = new javax.swing.JTextField();
-        TxtNombre2 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         Txt = new javax.swing.JLabel();
         CajaFecha = new javax.swing.JTextField();
         TxtOcupacion = new javax.swing.JLabel();
@@ -120,11 +120,11 @@ public class RegistrarClientes extends javax.swing.JFrame {
         getContentPane().add(CajaNombre);
         CajaNombre.setBounds(90, 180, 200, 30);
 
-        TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNombre2.setText("NOMBRE DEL CLIENTE");
-        getContentPane().add(TxtNombre2);
-        TxtNombre2.setBounds(130, 150, 130, 30);
+        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("NOMBRE DEL CLIENTE");
+        getContentPane().add(lblNombre);
+        lblNombre.setBounds(130, 150, 130, 30);
 
         Txt.setBackground(new java.awt.Color(0, 51, 51));
         Txt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -146,6 +146,11 @@ public class RegistrarClientes extends javax.swing.JFrame {
         TxtOcupacion.setBounds(0, 390, 130, 30);
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PERSONA NATURAL", "PERSONA JURIDICA" }));
+        comboTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboTipoItemStateChanged(evt);
+            }
+        });
         getContentPane().add(comboTipo);
         comboTipo.setBounds(140, 100, 200, 30);
         getContentPane().add(CajaOcupacion);
@@ -223,7 +228,7 @@ public class RegistrarClientes extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
-        if (true) {
+        if (validar()) {
             String nombre = CajaNombre.getText();
             String apellidos_Representante = CajaApellidos.getText();
             String nit = CajaNit.getText();
@@ -234,15 +239,33 @@ public class RegistrarClientes extends javax.swing.JFrame {
             String direcion = Direccion.getText();
             Date fecha = new Date();
             Integer tipo = comboTipo.getSelectedIndex();
-            
+
             Cliente cliente = new Cliente(nombre, apellidos_Representante, dui_Representante, nit, telefono, ocupacion, departamento, fecha, direcion, tipo);
             controladorCliente.Agregar(cliente);
             JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-            //limpiar();
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
+
+    private void comboTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTipoItemStateChanged
+        // TODO add your handling code here:
+        if(comboTipo.getSelectedIndex()==0){
+            lblNombre.setText("NOMBRE DEL CLIENTE");
+            TxtApellidos.setText("APELLIDOS");
+            TxtNit.setText("NIT");
+            TxtDui.setText("DUI");
+            TxtOcupacion.setText("OCUPACION");
+            
+        }else if(comboTipo.getSelectedIndex()==1){
+            lblNombre.setText("NOMBRE DE LA EMPRESA");
+            TxtApellidos.setText("REPRESENTANTE LEGAL");
+            TxtNit.setText("NIT DE LA EMPRESA");
+            TxtDui.setText("DUI DEL REPESENTANTE");
+            TxtOcupacion.setText("GIRO");
+        }
+    }//GEN-LAST:event_comboTipoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -294,7 +317,6 @@ public class RegistrarClientes extends javax.swing.JFrame {
     private javax.swing.JLabel TxtApellidos;
     private javax.swing.JLabel TxtDui;
     private javax.swing.JLabel TxtNit;
-    private javax.swing.JLabel TxtNombre2;
     private javax.swing.JLabel TxtOcupacion;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JComboBox<String> comboDepartamento;
@@ -307,5 +329,19 @@ public class RegistrarClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblNombre;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validar() {
+        if(CajaNombre.getText().equals("") || CajaApellidos.getText().equals("")){
+            return false;
+        }else if(CajaNit.getText().equals("") || CajaDUI.getText().equals("")){
+            return false;
+        }else if(CajaTel.getText().equals("") || CajaOcupacion.getText().equals("")){
+            return false;
+        }else if(Direccion.getText().equals("")){
+            return false;
+        }
+        return true;
+    }
 }
