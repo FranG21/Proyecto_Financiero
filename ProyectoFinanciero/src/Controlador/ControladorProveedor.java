@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
  *
  * @author GM
  */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,20 +24,20 @@ import java.util.concurrent.locks.StampedLock;
 import javax.swing.JOptionPane;
 
 public class ControladorProveedor {
-    
+
     public Conexion conexion;
 
     public ControladorProveedor() {
         conexion = new Conexion();
         PreparedStatement st = null;
     }
-    
+
     public void Agregar(Proveedor x) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO proveedor (nombre,direccion, nit,contacto,telefono,correo,observacion,estado) VALUES"
-                    + " ('" + x.getNombre() + "','" + x.getDireccion()+ "','" + x.getNit()+ "','" + x.getResponsable()+ "','" + x.getTelefono()+ "','" + x.getCorreo()+ "','" + x.getObservaciones()+ "'," + 1 + ")";
+                    + " ('" + x.getNombre() + "','" + x.getDireccion() + "','" + x.getNit() + "','" + x.getResponsable() + "','" + x.getTelefono() + "','" + x.getCorreo() + "','" + x.getObservaciones() + "'," + 1 + ")";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
@@ -46,13 +45,13 @@ public class ControladorProveedor {
             System.out.println(e);
         }
     }
-    
+
     public boolean Modificar(Proveedor c) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE proveedor SET nombre='" + c.getNombre() + "', nit= '" + c.getNit()+ "'"
-                    + ", direccion='"+c.getDireccion()+"', contacto='"+c.getResponsable()+"',telefono='"+c.getTelefono()+"',correo='"+c.getCorreo()+"',observacion='"+c.getObservaciones()+"' WHERE ide=" + c.getIdP();
+            String sql = "UPDATE proveedor SET nombre='" + c.getNombre() + "', nit= '" + c.getNit() + "'"
+                    + ", direccion='" + c.getDireccion() + "', contacto='" + c.getResponsable() + "',telefono='" + c.getTelefono() + "',correo='" + c.getCorreo() + "',observacion='" + c.getObservaciones() + "' WHERE ide=" + c.getIdP();
             st.executeUpdate(sql);
             conexion.cerrarConexion();
             return true;
@@ -62,7 +61,6 @@ public class ControladorProveedor {
         return false;
     }
 
-    
     public ArrayList<Proveedor> obtenerLista() {
         ArrayList<Proveedor> listaProveedor = new ArrayList<>();
         ResultSet rs = null;
@@ -91,13 +89,13 @@ public class ControladorProveedor {
         }
         return listaProveedor;
     }
-    
+
     public ArrayList<Proveedor> obtenerListaCondicionada(int var) {
         ArrayList<Proveedor> listaProveedor = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM proveedor WHERE proveedor.estado="+var+" ORDER BY nombre ASC";
+            String sql = "SELECT * FROM proveedor WHERE proveedor.estado=" + var + " ORDER BY nombre ASC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -114,7 +112,35 @@ public class ControladorProveedor {
         }
         return listaProveedor;
     }
-    
+
+    public ArrayList<Proveedor> obtenerListaIdMarca(int var) {
+        ArrayList<Proveedor> listaProveedor = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT *"
+                    + "FROM "
+                    + "proveedor "
+                    + "INNER JOIN marca ON marca.idep = proveedor.ide "
+                    + "WHERE idMarca="+var+" "
+                    + "LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Proveedor aux = new Proveedor();
+
+                aux.setIdP(rs.getInt("ide"));
+                aux.setNombre(rs.getString("nombre"));
+                aux.setEstado(rs.getInt("estado"));
+                listaProveedor.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return listaProveedor;
+    }
+
     public boolean ModificarEstado(int estado, int id) {
         try {
             conexion.abrirConexion();
@@ -128,5 +154,5 @@ public class ControladorProveedor {
         }
         return false;
     }
-    
+
 }

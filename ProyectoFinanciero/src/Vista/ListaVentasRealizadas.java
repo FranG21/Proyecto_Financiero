@@ -185,8 +185,8 @@ public class ListaVentasRealizadas extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleActivoFijo vista = new DetalleActivoFijo();
-        vista.setVisible(true);
+       DetalleActivoFijo vista = new DetalleActivoFijo(objeto);
+       vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void comboMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMovimientoActionPerformed

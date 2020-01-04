@@ -152,6 +152,11 @@ public class ListaCreditos extends javax.swing.JFrame {
         BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
         BtnModifica.setText("MODIFICAR");
         BtnModifica.setEnabled(false);
+        BtnModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificaActionPerformed(evt);
+            }
+        });
         getContentPane().add(BtnModifica);
         BtnModifica.setBounds(290, 130, 120, 30);
 
@@ -195,6 +200,12 @@ public class ListaCreditos extends javax.swing.JFrame {
         RegistrarCredito vista = new RegistrarCredito();
         vista.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
+        // TODO add your handling code here:
+        ModificarCredito vista = new ModificarCredito(objeto);
+        vista.setVisible(true);
+    }//GEN-LAST:event_BtnModificaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,7 +6,13 @@
 package Vista;
 
 import Controlador.ControladorActivo;
+import Controlador.ControladorDeparamento;
+import Controlador.ControladorDepreciacion;
+import Controlador.ControladorProveedor;
+import Controlador.ControladorVenta;
 import Modelo.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -20,23 +26,77 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
      */
     Activo activo;
     ControladorActivo controladorActivo;
+
     ArrayList<DetalleActivo> listaDetalle;
     DetalleActivo detalle;
+
+    ArrayList<Proveedor> listaProveedor;
+    ControladorProveedor controladorProveedor;
+    Proveedor proveedor;
+
+    SimpleDateFormat formaFecha;
+    DecimalFormat forma;
+
+    Depreciacion depreciacion;
+    ControladorDepreciacion controladorDepreciacion;
+    ArrayList<DepreciacionAcumulada> listaAcumuladas;
+
+    Double d = 0.00;
+    int meses;
+    Double precioVenta = 0.00;
+    int id = -1;
+
+    ControladorVenta controladorVenta;
+    ArrayList<Venta> listaVenta;
     
+    ControladorDeparamento controladorDeparamento;
+    ArrayList<Departamento> listaDepartamentos;
+    Departamento departamento;
+
     public DetalleActivoFijo(Activo obj) {
         initComponents();
-        setLocationRelativeTo(null); 
-        activo=obj;
+        setLocationRelativeTo(null);
+        activo = obj;
+
+        listaDetalle = new ArrayList<>();
+        controladorActivo = new ControladorActivo();
+        listaProveedor = new ArrayList<>();
+        controladorProveedor = new ControladorProveedor();
+        controladorVenta=new ControladorVenta();
+        controladorDepreciacion=new ControladorDepreciacion();
+        listaAcumuladas=new ArrayList<>();
+        controladorDeparamento=new ControladorDeparamento();
+        listaDepartamentos=new ArrayList<>();
+
+        formaFecha = new SimpleDateFormat("dd-MM-YYYY");
+        forma = new DecimalFormat("0.00");
+
+        listaDetalle = controladorActivo.obtenerListaDetalle(activo.getId());
+        detalle = listaDetalle.get(0);
+
+        listaProveedor = controladorProveedor.obtenerListaIdMarca(activo.getIdMarca());
+        proveedor = listaProveedor.get(0);
         
-        listaDetalle=new ArrayList<>();
-        controladorActivo=new ControladorActivo();
+        depreciacion = controladorDepreciacion.obtenerObjeto(activo.getId());
+        meses = controladorVenta.obtenerMeses(activo.getId());
+        id = controladorActivo.obtenerIdDetalle(activo.getId());
+
+        listaAcumuladas = obtenerListaCondicionada(12);
         
-        listaDetalle=controladorActivo.obtenerListaDetalle(activo.getId());
-        detalle=listaDetalle.get(0);
+        listaDepartamentos=controladorDeparamento.obtenerListaCondicionadaId(activo.getIdDepartamento());
+        departamento=listaDepartamentos.get(0);
         
-        
-        
-        
+        calcularPrecio();
+
+        lbl10.setText(detalle.getSerie());
+        lbl11.setText(proveedor.getNombre());
+        lbl12.setText(detalle.getDonado());
+        lbl13.setText(formaFecha.format(detalle.getFechaCompra()));
+        lbl14.setText(departamento.getNombreDep());
+        lbl15.setText(formaFecha.format(detalle.getFechaInicio()));
+        lbl16.setText("" + detalle.getVidaUtilRestante());
+        lbl18.setText("$"+forma.format(detalle.getPrecio()));
+        lbl20.setText("$"+forma.format(precioVenta));
     }
 
     /**
@@ -57,9 +117,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl13 = new javax.swing.JLabel();
         lbl15 = new javax.swing.JLabel();
         lbl16 = new javax.swing.JLabel();
-        lbl17 = new javax.swing.JLabel();
         lbl18 = new javax.swing.JLabel();
-        lbl8 = new javax.swing.JLabel();
         lbl9 = new javax.swing.JLabel();
         lbl7 = new javax.swing.JLabel();
         lbl6 = new javax.swing.JLabel();
@@ -115,17 +173,9 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl16.setForeground(new java.awt.Color(255, 255, 255));
         lbl16.setText("AAAAAA");
 
-        lbl17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lbl17.setForeground(new java.awt.Color(255, 255, 255));
-        lbl17.setText("AAAAAA");
-
         lbl18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl18.setForeground(new java.awt.Color(255, 255, 255));
         lbl18.setText("9999999");
-
-        lbl8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lbl8.setForeground(new java.awt.Color(255, 255, 255));
-        lbl8.setText("VIDA ECONOMICA");
 
         lbl9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl9.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,7 +228,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl19, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbl20, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,13 +237,12 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                                 .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbl9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbl11, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addComponent(lbl10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -202,7 +251,6 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                             .addComponent(lbl13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbl15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbl16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbl18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(32, 32, 32))
         );
@@ -237,11 +285,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,7 +307,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -276,7 +320,6 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
     private javax.swing.JLabel lbl14;
     private javax.swing.JLabel lbl15;
     private javax.swing.JLabel lbl16;
-    private javax.swing.JLabel lbl17;
     private javax.swing.JLabel lbl18;
     private javax.swing.JLabel lbl19;
     private javax.swing.JLabel lbl2;
@@ -286,7 +329,40 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
     private javax.swing.JLabel lbl5;
     private javax.swing.JLabel lbl6;
     private javax.swing.JLabel lbl7;
-    private javax.swing.JLabel lbl8;
     private javax.swing.JLabel lbl9;
     // End of variables declaration//GEN-END:variables
+
+    private ArrayList<DepreciacionAcumulada> obtenerListaCondicionada(int var) {
+        ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
+        Double acumulada = 0.0;
+        Double valorLibro = 0.0;
+        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = d / var;
+
+        for (int i = 1; i <= depreciacion.getN() * var; i++) {
+            acumulada = acumulada + d;
+            valorLibro = depreciacion.getP() - acumulada;
+            lista.add(new DepreciacionAcumulada(i, d, acumulada, valorLibro));
+        }
+
+        return lista;
+    }
+
+    private void calcularPrecio() {
+
+        if (meses > listaAcumuladas.size()) {
+            precioVenta = listaAcumuladas.get(listaAcumuladas.size() - 1).getValorLibros();
+        } else {
+            if (meses == 0) {
+                precioVenta = depreciacion.getP();
+            } else {
+                for (int i = 0; i < listaAcumuladas.size(); i++) {
+                    if (meses == listaAcumuladas.get(i).getNumeroAnio()) {
+                        precioVenta = listaAcumuladas.get(i).getValorLibros();
+                    }
+                }
+            }
+        }
+
+    }
 }

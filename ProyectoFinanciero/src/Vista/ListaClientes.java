@@ -223,6 +223,11 @@ public class ListaClientes extends javax.swing.JFrame {
         BtnModifica.setForeground(new java.awt.Color(255, 255, 255));
         BtnModifica.setText("MODIFICAR");
         BtnModifica.setEnabled(false);
+        BtnModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificaActionPerformed(evt);
+            }
+        });
         getContentPane().add(BtnModifica);
         BtnModifica.setBounds(290, 130, 120, 30);
 
@@ -301,6 +306,12 @@ public class ListaClientes extends javax.swing.JFrame {
             verTablaCondicionadaCarteras(2);
         }
     }//GEN-LAST:event_comboCarteraItemStateChanged
+
+    private void BtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificaActionPerformed
+        // TODO add your handling code here:
+        ModificarClientes vista = new ModificarClientes(objeto);
+        vista.setVisible(true);
+    }//GEN-LAST:event_BtnModificaActionPerformed
 
     /**
      * @param args the command line arguments

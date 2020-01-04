@@ -118,6 +118,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
         btnEstado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        btnRevaluar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -152,7 +153,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
                 BtnVerActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 90, 30));
+        getContentPane().add(BtnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 30));
 
         jButton3.setBackground(new java.awt.Color(0, 51, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -163,7 +164,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, 30));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 180, 30));
 
         btnEstado.setBackground(new java.awt.Color(204, 0, 0));
         btnEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -175,7 +176,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
                 btnEstadoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 120, 30));
+        getContentPane().add(btnEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 120, 30));
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,6 +192,17 @@ public class ListaActivoFijo extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 850, 380));
+
+        btnRevaluar.setBackground(new java.awt.Color(255, 102, 51));
+        btnRevaluar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRevaluar.setText("REEVALUAR");
+        btnRevaluar.setEnabled(false);
+        btnRevaluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRevaluarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRevaluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 130, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 970, 700));
@@ -246,6 +258,12 @@ public class ListaActivoFijo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboEstadoActionPerformed
 
+    private void btnRevaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevaluarActionPerformed
+        // TODO add your handling code here:
+        Reevaluar vista = new Reevaluar(objeto);
+        vista.setVisible(true);
+    }//GEN-LAST:event_btnRevaluarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,7 +272,9 @@ public class ListaActivoFijo extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnEstado;
+    private javax.swing.JButton btnRevaluar;
     private javax.swing.JComboBox<String> comboEstado;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -268,8 +288,9 @@ public class ListaActivoFijo extends javax.swing.JFrame {
         objeto = new Activo();
         objeto = listaActivo.get(posicion - 1);
         BtnVer.setEnabled(true);
-
+        btnRevaluar.setEnabled(true);
         btnEstado.setEnabled(true);
+        
         if (objeto.getEstado() == 0) {
             btnEstado.setBackground(Color.GREEN);
             btnEstado.setText("DAR DE ALTA");

@@ -17,19 +17,34 @@ import javax.swing.JOptionPane;
  *
  * @author jose
  */
-public class RegistrarCredito extends javax.swing.JFrame {
+public class ModificarCredito extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarClientes
      */
     ControladorCredito controladorCredito;
+    Credito credito;
 
-    public RegistrarCredito() {
+    public ModificarCredito(Credito obj) {
         initComponents();
         setSize(900, 660);
         setLocationRelativeTo(null);
+        credito = obj;
 
         controladorCredito = new ControladorCredito();
+
+        CajaNombre.setText(credito.getTipo());
+        CajaPlazoMax.setText("" + credito.getPlazoMax());
+        cajaCanMin.setText("" + credito.getCantidadMin());
+        cajaCanMax.setText("" + credito.getCantidadMax());
+        cajaInteres.setText("" + credito.getInteres());
+
+        if (credito.getGarantia().equals("AVAL")) {
+            comboTipo.setSelectedIndex(0);
+        } else {
+            comboTipo.setSelectedIndex(1);
+        }
+
     }
 
     /**
@@ -130,19 +145,19 @@ public class RegistrarCredito extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(190, 490, 100, 30);
+        jButton1.setBounds(190, 490, 110, 30);
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botonRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar.setText("Registrar");
+        botonRegistrar.setText("MODIFICAR");
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegistrarActionPerformed(evt);
             }
         });
         getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(60, 490, 110, 30);
+        botonRegistrar.setBounds(60, 490, 120, 30);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,9 +192,15 @@ public class RegistrarCredito extends javax.swing.JFrame {
             String garantia = comboTipo.getSelectedItem().toString();
 
             if (canMax > canMin) {
-                Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
-                controladorCredito.Agregar(credito);
-                JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                //Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
+                credito.setTipo(nombre);
+                credito.setPlazoMax(plazoMax);
+                credito.setCantidadMax(canMax);
+                credito.setCantidadMin(canMin);
+                credito.setGarantia(garantia);
+                credito.setInteres(tasa);
+                controladorCredito.Modificar(credito);
+                JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "DEBE SER MAYOR LA CANTIDAD MAXIMA QUE LA CANTIDAD MINIMA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);

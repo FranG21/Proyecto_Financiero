@@ -22,26 +22,27 @@ import javax.swing.JOptionPane;
  * @author GM
  */
 public class ControladorCredito {
+
     public Conexion conexion;
 
     public ControladorCredito() {
         conexion = new Conexion();
         PreparedStatement st = null;
     }
-    
+
     public void Agregar(Credito x) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO creditos (tipo,plazom,cmax,cmin,garantia,interes) VALUES"
-                    + " ('" + x.getTipo()+ "'," + x.getPlazoMax()+ "," + x.getCantidadMax() + "," + x.getCantidadMin() + ",'" + x.getGarantia() + "'," + x.getInteres() + ")";
+                    + " ('" + x.getTipo() + "'," + x.getPlazoMax() + "," + x.getCantidadMax() + "," + x.getCantidadMin() + ",'" + x.getGarantia() + "'," + x.getInteres() + ")";
             st.executeUpdate(sql);
             conexion.cerrarConexion();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public ArrayList<Credito> obtenerLista() {
         ArrayList<Credito> auxs = new ArrayList<>();
         ResultSet rs = null;
@@ -68,7 +69,7 @@ public class ControladorCredito {
         }
         return auxs;
     }
-    
+
     public ArrayList<Credito> obtenerListaEstado() {
         ArrayList<Credito> auxs = new ArrayList<>();
         ResultSet rs = null;
@@ -95,13 +96,13 @@ public class ControladorCredito {
         }
         return auxs;
     }
-    
+
     public ArrayList<Credito> obtenerListaUnica(int id) {
         ArrayList<Credito> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM creditos WHERE idCre="+id+" ORDER BY tipo";
+            String sql = "SELECT * FROM creditos WHERE idCre=" + id + " ORDER BY tipo";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -122,4 +123,18 @@ public class ControladorCredito {
         }
         return auxs;
     }
+
+    public void Modificar(Credito x) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE creditos SET tipo='" + x.getTipo() + "', plazom="+x.getPlazoMax()+", cmax="+x.getCantidadMax()+","
+                    + " cmin="+x.getCantidadMin()+", garantia='"+x.getGarantia()+"', interes="+x.getInteres()+" WHERE idCre=" + x.getId();
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
 }

@@ -73,7 +73,35 @@ public class ControladorDeparamento {
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM departamento WHERE departamento.estado="+var+" ORDER BY codigo ASC";
+            String sql = "SELECT * FROM departamento WHERE departamento.estado=" + var + " ORDER BY codigo ASC";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Departamento aux = new Departamento();
+
+                aux.setIdDep(rs.getInt("idDep"));
+                aux.setNombreDep(rs.getString("nombre"));
+                aux.setCodigo(rs.getString("codigo"));
+                aux.setEstado(rs.getInt("estado"));
+                listaDepartamentos.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return listaDepartamentos;
+    }
+
+    public ArrayList<Departamento> obtenerListaCondicionadaId(int var) {
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * "
+                    + "FROM "
+                    + "departamento "
+                    + "WHERE idDep="+var
+                    + " LIMIT 1";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {

@@ -331,5 +331,18 @@ public class ControladorActivo {
         }
         return x;
     }
+    
+    public void Revaluar(Double x, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE detalle_activo SET valor_historico=" + x + " WHERE activofijo_id=" + id;
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
 }

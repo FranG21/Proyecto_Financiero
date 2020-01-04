@@ -172,5 +172,54 @@ public class ControladorCliente {
         }
         return auxs;
     }
+    
+    public boolean existeDui(String dui) {
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE dui='"+dui+"' LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+    
+    public boolean existeNit(String nit) {
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE nit='"+nit+"' LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+    
+    public void Modificar(Cliente x) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE cliente SET nombre='" + x.getNombre() + "', apellido='"+x.getApellidos_Representante()+"', dui='"+x.getDui()+"',"
+                    + " nit='"+x.getNit()+"', tel='"+x.getTelefono()+"', ocupacion='"+x.getOcupacion()+"', depa='"+x.getDepartmento()+"', direc='"+x.getDireccion()+"', tipo="+x.getTipo()+" WHERE idCliente=" + x.getId();
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }
 
 }

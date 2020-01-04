@@ -256,6 +256,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
             Integer idCliente = cliente.getId();
             Integer idCredito = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getId();
+            Double montoMin = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getCantidadMin();
             Double monto = Double.parseDouble(CajaMonto.getText());
             int plazo = Integer.parseInt(CajaPlazo.getText());
             Double intereses = 0.00;
@@ -266,28 +267,32 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
             asignarTipo();
 
-            Prestamo x = new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
-            controladorPrestamo.Agregar(x);
-            x.setId(controladorPrestamo.obtenerUltimoRegistro());
+            if (monto > montoMin) {
+                Prestamo x = new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
+                controladorPrestamo.Agregar(x);
+                x.setId(controladorPrestamo.obtenerUltimoRegistro());
 
-            for (int i = 0; i < plazo; i++) {
-                intereses = monto * in;
+                for (int i = 0; i < plazo; i++) {
+                    intereses = monto * in;
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
-                calendar.add(Calendar.MONTH, 1);
-                fechaActual = calendar.getTime();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(fechaActual); // Configuramos la fecha que se recibe
+                    calendar.add(Calendar.MONTH, 1);
+                    fechaActual = calendar.getTime();
 
-                amortizacion = new Amortizacion(fechaActual, monto, cuota - intereses, intereses, cuota, monto, x.getId());
-                monto = monto - (cuota - intereses);
-                amortizacion.setSaldoFinal(monto);
+                    amortizacion = new Amortizacion(fechaActual, monto, cuota - intereses, intereses, cuota, monto, x.getId());
+                    monto = monto - (cuota - intereses);
+                    amortizacion.setSaldoFinal(monto);
 
-                controladorAmortizacion.Agregar(amortizacion);
-                listaAmortizacion.add(amortizacion);
+                    controladorAmortizacion.Agregar(amortizacion);
+                    listaAmortizacion.add(amortizacion);
+                }
+                JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "DEBE D INGRESAR UN MONTO MAYOR AL MINIMO QUE ES $"+montoMin, "EXITO", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
         }

@@ -111,7 +111,7 @@ public class ListaReevaluar extends javax.swing.JFrame {
 
         jButton1.setText("BUSCAR");
         getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 23);
+        jButton1.setBounds(780, 50, 90, 32);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,8 +131,8 @@ public class ListaReevaluar extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         Reevaluar vista = new Reevaluar();
-        vista.setVisible(true);
+        // Reevaluar vista = new Reevaluar();
+        //vista.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

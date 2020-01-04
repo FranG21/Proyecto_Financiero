@@ -15,21 +15,43 @@ import javax.swing.JOptionPane;
  *
  * @author jose
  */
-public class RegistrarClientes extends javax.swing.JFrame {
+public class ModificarClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarClientes
      */
     SimpleDateFormat forma;
     ControladorCliente controladorCliente;
+    Cliente cliente;
+    String duiAux, nitAux;
 
-    public RegistrarClientes() {
+    public ModificarClientes(Cliente obj) {
         initComponents();
         setSize(900, 660);
         setLocationRelativeTo(null);
         forma = new SimpleDateFormat("dd-MM-YYYY");
-        CajaFecha.setText(forma.format(new Date()));
+
         controladorCliente = new ControladorCliente();
+        cliente = obj;
+        duiAux = cliente.getDui();
+        nitAux = cliente.getNit();
+
+        CajaNombre.setText(cliente.getNombre());
+        CajaApellidos.setText(cliente.getApellidos_Representante());
+        CajaNit.setText(cliente.getNit());
+        CajaDUI.setText(cliente.getDui());
+        CajaTel.setText(cliente.getTelefono());
+        CajaOcupacion.setText(cliente.getOcupacion());
+        Direccion.setText(cliente.getDireccion());
+
+        posicionarCombo();
+        
+        if(cliente.getTipo()==0){
+            comboTipo.setSelectedIndex(0);
+        }else{
+            comboTipo.setSelectedIndex(1);
+        }
+
     }
 
     /**
@@ -46,14 +68,12 @@ public class RegistrarClientes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         TxtApellidos = new javax.swing.JLabel();
         comboDepartamento = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         TxtDui = new javax.swing.JLabel();
         TxtNit = new javax.swing.JLabel();
         CajaDUI = new javax.swing.JTextField();
         CajaNombre = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         Txt = new javax.swing.JLabel();
-        CajaFecha = new javax.swing.JTextField();
         TxtOcupacion = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
         CajaOcupacion = new javax.swing.JTextField();
@@ -71,9 +91,7 @@ public class RegistrarClientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(600, 600));
         setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
         getContentPane().setLayout(null);
         getContentPane().add(CajaApellidos);
         CajaApellidos.setBounds(500, 180, 200, 30);
@@ -95,12 +113,6 @@ public class RegistrarClientes extends javax.swing.JFrame {
         comboDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AGUACHAPAN", "SONSONATE", "SANTA ANA", "SAN SALVADOR", "CHALATENANGO", "CUSCATLAN", "CABAÑAS", "LA LIBERTAD", "LA PAZ", "SAN VICENTE", "USUALUTAN", "SAN MIGUEL", "MARAZAN", "LA UNION" }));
         getContentPane().add(comboDepartamento);
         comboDepartamento.setBounds(560, 320, 200, 30);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("FECHA DE REGISTRO");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(400, 100, 130, 30);
 
         TxtDui.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtDui.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,10 +145,6 @@ public class RegistrarClientes extends javax.swing.JFrame {
         Txt.setText("DEPARTAMENTO");
         getContentPane().add(Txt);
         Txt.setBounds(440, 320, 130, 30);
-
-        CajaFecha.setEnabled(false);
-        getContentPane().add(CajaFecha);
-        CajaFecha.setBounds(530, 100, 200, 30);
 
         TxtOcupacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtOcupacion.setForeground(new java.awt.Color(255, 255, 255));
@@ -237,23 +245,39 @@ public class RegistrarClientes extends javax.swing.JFrame {
             String departamento = comboDepartamento.getSelectedItem().toString();
             String ocupacion = CajaOcupacion.getText();
             String direcion = Direccion.getText();
-            Date fecha = new Date();
+
             Integer tipo = comboTipo.getSelectedIndex();
 
-            if (controladorCliente.existeNit(nit)) {
+            // Cliente cliente = new Cliente(nombre, apellidos_Representante, dui_Representante, nit, telefono,
+            //ocupacion, departamento, fecha, direcion, tipo);
+            cliente.setNombre(nombre);
+            cliente.setApellidos_Representante(apellidos_Representante);
+            cliente.setDui(dui_Representante);
+            cliente.setNit(nit);
+            cliente.setTelefono(telefono);
+            cliente.setOcupacion(ocupacion);
+            cliente.setDepartmento(departamento);
+            cliente.setDireccion(direcion);
+            cliente.setTipo(tipo);
 
-                if (controladorCliente.existeDui(dui_Representante)) {
-                    Cliente cliente = new Cliente(nombre, apellidos_Representante, dui_Representante, nit, telefono, ocupacion, departamento, fecha, direcion, tipo);
-                    controladorCliente.Agregar(cliente);
-                    JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } else {
-                JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE DUI", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-            }
-
-
+            if (dui_Representante.equals(duiAux) || nit.equals(nitAux)) {
+                controladorCliente.Modificar(cliente);
+                JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE NIT", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+
+                if (controladorCliente.existeNit(nit)) {
+
+                    if (controladorCliente.existeDui(dui_Representante)) {
+                        controladorCliente.Modificar(cliente);
+                        JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE DUI", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE NIT", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                }
             }
 
         } else {
@@ -317,7 +341,6 @@ public class RegistrarClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaApellidos;
     private javax.swing.JTextField CajaDUI;
-    private javax.swing.JTextField CajaFecha;
     private javax.swing.JTextField CajaNit;
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JTextField CajaNombre2;
@@ -337,7 +360,6 @@ public class RegistrarClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -355,5 +377,37 @@ public class RegistrarClientes extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+
+    private void posicionarCombo() {
+        if (cliente.getDepartmento().equals("AGUACHAPAN")) {
+            comboDepartamento.setSelectedIndex(0);
+        } else if (cliente.getDepartmento().equals("SONSONATE")) {
+            comboDepartamento.setSelectedIndex(1);
+        } else if (cliente.getDepartmento().equals("SANTA ANA")) {
+            comboDepartamento.setSelectedIndex(2);
+        } else if (cliente.getDepartmento().equals("SAN SALVADOR")) {
+            comboDepartamento.setSelectedIndex(3);
+        } else if (cliente.getDepartmento().equals("CHALATENANGO")) {
+            comboDepartamento.setSelectedIndex(4);
+        } else if (cliente.getDepartmento().equals("CUSCATLAN")) {
+            comboDepartamento.setSelectedIndex(5);
+        } else if (cliente.getDepartmento().equals("CABAÑAS")) {
+            comboDepartamento.setSelectedIndex(6);
+        } else if (cliente.getDepartmento().equals("LA LIBERTAD")) {
+            comboDepartamento.setSelectedIndex(7);
+        } else if (cliente.getDepartmento().equals("LA PAZ")) {
+            comboDepartamento.setSelectedIndex(8);
+        } else if (cliente.getDepartmento().equals("SAN VICENTE")) {
+            comboDepartamento.setSelectedIndex(9);
+        } else if (cliente.getDepartmento().equals("USUALUTAN")) {
+            comboDepartamento.setSelectedIndex(10);
+        } else if (cliente.getDepartmento().equals("SAN MIGUEL")) {
+            comboDepartamento.setSelectedIndex(11);
+        } else if (cliente.getDepartmento().equals("MORAZAN")) {
+            comboDepartamento.setSelectedIndex(12);
+        } else if (cliente.getDepartmento().equals("LA UNION")) {
+            comboDepartamento.setSelectedIndex(13);
+        }
     }
 }

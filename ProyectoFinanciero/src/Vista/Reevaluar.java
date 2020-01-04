@@ -5,7 +5,12 @@
  */
 package Vista;
 
+import Controlador.ControladorActivo;
+import Modelo.Activo;
+import Modelo.DetalleActivo;
 import java.awt.Dimension;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,15 +22,28 @@ public class Reevaluar extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarClientes
      */
-    public Reevaluar() {
+    Activo activo;
+    ControladorActivo controladorActivo;
+    ArrayList<DetalleActivo> listaDetalle;
+    DecimalFormat format;
+
+    public Reevaluar(Activo obj) {
         initComponents();
-       
+
+        activo = obj;
+        controladorActivo = new ControladorActivo();
+        listaDetalle = new ArrayList<>();
+        format = new DecimalFormat("0.00");
+        listaDetalle = controladorActivo.obtenerListaDetalle(activo.getId());
+
+        CajaActual.setText(format.format(listaDetalle.get(0).getPrecio()));
+
         //Línea 1
         this.setSize(new Dimension(830, 264));
-        
+
         //Línea 2
         this.setMinimumSize(new Dimension(830, 264));
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,9 +58,9 @@ public class Reevaluar extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         TxtNit = new javax.swing.JLabel();
-        CajaNombre = new javax.swing.JTextField();
+        CajaActual = new javax.swing.JTextField();
         TxtNombre2 = new javax.swing.JLabel();
-        CajaNit = new javax.swing.JTextField();
+        CajaNuevo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -66,40 +84,42 @@ public class Reevaluar extends javax.swing.JFrame {
         TxtNit.setText("PRECIO NUEVO:");
         getContentPane().add(TxtNit);
         TxtNit.setBounds(440, 110, 130, 30);
-        getContentPane().add(CajaNombre);
-        CajaNombre.setBounds(200, 110, 200, 30);
+
+        CajaActual.setEnabled(false);
+        getContentPane().add(CajaActual);
+        CajaActual.setBounds(200, 110, 200, 30);
 
         TxtNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtNombre2.setForeground(new java.awt.Color(255, 255, 255));
         TxtNombre2.setText("PRECIO ACTUAL:");
         getContentPane().add(TxtNombre2);
         TxtNombre2.setBounds(80, 110, 120, 30);
-        getContentPane().add(CajaNit);
-        CajaNit.setBounds(590, 110, 200, 30);
+        getContentPane().add(CajaNuevo);
+        CajaNuevo.setBounds(590, 110, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
+        jButton1.setText("CANCELAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(270, 170, 100, 30);
+        jButton1.setBounds(270, 170, 120, 30);
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botonRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar.setText("Registrar");
+        botonRegistrar.setText("GUARDAR");
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegistrarActionPerformed(evt);
             }
         });
         getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(120, 170, 110, 30);
+        botonRegistrar.setBounds(120, 170, 120, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,6 +137,14 @@ public class Reevaluar extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+        if (validar()) {
+            Double nuevoPrecio = Double.parseDouble(CajaNuevo.getText());
+            controladorActivo.Revaluar(nuevoPrecio, activo.getId());
+            JOptionPane.showMessageDialog(null, "ACTIVO REVALUADO", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**
@@ -155,8 +183,8 @@ public class Reevaluar extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CajaNit;
-    private javax.swing.JTextField CajaNombre;
+    private javax.swing.JTextField CajaActual;
+    private javax.swing.JTextField CajaNuevo;
     private javax.swing.JLabel TxtNit;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
@@ -165,4 +193,11 @@ public class Reevaluar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validar() {
+        if (CajaNuevo.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
 }
