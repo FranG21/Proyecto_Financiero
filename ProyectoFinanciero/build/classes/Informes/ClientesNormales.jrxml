@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a09c7f89-36bf-438f-8bb5-e45d42a6a7a6">
-	<property name="ireport.zoom" value="1.1000000000000014"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a09c7f89-36bf-438f-8bb5-e45d42a6a7a6">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="300"/>
+	<property name="ireport.y" value="28"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -21,7 +21,7 @@ cliente.dui,
 cliente.tel,
 cliente.ocupacion,
 cliente.depa,
-TIMESTAMPDIFF(YEAR,cliente.fecha,CURDATE()) AS edad,
+cliente.fecha AS edad,
 cliente.tipo,
 cliente.cartera,
 cliente.estado
@@ -51,7 +51,7 @@ cliente.apellido ASC]]>
 	<field name="depa" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="edad" class="java.lang.Long"/>
+	<field name="edad" class="java.sql.Date"/>
 	<field name="tipo" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -109,28 +109,28 @@ cliente.apellido ASC]]>
 					<text><![CDATA[DUI]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="336" y="35" width="34" height="18" forecolor="#000000" uuid="8b26fb2f-e1b4-4dfa-9d6a-51249dbe3e8e"/>
+					<reportElement style="Column header" x="337" y="34" width="66" height="18" forecolor="#000000" uuid="8b26fb2f-e1b4-4dfa-9d6a-51249dbe3e8e"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Edad]]></text>
+					<text><![CDATA[Registrado]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="377" y="34" width="54" height="18" forecolor="#000000" uuid="edd3b03c-72e0-4ad1-8bae-92ecd6158678"/>
+					<reportElement style="Column header" x="410" y="34" width="54" height="18" forecolor="#000000" uuid="edd3b03c-72e0-4ad1-8bae-92ecd6158678"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Teléfono]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="450" y="34" width="84" height="18" forecolor="#000000" uuid="dc6f2a2a-ec7c-4556-83f2-8566599a3eee"/>
+					<reportElement style="Column header" x="485" y="35" width="84" height="18" forecolor="#000000" uuid="dc6f2a2a-ec7c-4556-83f2-8566599a3eee"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Ocupación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Column header" x="614" y="34" width="107" height="18" forecolor="#000000" uuid="f87b8615-c61f-4576-a494-f2191591cb7b"/>
+					<reportElement style="Column header" x="648" y="34" width="107" height="18" forecolor="#000000" uuid="f87b8615-c61f-4576-a494-f2191591cb7b"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -149,7 +149,7 @@ cliente.apellido ASC]]>
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="725" y="0" width="77" height="102" uuid="2c63a1df-5f4a-473e-b53f-097932cf0f31"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/Informes/ues.jpg"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="abd09ab8-3a13-41db-83b1-5ff77406fda7"/>
@@ -166,7 +166,7 @@ cliente.apellido ASC]]>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Clientes con cartera normal]]></text>
+					<text><![CDATA[Clientes normales]]></text>
 				</staticText>
 			</frame>
 			<frame>
@@ -206,32 +206,25 @@ cliente.apellido ASC]]>
 					<textFieldExpression><![CDATA[$F{dui}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="377" y="0" width="70" height="18" uuid="c5636e3a-3643-42ee-ac47-ec3012faf735"/>
+					<reportElement style="Detail" positionType="Float" x="410" y="0" width="70" height="18" uuid="c5636e3a-3643-42ee-ac47-ec3012faf735"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{tel}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="450" y="0" width="164" height="18" uuid="99d6368b-fd7a-4ef5-8f2a-a218937928e8"/>
+					<reportElement style="Detail" positionType="Float" x="485" y="0" width="151" height="18" uuid="99d6368b-fd7a-4ef5-8f2a-a218937928e8"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ocupacion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="614" y="0" width="183" height="18" uuid="7dbcbabb-5023-4257-a83d-9d6589fe4d72"/>
+					<reportElement style="Detail" positionType="Float" x="648" y="0" width="149" height="18" uuid="7dbcbabb-5023-4257-a83d-9d6589fe4d72"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{depa}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="345" y="0" width="20" height="18" uuid="150694b9-dae9-456b-8927-bbc6c15a6b42"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement mode="Transparent" x="2" y="0" width="18" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="faec20e3-c169-40ee-9782-c9d216ef5ef3"/>
@@ -240,6 +233,14 @@ cliente.apellido ASC]]>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="337" y="0" width="66" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="eef129ff-7c65-4557-b5e6-2940a06fac46"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

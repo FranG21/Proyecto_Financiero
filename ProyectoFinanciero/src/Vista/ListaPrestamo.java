@@ -8,6 +8,7 @@ package Vista;
 import Controlador.ControladorCategoria;
 import Controlador.ControladorPrestamo;
 import Controlador.ControladorSubCategoria;
+import Informes.MostrarReportes;
 import Modelo.Categoria;
 import Modelo.Cliente;
 import Modelo.Prestamo;
@@ -104,8 +105,8 @@ public class ListaPrestamo extends javax.swing.JFrame {
 
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
-        modelo.addColumn("NOMBRE");
         modelo.addColumn("DUI");
+        modelo.addColumn("NOMBRE");
         modelo.addColumn("ESTADO");
         modelo.addColumn("PLAZO (MESES)");
         modelo.addColumn("MONTO");
@@ -127,6 +128,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
         BtnVer = new javax.swing.JButton();
         BtnAmortizacion = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        BtnImprimir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaSCat = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -175,6 +177,17 @@ public class ListaPrestamo extends javax.swing.JFrame {
         });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 180, 30));
 
+        BtnImprimir.setBackground(new java.awt.Color(153, 102, 255));
+        BtnImprimir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        BtnImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        BtnImprimir.setText("IMPRIMIR");
+        BtnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnImprimirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, 130, 30));
+
         TablaSCat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -211,12 +224,18 @@ public class ListaPrestamo extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_BtnAmortizacionActionPerformed
 
+    private void BtnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnImprimirActionPerformed
+        // TODO add your handling code here:
+        new MostrarReportes().CreditosCliente(cliente.getId());
+    }//GEN-LAST:event_BtnImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAmortizacion;
+    private javax.swing.JButton BtnImprimir;
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable TablaSCat;
     private javax.swing.JButton btnAgregar;

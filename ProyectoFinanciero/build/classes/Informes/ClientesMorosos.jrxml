@@ -28,7 +28,7 @@ cliente.estado
 FROM
 cliente
 WHERE
-cliente.cartera = 0
+cliente.cartera = 1
 ORDER BY
 cliente.estado DESC,
 cliente.apellido ASC]]>
@@ -166,7 +166,7 @@ cliente.apellido ASC]]>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Clientes normales]]></text>
+					<text><![CDATA[Clientes morosos]]></text>
 				</staticText>
 			</frame>
 			<frame>
