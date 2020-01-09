@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="btnCuentasPorCobrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="CUENTAS POR COBRAR"/>
           </Properties>
@@ -27,7 +27,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="btnActivoFijo">
           <Properties>
             <Property name="text" type="java.lang.String" value="ACTIVO FIJO"/>
           </Properties>
@@ -90,7 +90,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="btnProveedores">
           <Properties>
             <Property name="text" type="java.lang.String" value="PROVEEDORES"/>
           </Properties>
@@ -110,7 +110,7 @@
             <Property name="text" type="java.lang.String" value="INFORMES"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="jMenu5">
+            <Menu class="javax.swing.JMenu" name="btnInformeActivoFijo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ACTIVO FIJOS"/>
               </Properties>
@@ -141,7 +141,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="jMenu6">
+            <Menu class="javax.swing.JMenu" name="btnInformeCuentasPorCobrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CUENTAS POR COBRAR"/>
               </Properties>
@@ -172,6 +172,21 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="btnUsuarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="USUARIOS"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="REGISTRAR"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem17ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
