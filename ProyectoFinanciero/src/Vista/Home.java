@@ -82,8 +82,10 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, Short.MAX_VALUE)
         );
 
+        btnCuentasPorCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/money.png"))); // NOI18N
         btnCuentasPorCobrar.setText("CUENTAS POR COBRAR");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group.png"))); // NOI18N
         jMenuItem1.setText("CLIENTES");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +94,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnCuentasPorCobrar.add(jMenuItem1);
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cash.png"))); // NOI18N
         jMenuItem12.setText("CREDITOS");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,8 +105,10 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(btnCuentasPorCobrar);
 
+        btnActivoFijo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cityscape.png"))); // NOI18N
         btnActivoFijo.setText("ACTIVO FIJO");
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/hierarchy.png"))); // NOI18N
         jMenuItem7.setText("CATEGORIA");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +117,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem7);
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sc.png"))); // NOI18N
         jMenuItem8.setText("SUBCATEGORIA");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +126,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem8);
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/org.png"))); // NOI18N
         jMenuItem10.setText("DEPARTAMENTO");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +135,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem10);
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/buy.png"))); // NOI18N
         jMenuItem9.setText("COMPRA");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +144,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem9);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scales.png"))); // NOI18N
         jMenuItem2.setText("REEVALUAR");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +153,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem2);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/down.png"))); // NOI18N
         jMenuItem5.setText("DEPRECIAR");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +162,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnActivoFijo.add(jMenuItem5);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sell.png"))); // NOI18N
         jMenuItem6.setText("VENDER");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,8 +173,10 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(btnActivoFijo);
 
+        btnProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shopping-cart.png"))); // NOI18N
         btnProveedores.setText("PROVEEDORES");
 
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shopping-cart.png"))); // NOI18N
         jMenuItem11.setText("PROVEEDORES");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,10 +187,13 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(btnProveedores);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/tablet.png"))); // NOI18N
         jMenu4.setText("INFORMES");
 
+        btnInformeActivoFijo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cityscape.png"))); // NOI18N
         btnInformeActivoFijo.setText("ACTIVO FIJOS");
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cityscape.png"))); // NOI18N
         jMenuItem4.setText("ACTIVOS FIJOS");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +202,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnInformeActivoFijo.add(jMenuItem4);
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shopping-cart.png"))); // NOI18N
         jMenuItem13.setText("PROVEEDORES");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +211,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnInformeActivoFijo.add(jMenuItem13);
 
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cash.png"))); // NOI18N
         jMenuItem14.setText("VENTAS");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,8 +222,10 @@ public class Home extends javax.swing.JFrame {
 
         jMenu4.add(btnInformeActivoFijo);
 
+        btnInformeCuentasPorCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/money.png"))); // NOI18N
         btnInformeCuentasPorCobrar.setText("CUENTAS POR COBRAR");
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 1.png"))); // NOI18N
         jMenuItem3.setText("CLIENTES NORMALES");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,6 +234,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnInformeCuentasPorCobrar.add(jMenuItem3);
 
+        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 2.png"))); // NOI18N
         jMenuItem15.setText("CLIENTES MOROSOS");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +243,7 @@ public class Home extends javax.swing.JFrame {
         });
         btnInformeCuentasPorCobrar.add(jMenuItem15);
 
+        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 3.png"))); // NOI18N
         jMenuItem16.setText("CLIENTES INCOBRABLES");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,8 +256,10 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/businessman.png"))); // NOI18N
         btnUsuarios.setText("USUARIOS");
 
+        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
         jMenuItem17.setText("REGISTRAR");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
