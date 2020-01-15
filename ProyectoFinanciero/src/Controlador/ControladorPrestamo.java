@@ -48,7 +48,7 @@ public class ControladorPrestamo {
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM prestamo WHERE idCli="+var+" ORDER BY idPres ASC";
+            String sql = "SELECT * FROM prestamo WHERE idCli="+var+" ORDER BY idPres DESC";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {

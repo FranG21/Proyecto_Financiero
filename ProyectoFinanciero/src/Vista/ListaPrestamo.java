@@ -84,8 +84,8 @@ public class ListaPrestamo extends javax.swing.JFrame {
 
             @Override
             public void windowActivated(WindowEvent e) {
-                validarAgregar();
-                verTabla();
+              validarAgregar();
+              verTabla();
             }
 
             @Override

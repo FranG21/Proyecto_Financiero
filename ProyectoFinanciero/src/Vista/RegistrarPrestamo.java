@@ -73,7 +73,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         CajaDui.setText(cliente.getDui());
         CajaNombre.setText(cliente.getNombre());
 
-        listaCreditos = controladorCredito.obtenerListaEstado();
+        listaCreditos = controladorCredito.obtenerListaEstado(cliente.getTipo());
         llenarCombo();
         //Línea 1
         this.setSize(new Dimension(899, 450));

@@ -57,8 +57,9 @@ public class RegistrarCredito extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        comboCategoria = new javax.swing.JComboBox<>();
+        Txt4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        CajaNombre2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -150,13 +151,22 @@ public class RegistrarCredito extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(20, 120, 130, 30);
 
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PERSONA NATURAL", "PERSONA JURIDICA" }));
+        getContentPane().add(comboCategoria);
+        comboCategoria.setBounds(200, 380, 200, 30);
+
+        Txt4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Txt4.setForeground(new java.awt.Color(255, 255, 255));
+        Txt4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Txt4.setText("CATEGORIA");
+        getContentPane().add(Txt4);
+        Txt4.setBounds(30, 380, 130, 30);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -60, 920, 680);
-        getContentPane().add(CajaNombre2);
-        CajaNombre2.setBounds(80, 180, 200, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,6 +188,7 @@ public class RegistrarCredito extends javax.swing.JFrame {
 
             if (canMax > canMin) {
                 Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
+                credito.setClasifiacion(comboCategoria.getSelectedIndex());
                 controladorCredito.Agregar(credito);
                 JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
@@ -227,16 +238,17 @@ public class RegistrarCredito extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaNombre;
-    private javax.swing.JTextField CajaNombre2;
     private javax.swing.JTextField CajaPlazoMax;
     private javax.swing.JLabel Txt;
     private javax.swing.JLabel Txt2;
+    private javax.swing.JLabel Txt4;
     private javax.swing.JLabel TxtApellidos;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JTextField cajaCanMax;
     private javax.swing.JTextField cajaCanMin;
     private javax.swing.JTextField cajaInteres;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

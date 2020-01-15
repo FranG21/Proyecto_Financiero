@@ -41,7 +41,6 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     int posicion = -1;
     Cliente cliente;
     Double cuota = -1.0;
-   
 
     public ListaAmortizacion(Prestamo obj, Cliente cli) {
         initComponents();
@@ -54,6 +53,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
 
         formatFecha = new SimpleDateFormat("dd-MM-YYYY");
         forma = new DecimalFormat("0.00");
+        
 
         modelo();
         verTabla();
@@ -207,7 +207,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         if (objeto.getEstado() == 0 && cliente.getEstado() == 1) {
-            if (controladorAmortizacion.ModificarEstado(cuota,1, objeto.getId())) {
+            if (controladorAmortizacion.ModificarEstado(cuota, 1, objeto.getId())) {
                 verTabla();
                 objeto.setEstado(1);
                 btnPagar.setBackground(Color.GREEN);
@@ -251,14 +251,14 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         }
 
         if (objeto.getEstado() == 1) {
-            lblCuota.setText("CUOTA CANCELADA    CUOTA: $"+forma.format(objeto.getCuota()));
+            lblCuota.setText("CUOTA CANCELADA    CUOTA: $" + forma.format(objeto.getCuota()));
         } else {
             if (objeto.getMora() == 1) {
-                cuota = objeto.getCuotaMensual()+ objeto.getCuotaMensual()* 0.15;// si se quiere en la bd se puede meter taza de mora
-                lblCuota.setText("CUOTA CON MORA    CUOTA A CANCELAR: $"+forma.format(cuota));
+                cuota = objeto.getCuotaMensual() + objeto.getCuotaMensual() * 0.15;// si se quiere en la bd se puede meter taza de mora
+                lblCuota.setText("CUOTA CON MORA    CUOTA A CANCELAR: $" + forma.format(cuota));
             } else {
                 cuota = objeto.getCuotaMensual();
-                lblCuota.setText("CUOTA PENDIENTE    CUOTA A CANCELAR: $"+forma.format(cuota));
+                lblCuota.setText("CUOTA PENDIENTE    CUOTA A CANCELAR: $" + forma.format(cuota));
             }
 
         }
@@ -297,7 +297,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     private void cambiarEstado() {
         int bandera = 0;
         for (int i = 0; i < listaAmortizacion.size(); i++) {
-            if (listaAmortizacion.get(i).getEstado() == 1) {
+            if (listaAmortizacion.get(i).getEstado() == 0) {
                 bandera = 1;
             }
         }

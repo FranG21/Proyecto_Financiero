@@ -34,8 +34,8 @@ public class ControladorCredito {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "INSERT INTO creditos (tipo,plazom,cmax,cmin,garantia,interes) VALUES"
-                    + " ('" + x.getTipo() + "'," + x.getPlazoMax() + "," + x.getCantidadMax() + "," + x.getCantidadMin() + ",'" + x.getGarantia() + "'," + x.getInteres() + ")";
+            String sql = "INSERT INTO creditos (tipo,plazom,cmax,cmin,garantia,interes,clasificacion) VALUES"
+                    + " ('" + x.getTipo() + "'," + x.getPlazoMax() + "," + x.getCantidadMax() + "," + x.getCantidadMin() + ",'" + x.getGarantia() + "'," + x.getInteres() + ","+x.getClasifiacion()+")";
             st.executeUpdate(sql);
             conexion.cerrarConexion();
         } catch (Exception e) {
@@ -61,6 +61,7 @@ public class ControladorCredito {
                 aux.setCantidadMin(rs.getDouble(5));
                 aux.setGarantia(rs.getString(6));
                 aux.setInteres(rs.getDouble(7));
+                aux.setClasifiacion(rs.getInt(8));
                 auxs.add(aux);
             }
             conexion.cerrarConexion();
@@ -70,12 +71,12 @@ public class ControladorCredito {
         return auxs;
     }
 
-    public ArrayList<Credito> obtenerListaEstado() {
+    public ArrayList<Credito> obtenerListaEstado(int x) {
         ArrayList<Credito> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM creditos ORDER BY tipo";
+            String sql = "SELECT * FROM creditos WHERE clasificacion="+x+" ORDER BY tipo";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -129,7 +130,7 @@ public class ControladorCredito {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "UPDATE creditos SET tipo='" + x.getTipo() + "', plazom="+x.getPlazoMax()+", cmax="+x.getCantidadMax()+","
-                    + " cmin="+x.getCantidadMin()+", garantia='"+x.getGarantia()+"', interes="+x.getInteres()+" WHERE idCre=" + x.getId();
+                    + " cmin="+x.getCantidadMin()+", garantia='"+x.getGarantia()+"', interes="+x.getInteres()+", clasificacion="+x.getClasifiacion()+" WHERE idCre=" + x.getId();
             st.executeUpdate(sql);
             conexion.cerrarConexion();
         } catch (Exception e) {

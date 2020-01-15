@@ -385,7 +385,6 @@ public class ListaClientes extends javax.swing.JFrame {
         for (int j = 0; j < listaCliente.size(); j++) {
             //JOptionPane.showConfirmDialog(null, ""+listaCliente.get(j).getId());
             actualizarCarteras1(listaCliente.get(j));
-
         }
     }
 

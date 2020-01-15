@@ -44,6 +44,12 @@ public class ModificarCredito extends javax.swing.JFrame {
         } else {
             comboTipo.setSelectedIndex(1);
         }
+        
+        if (credito.getClasifiacion()==0) {
+            comboCategoria.setSelectedIndex(0);
+        } else {
+            comboCategoria.setSelectedIndex(1);
+        }
 
     }
 
@@ -71,6 +77,8 @@ public class ModificarCredito extends javax.swing.JFrame {
         cajaInteres = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
+        Txt4 = new javax.swing.JLabel();
+        comboCategoria = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         CajaNombre2 = new javax.swing.JTextField();
@@ -159,6 +167,17 @@ public class ModificarCredito extends javax.swing.JFrame {
         getContentPane().add(botonRegistrar);
         botonRegistrar.setBounds(60, 490, 120, 30);
 
+        Txt4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Txt4.setForeground(new java.awt.Color(255, 255, 255));
+        Txt4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Txt4.setText("CATEGORIA");
+        getContentPane().add(Txt4);
+        Txt4.setBounds(30, 380, 130, 30);
+
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PERSONA NATURAL", "PERSONA JURIDICA" }));
+        getContentPane().add(comboCategoria);
+        comboCategoria.setBounds(200, 380, 200, 30);
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("NOMBRE DEL CREDITO");
@@ -199,6 +218,7 @@ public class ModificarCredito extends javax.swing.JFrame {
                 credito.setCantidadMin(canMin);
                 credito.setGarantia(garantia);
                 credito.setInteres(tasa);
+                credito.setClasifiacion(comboCategoria.getSelectedIndex());
                 controladorCredito.Modificar(credito);
                 JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
@@ -252,12 +272,14 @@ public class ModificarCredito extends javax.swing.JFrame {
     private javax.swing.JTextField CajaPlazoMax;
     private javax.swing.JLabel Txt;
     private javax.swing.JLabel Txt2;
+    private javax.swing.JLabel Txt4;
     private javax.swing.JLabel TxtApellidos;
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JTextField cajaCanMax;
     private javax.swing.JTextField cajaCanMin;
     private javax.swing.JTextField cajaInteres;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

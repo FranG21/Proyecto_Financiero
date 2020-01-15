@@ -17,6 +17,7 @@ public class Credito {
     private Double cantidadMin;
     private String garantia;
     private Double interes;
+    private Integer clasifiacion;
 
     public Credito() {
     }
@@ -84,6 +85,14 @@ public class Credito {
 
     public void setInteres(Double inteeres) {
         this.interes = inteeres;
+    }
+
+    public Integer getClasifiacion() {
+        return clasifiacion;
+    }
+
+    public void setClasifiacion(Integer clasifiacion) {
+        this.clasifiacion = clasifiacion;
     }
     
     
