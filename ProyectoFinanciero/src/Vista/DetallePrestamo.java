@@ -15,6 +15,7 @@ import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,7 +59,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
 
         for (int i = 0; i < listaAmortizacion.size(); i++) {
             if (listaAmortizacion.get(i).getEstado() == 1) {
-                saldoPagado=saldoPagado+listaAmortizacion.get(i).getCuota();
+                saldoPagado = saldoPagado + listaAmortizacion.get(i).getCuota();
             }
         }
 
@@ -80,7 +81,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
 
         lbl14.setText("" + credito.getTipo());
         lbl13.setText("" + format.format(credito.getInteres()) + "%");
-        lbl15.setText("" + prestamo.getPlazo()+ " MESES");
+        lbl15.setText("" + prestamo.getPlazo() + " MESES");
         lbl16.setText("$" + format.format(prestamo.getMonto()));
         lbl17.setText("$" + format.format(prestamo.getCuota()));
         lbl18.setText("$" + format.format(saldoPagado));
@@ -89,6 +90,15 @@ public class DetallePrestamo extends javax.swing.JFrame {
             lbl22.setText("CANCELADO");
         } else {
             lbl22.setText("PENDIENTE");
+        }
+
+       // JOptionPane.showMessageDialog(null, ""+prestamo.getIdFiador());
+        if (prestamo.getIdFiador() == 0) {
+            btnVer.setEnabled(false);
+            btnVer.setText("NO TIENE FIADOR");
+        } else {
+            btnVer.setEnabled(true);
+            btnVer.setText("VER FIADOR");
         }
 
     }
@@ -122,7 +132,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
         lbl3 = new javax.swing.JLabel();
         lbl2 = new javax.swing.JLabel();
         lbl1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnVer = new javax.swing.JButton();
         lbl19 = new javax.swing.JLabel();
         lbl20 = new javax.swing.JLabel();
         lbl21 = new javax.swing.JLabel();
@@ -218,12 +228,12 @@ public class DetallePrestamo extends javax.swing.JFrame {
         lbl1.setForeground(new java.awt.Color(255, 255, 255));
         lbl1.setText("NOMBRE");
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("CERRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVer.setBackground(new java.awt.Color(255, 102, 51));
+        btnVer.setForeground(new java.awt.Color(255, 255, 255));
+        btnVer.setText("VER FIADOR");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVerActionPerformed(evt);
             }
         });
 
@@ -249,7 +259,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(145, 145, 145)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -338,7 +348,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
                     .addComponent(lbl21, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl22, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
         );
 
@@ -352,17 +362,19 @@ public class DetallePrestamo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        DetalleFiador vista = new DetalleFiador(prestamo);
+        vista.setVisible(true);
+
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
