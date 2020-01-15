@@ -80,7 +80,7 @@ public class DetallePrestamo extends javax.swing.JFrame {
 
         lbl14.setText("" + credito.getTipo());
         lbl13.setText("" + format.format(credito.getInteres()) + "%");
-        lbl15.setText("" + prestamo.getPlazo());
+        lbl15.setText("" + prestamo.getPlazo()+ " MESES");
         lbl16.setText("$" + format.format(prestamo.getMonto()));
         lbl17.setText("$" + format.format(prestamo.getCuota()));
         lbl18.setText("$" + format.format(saldoPagado));

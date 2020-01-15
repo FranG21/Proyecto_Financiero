@@ -21,6 +21,7 @@ public class Prestamo {
     private Integer estado;
     private Integer idCliente;
     private Integer idCredito;
+    private Integer idFiador;
 
     public Prestamo() {
     }
@@ -101,5 +102,15 @@ public class Prestamo {
     public void setIdCredito(Integer idCredito) {
         this.idCredito = idCredito;
     }
+
+    public Integer getIdFiador() {
+        return idFiador;
+    }
+
+    public void setIdFiador(Integer idFiador) {
+        this.idFiador = idFiador;
+    }
+    
+    
     
 }

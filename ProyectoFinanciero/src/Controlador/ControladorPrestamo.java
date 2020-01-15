@@ -43,6 +43,19 @@ public class ControladorPrestamo {
         }
     }
     
+    public void AgregarConF(Prestamo x) {
+        try {SimpleDateFormat forma=new SimpleDateFormat("YYYY-MM-dd");
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "INSERT INTO prestamo (monto,plazo,fechafinan,cuota,estado,idCli,idCre,idFia) VALUES"
+                    + " (" + x.getMonto()+ "," + x.getPlazo()+ ",'" + forma.format(x.getFechaInicio()) + "'," + x.getCuota()+ "," + 0 + "," + x.getIdCliente()+ "," + x.getIdCredito()+ ","+x.getIdFiador()+")";
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
      public ArrayList<Prestamo> obtenerLista(int var) {
         ArrayList<Prestamo> listaPrestamo = new ArrayList<>();
         ResultSet rs = null;
@@ -62,6 +75,7 @@ public class ControladorPrestamo {
                 aux.setEstado(rs.getInt(7));
                 aux.setIdCliente(rs.getInt(8));
                 aux.setIdCredito(rs.getInt(9));
+                aux.setIdFiador(rs.getInt(10));
                 listaPrestamo.add(aux);
             }
             conexion.cerrarConexion();

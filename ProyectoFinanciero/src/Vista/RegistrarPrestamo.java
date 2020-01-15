@@ -10,6 +10,7 @@ import Controlador.ControladorAmortizacion;
 import Controlador.ControladorCliente;
 import Controlador.ControladorCredito;
 import Controlador.ControladorDepreciacion;
+import Controlador.ControladorFiador;
 import Controlador.ControladorPrestamo;
 import Controlador.ControladorVenta;
 import Modelo.Activo;
@@ -18,6 +19,7 @@ import Modelo.Cliente;
 import Modelo.Credito;
 import Modelo.Depreciacion;
 import Modelo.DepreciacionAcumulada;
+import Modelo.Fiador;
 import Modelo.Movimiento;
 import Modelo.Prestamo;
 import Modelo.Venta;
@@ -52,16 +54,29 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     ControladorPrestamo controladorPrestamo;
     ControladorAmortizacion controladorAmortizacion;
     ControladorCliente controladorCliente;
+    ControladorFiador controladorFiador;
 
     public RegistrarPrestamo(Cliente obj) {
         initComponents();
 
         cliente = obj;
 
+        txtNombreFiador.setVisible(false);
+        txtDuiFiador.setVisible(false);
+        txtNitFiador.setVisible(false);
+        txtFuente.setVisible(false);
+        TxtDatos.setVisible(false);
+
+        CajaNombreFiador.setVisible(false);
+        CajaDuiFiador.setVisible(false);
+        CajaNitFiador.setVisible(false);
+        CajaFuente.setVisible(false);
+
         controladorCliente = new ControladorCliente();
         controladorCredito = new ControladorCredito();
         controladorPrestamo = new ControladorPrestamo();
         controladorAmortizacion = new ControladorAmortizacion();
+        controladorFiador = new ControladorFiador();
         formaFecha = new SimpleDateFormat("dd-MM-YYYY");
         fechaActual = new Date();
         formaPrecio = new DecimalFormat("0.00");
@@ -76,7 +91,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         listaCreditos = controladorCredito.obtenerListaEstado(cliente.getTipo());
         llenarCombo();
         //Línea 1
-        this.setSize(new Dimension(899, 450));
+        this.setSize(new Dimension(899, 660));
 
         //Línea 2
         this.setMinimumSize(new Dimension(899, 450));
@@ -111,6 +126,17 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         TxtDui3 = new javax.swing.JLabel();
         CajaPlazo = new javax.swing.JTextField();
         botonRegistrar1 = new javax.swing.JButton();
+        Txt4 = new javax.swing.JLabel();
+        comboFiador = new javax.swing.JComboBox<>();
+        TxtDatos = new javax.swing.JLabel();
+        txtNombreFiador = new javax.swing.JLabel();
+        txtNitFiador = new javax.swing.JLabel();
+        CajaNitFiador = new javax.swing.JTextField();
+        CajaNombreFiador = new javax.swing.JTextField();
+        txtDuiFiador = new javax.swing.JLabel();
+        CajaDuiFiador = new javax.swing.JTextField();
+        txtFuente = new javax.swing.JLabel();
+        CajaFuente = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -120,7 +146,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
         CajaCuota.setEnabled(false);
         getContentPane().add(CajaCuota);
-        CajaCuota.setBounds(190, 300, 200, 30);
+        CajaCuota.setBounds(140, 280, 200, 30);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 80, 930, 20);
 
@@ -147,7 +173,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         TxtDui.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TxtDui.setText("CUOTA");
         getContentPane().add(TxtDui);
-        TxtDui.setBounds(70, 300, 110, 30);
+        TxtDui.setBounds(70, 280, 110, 30);
 
         CajaFecha.setEnabled(false);
         getContentPane().add(CajaFecha);
@@ -181,7 +207,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(710, 370, 100, 30);
+        jButton1.setBounds(710, 580, 100, 30);
 
         botonRegistrar.setBackground(new java.awt.Color(51, 153, 255));
         botonRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -193,7 +219,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonRegistrar);
-        botonRegistrar.setBounds(570, 370, 110, 30);
+        botonRegistrar.setBounds(580, 580, 110, 30);
 
         TxtDui1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtDui1.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,7 +260,62 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonRegistrar1);
-        botonRegistrar1.setBounds(420, 300, 170, 33);
+        botonRegistrar1.setBounds(350, 280, 170, 33);
+
+        Txt4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Txt4.setForeground(new java.awt.Color(255, 255, 255));
+        Txt4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Txt4.setText("FIADOR");
+        getContentPane().add(Txt4);
+        Txt4.setBounds(530, 280, 130, 30);
+
+        comboFiador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NO", "SI" }));
+        comboFiador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFiadorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboFiador);
+        comboFiador.setBounds(640, 280, 200, 30);
+
+        TxtDatos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        TxtDatos.setForeground(new java.awt.Color(255, 255, 255));
+        TxtDatos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TxtDatos.setText("DATOS DEL FIADOR");
+        getContentPane().add(TxtDatos);
+        TxtDatos.setBounds(310, 340, 270, 60);
+
+        txtNombreFiador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtNombreFiador.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreFiador.setText("NOMBRE DEL FIADOR");
+        getContentPane().add(txtNombreFiador);
+        txtNombreFiador.setBounds(30, 400, 130, 30);
+
+        txtNitFiador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtNitFiador.setForeground(new java.awt.Color(255, 255, 255));
+        txtNitFiador.setText("NIT DEL FIADOR");
+        getContentPane().add(txtNitFiador);
+        txtNitFiador.setBounds(460, 400, 130, 30);
+        getContentPane().add(CajaNitFiador);
+        CajaNitFiador.setBounds(640, 400, 200, 30);
+        getContentPane().add(CajaNombreFiador);
+        CajaNombreFiador.setBounds(210, 400, 200, 30);
+
+        txtDuiFiador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtDuiFiador.setForeground(new java.awt.Color(255, 255, 255));
+        txtDuiFiador.setText("DUI DEL FIADOR");
+        getContentPane().add(txtDuiFiador);
+        txtDuiFiador.setBounds(30, 460, 130, 30);
+        getContentPane().add(CajaDuiFiador);
+        CajaDuiFiador.setBounds(210, 460, 200, 30);
+
+        txtFuente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtFuente.setForeground(new java.awt.Color(255, 255, 255));
+        txtFuente.setText("FUENTE DE INGRESOS");
+        getContentPane().add(txtFuente);
+        txtFuente.setBounds(460, 460, 130, 30);
+        getContentPane().add(CajaFuente);
+        CajaFuente.setBounds(640, 460, 200, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,7 +333,13 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
         // TODO add your handling code here:
+
         if (validar()) {
+
+            String nombreFiador = CajaNombreFiador.getText();
+            String duiFiador = CajaDuiFiador.getText();
+            String nitFiador = CajaNitFiador.getText();
+            String fuente = CajaFuente.getText();
 
             Integer idCliente = cliente.getId();
             Integer idCredito = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getId();
@@ -264,12 +351,26 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             Amortizacion amortizacion;
             Double in = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getInteres() / 12;
             in = in / 100;
-
+            Integer id_fiador = -1;
             asignarTipo();
 
             if (monto > montoMin) {
+
+                if (comboFiador.getSelectedIndex() == 1) {
+                    Fiador fiador = new Fiador(nombreFiador, nitFiador, duiFiador, fuente);
+                    controladorFiador.Agregar(fiador);
+                    fiador.setId(controladorFiador.obtenerUltimoRegistro());
+                    id_fiador = fiador.getId();
+                }
+
                 Prestamo x = new Prestamo(monto, plazo, fechaActual, cuota, idCliente, idCredito);
-                controladorPrestamo.Agregar(x);
+                if (id_fiador != -1) {
+                    x.setIdFiador(id_fiador);
+                    controladorPrestamo.AgregarConF(x);
+                } else {
+                    controladorPrestamo.Agregar(x);
+                }
+
                 x.setId(controladorPrestamo.obtenerUltimoRegistro());
 
                 for (int i = 0; i < plazo; i++) {
@@ -290,7 +391,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "DEBE D INGRESAR UN MONTO MAYOR AL MINIMO QUE ES $"+montoMin, "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN MONTO MAYOR AL MINIMO QUE ES $" + montoMin, "EXITO", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
@@ -313,6 +414,44 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         // TODO add your handling code here:
         CajaCuota.setText("");
     }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void comboFiadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiadorActionPerformed
+        // TODO add your handling code here:
+        if (comboFiador.getSelectedIndex() == 0) {
+            txtNombreFiador.setVisible(false);
+            txtDuiFiador.setVisible(false);
+            txtNitFiador.setVisible(false);
+            txtFuente.setVisible(false);
+            TxtDatos.setVisible(false);
+
+            CajaNombreFiador.setVisible(false);
+            CajaDuiFiador.setVisible(false);
+            CajaNitFiador.setVisible(false);
+            CajaFuente.setVisible(false);
+
+            CajaNombreFiador.setText("");
+            CajaDuiFiador.setText("");
+            CajaNitFiador.setText("");
+            CajaFuente.setText("");
+
+        } else {
+            txtNombreFiador.setVisible(true);
+            txtDuiFiador.setVisible(true);
+            txtNitFiador.setVisible(true);
+            txtFuente.setVisible(true);
+            TxtDatos.setVisible(true);
+
+            CajaNombreFiador.setVisible(true);
+            CajaDuiFiador.setVisible(true);
+            CajaNitFiador.setVisible(true);
+            CajaFuente.setVisible(true);
+
+            CajaNombreFiador.setText("");
+            CajaDuiFiador.setText("");
+            CajaNitFiador.setText("");
+            CajaFuente.setText("");
+        }
+    }//GEN-LAST:event_comboFiadorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,11 +491,17 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCuota;
     private javax.swing.JTextField CajaDui;
+    private javax.swing.JTextField CajaDuiFiador;
     private javax.swing.JTextField CajaFecha;
+    private javax.swing.JTextField CajaFuente;
     private javax.swing.JTextField CajaMonto;
+    private javax.swing.JTextField CajaNitFiador;
     private javax.swing.JTextField CajaNombre;
+    private javax.swing.JTextField CajaNombreFiador;
     private javax.swing.JTextField CajaPlazo;
+    private javax.swing.JLabel Txt4;
     private javax.swing.JLabel TxtApellidos;
+    private javax.swing.JLabel TxtDatos;
     private javax.swing.JLabel TxtDui;
     private javax.swing.JLabel TxtDui1;
     private javax.swing.JLabel TxtDui2;
@@ -364,12 +509,17 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel TxtNombre2;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonRegistrar1;
+    private javax.swing.JComboBox<String> comboFiador;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel txtDuiFiador;
+    private javax.swing.JLabel txtFuente;
+    private javax.swing.JLabel txtNitFiador;
+    private javax.swing.JLabel txtNombreFiador;
     // End of variables declaration//GEN-END:variables
 
     private void llenarCombo() {
@@ -384,6 +534,10 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             return false;
         } else if (CajaPlazo.getText().equals("") || CajaCuota.getText().equals("")) {
             return false;
+        } else if (comboFiador.getSelectedIndex() == 1) {
+            if (CajaNombreFiador.getText().equals("") || CajaNitFiador.getText().equals("") || CajaDuiFiador.getText().equals("") || CajaFuente.getText().equals("")) {
+                return false;
+            }
         }
         return true;
     }
