@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/ProductoAcceso.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorCategoria.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/UsuariosRegistro.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Controlador/ControladorUsuario.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Modelo/Usuario.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/ListaCategoria.java</file>
+            <file>file:/C:/Users/GM/source/repos/Proyecto_Financiero/ProyectoFinanciero/src/Vista/Home.java</file>
+        </group>
+>>>>>>> 3389bc29983d0e93a8cd39cbe840ddfb15ef9a1f
     </open-files>
 </project-private>
