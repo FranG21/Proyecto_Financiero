@@ -35,7 +35,7 @@ public class ControladorSubCategoria {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO subcategoria (nombre,idcat,codigo,estado) VALUES"
-                    + " ('" + subCategoria.getNombre() + "'," + subCategoria.getIdCtegoria() + ",'" + subCategoria.getCodigo() + "'," + 0 + ")";
+                    + " ('" + subCategoria.getNombre() + "'," + subCategoria.getIdCtegoria() + ",'" + subCategoria.getCodigo() + "'," + 1 + ")";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();

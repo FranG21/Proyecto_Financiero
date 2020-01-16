@@ -111,8 +111,6 @@ public class ListaVenta extends javax.swing.JFrame {
         Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
         btnVender = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -165,12 +163,6 @@ public class ListaVenta extends javax.swing.JFrame {
         });
         getContentPane().add(btnVender);
         btnVender.setBounds(270, 130, 120, 30);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(550, 50, 230, 30);
-
-        jButton1.setText("BUSCAR");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 32);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,11 +194,9 @@ public class ListaVenta extends javax.swing.JFrame {
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnVender;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void Ver(MouseEvent e) {

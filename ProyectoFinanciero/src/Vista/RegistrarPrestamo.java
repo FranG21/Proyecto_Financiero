@@ -352,7 +352,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             Double in = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getInteres() / 12;
             in = in / 100;
             Integer id_fiador = -1;
-            asignarTipo();
+           // asignarTipo();
 
             if (monto > montoMin) {
 
@@ -545,7 +545,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     private Double obtenerCuota() {
         Double pagoMensual = 0.00;
         Double p = Double.parseDouble(CajaMonto.getText());
-        JOptionPane.showMessageDialog(null, "" + credito.getInteres());
+        
         Double i = credito.getInteres() / 12;
         int n = Integer.parseInt(CajaPlazo.getText());
         i = i / 100;

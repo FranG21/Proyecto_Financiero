@@ -248,13 +248,15 @@ public class RegistrarClientes extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } else {
-                JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE DUI", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-            }
-
+                    JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE DUI", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                }
+                
 
             } else {
                 JOptionPane.showMessageDialog(null, "YA EXISTE UN CLIENTE CON ESTE NUMERO DE NIT", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
             }
+            
+            
 
         } else {
             JOptionPane.showMessageDialog(null, "COMPLETE CAMPOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);

@@ -37,6 +37,7 @@ public class ListaCreditos extends javax.swing.JFrame {
         modelo();
         controladorCredito = new ControladorCredito();
         forma=new DecimalFormat("0.00");
+        btnEliminar.setVisible(false);
         verTabla();
         this.addWindowListener(new WindowListener() {
             @Override

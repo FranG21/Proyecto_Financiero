@@ -94,7 +94,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl13.setText(formaFecha.format(detalle.getFechaCompra()));
         lbl14.setText(departamento.getNombreDep());
         lbl15.setText(formaFecha.format(detalle.getFechaInicio()));
-        lbl16.setText("" + detalle.getVidaUtilRestante());
+        lbl16.setText("" + detalle.getVidaUtilRestante()+" AÑOS");
         lbl18.setText("$"+forma.format(detalle.getPrecio()));
         lbl20.setText("$"+forma.format(precioVenta));
     }

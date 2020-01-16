@@ -22,6 +22,7 @@ public class DetalleActivo {
     private Integer vidaUtilRestante;
     private Activo activo;
     private String condicion;
+    private Double valorReidual;
 
     public DetalleActivo(String serie, Date fechaCompra, Date fechaInicio, Double precio, String donado, Integer vidaUtilRestante, Activo activo, String condicion) {
         this.serie = serie;
@@ -108,6 +109,15 @@ public class DetalleActivo {
     public void setCondicion(String condicion) {
         this.condicion = condicion;
     }
+
+    public Double getValorReidual() {
+        return valorReidual;
+    }
+
+    public void setValorReidual(Double valorReidual) {
+        this.valorReidual = valorReidual;
+    }
+    
     
     
 }

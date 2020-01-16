@@ -51,8 +51,8 @@ public class ControladorActivo {
             SimpleDateFormat forma = new SimpleDateFormat("YYYY-MM-dd");
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "INSERT INTO detalle_activo (serie,fecha_adqui,fecha_inicio,valor_historico,donado,vidautil_restante,activofijo_id,condicion) VALUES"
-                    + " ('" + x.getSerie() + "','" + forma.format(x.getFechaCompra()) + "','" + forma.format(x.getFechaInicio()) + "'," + x.getPrecio() + ",'" + x.getDonado() + "'," + x.getVidaUtilRestante() + "," + x.getActivo().getId() + ",'" + x.getCondicion() + "')";
+            String sql = "INSERT INTO detalle_activo (serie,fecha_adqui,fecha_inicio,valor_historico,donado,vidautil_restante,activofijo_id,condicion,valor_r) VALUES"
+                    + " ('" + x.getSerie() + "','" + forma.format(x.getFechaCompra()) + "','" + forma.format(x.getFechaInicio()) + "'," + x.getPrecio() + ",'" + x.getDonado() + "'," + x.getVidaUtilRestante() + "," + x.getActivo().getId() + ",'" + x.getCondicion() + "',"+x.getValorReidual()+")";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();

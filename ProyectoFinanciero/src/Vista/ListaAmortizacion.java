@@ -53,7 +53,6 @@ public class ListaAmortizacion extends javax.swing.JFrame {
 
         formatFecha = new SimpleDateFormat("dd-MM-YYYY");
         forma = new DecimalFormat("0.00");
-        
 
         modelo();
         verTabla();
@@ -216,7 +215,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
             }
 
         } else {
-
+            JOptionPane.showMessageDialog(null, "EL CLIENTE DEBE DE ESTAR ACTIVO", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnPagarActionPerformed
 

@@ -58,12 +58,15 @@ public class ListaClientes extends javax.swing.JFrame {
         controladorAmortizacion = new ControladorAmortizacion();
 
         fechaActual = new Date();
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerLista();
         actualizarCarteras();
 
         verTabla();
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
+                //actualizarCarteras();
                 verTabla();
             }
 
@@ -85,6 +88,7 @@ public class ListaClientes extends javax.swing.JFrame {
 
             @Override
             public void windowActivated(WindowEvent e) {
+                //actualizarCarteras();
                 verTabla();
             }
 
@@ -133,6 +137,8 @@ public class ListaClientes extends javax.swing.JFrame {
         BtnModifica = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnEstado = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        comboClase = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -248,8 +254,34 @@ public class ListaClientes extends javax.swing.JFrame {
         btnEstado.setForeground(new java.awt.Color(255, 255, 255));
         btnEstado.setText("DAR DE BAJA");
         btnEstado.setEnabled(false);
+        btnEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEstado);
         btnEstado.setBounds(650, 130, 120, 30);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("CLASE");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(390, 20, 70, 30);
+
+        comboClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "A", "B", "C" }));
+        comboClase.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboClaseItemStateChanged(evt);
+            }
+        });
+        comboClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboClaseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboClase);
+        comboClase.setBounds(350, 50, 140, 40);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -274,13 +306,13 @@ public class ListaClientes extends javax.swing.JFrame {
 
     private void comboSelecioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSelecioneActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_comboSelecioneActionPerformed
 
     private void comboCarteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCarteraActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_comboCarteraActionPerformed
 
     private void comboSelecioneItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSelecioneItemStateChanged
@@ -313,6 +345,46 @@ public class ListaClientes extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_BtnModificaActionPerformed
 
+    private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
+        // TODO add your handling code here:
+        if (objeto.getEstado() == 0) {
+            if (controladorCliente.ModificarEstado(1, objeto.getId())) {
+                verTabla();
+                objeto.setEstado(1);
+                btnEstado.setBackground(Color.RED);
+                btnEstado.setText("DAR DE BAJA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE ALTA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+
+            }
+
+        } else {
+            if (controladorCliente.ModificarEstado(0, objeto.getId())) {
+                verTabla();
+                objeto.setEstado(0);
+                btnEstado.setBackground(Color.GREEN);
+                btnEstado.setText("DAR DE ALTA");
+                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+            }
+        }
+    }//GEN-LAST:event_btnEstadoActionPerformed
+
+    private void comboClaseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboClaseItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboClaseItemStateChanged
+
+    private void comboClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClaseActionPerformed
+        // TODO add your handling code here:
+        if (comboClase.getSelectedIndex() == 1) {
+            verTablaClaseA();
+        } else if (comboClase.getSelectedIndex() == 2) {
+            verTablaClaseB();
+        } else if (comboClase.getSelectedIndex() == 3) {
+            verTablaClaseC();
+        }
+    }//GEN-LAST:event_comboClaseActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,12 +395,14 @@ public class ListaClientes extends javax.swing.JFrame {
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnEstado;
     private javax.swing.JComboBox<String> comboCartera;
+    private javax.swing.JComboBox<String> comboClase;
     private javax.swing.JComboBox<String> comboSelecione;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
@@ -377,10 +451,88 @@ public class ListaClientes extends javax.swing.JFrame {
         Tabla.setModel(modelo);
     }
 
-    private void actualizarCarteras() {
-
+    void verTablaClaseA() {
+        //objeto = new Categoria();
         listaCliente = new ArrayList<>();
-        listaCliente = controladorCliente.obtenerLista();
+        listaCliente = controladorCliente.obtenerListaClaseA();
+
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);
+    }
+
+    void verTablaClaseB() {
+        //objeto = new Categoria();
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerListaClaseB();
+
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);
+    }
+
+    void verTablaClaseC() {
+        //objeto = new Categoria();
+        listaCliente = new ArrayList<>();
+        listaCliente = controladorCliente.obtenerListaClaseC();
+
+        modelo.setRowCount(listaCliente.size());
+
+        for (int i = 0; i < listaCliente.size(); i++) {
+
+            modelo.setValueAt(i + 1, i, 0);
+            modelo.setValueAt(listaCliente.get(i).getNit(), i, 1);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt(listaCliente.get(i).getNombre() + " " + listaCliente.get(i).getApellidos_Representante(), i, 2);
+            } else {
+                modelo.setValueAt(listaCliente.get(i).getNombre(), i, 2);
+            }
+            modelo.setValueAt(listaCliente.get(i).getOcupacion(), i, 3);
+            modelo.setValueAt(listaCliente.get(i).getDepartmento(), i, 4);
+            if (listaCliente.get(i).getTipo() == 0) {
+                modelo.setValueAt("PERSONA NATURAL", i, 5);
+            } else {
+                modelo.setValueAt("PERSONA JURIDICA", i, 5);
+            }
+        }
+        Tabla.setModel(modelo);
+    }
+
+    private void actualizarCarteras() {
 
         for (int j = 0; j < listaCliente.size(); j++) {
             //JOptionPane.showConfirmDialog(null, ""+listaCliente.get(j).getId());
@@ -390,6 +542,8 @@ public class ListaClientes extends javax.swing.JFrame {
 
     private void actualizarCarteras1(Cliente cli) {
         //JOptionPane.showMessageDialog(null, "ID CLIENTE: " + cli.getId());
+        listaPrestamo = new ArrayList<>();
+
         listaPrestamo = controladorPrestamo.obtenerLista(cli.getId());
         if (listaPrestamo.isEmpty()) {
             //JOptionPane.showMessageDialog(null, "NULO: ");
@@ -402,10 +556,13 @@ public class ListaClientes extends javax.swing.JFrame {
             }
 
         }
+        listaPrestamo = new ArrayList<>();
     }
 
     private void actualizarCartera2(Prestamo pre, Cliente cli) {
         Amortizacion amor = null;
+        listaAmortizacion = new ArrayList<>();
+        //controladorAmortizacion=new ControladorAmortizacion();
         listaAmortizacion = controladorAmortizacion.obtenerListaConDias(pre.getId());
 
         for (int k = 0; k < listaAmortizacion.size(); k++) {
@@ -429,6 +586,8 @@ public class ListaClientes extends javax.swing.JFrame {
             controladorCliente.ModificarCarteraEstado(2, cli.getId());
         } else {
             if (bandera > 0 && cli.getCartera() == 0) {
+                JOptionPane.showMessageDialog(null, "" + cli.getId());
+
                 controladorCliente.ModificarCartera(1, cli.getId());
             } else {
                 //JOptionPane.showMessageDialog(null, "CLIENTE SANO");
@@ -436,6 +595,7 @@ public class ListaClientes extends javax.swing.JFrame {
         }
 
         bandera = 0;
+        listaAmortizacion = new ArrayList<>();
     }
 
     private void verTablaCondicionada(int estado) {
@@ -469,7 +629,7 @@ public class ListaClientes extends javax.swing.JFrame {
         listaCliente = controladorCliente.obtenerListaCondicionadaCartera(estado);
 
         modelo.setRowCount(listaCliente.size());
-        
+
         modelo.setRowCount(listaCliente.size());
 
         for (int i = 0; i < listaCliente.size(); i++) {
@@ -489,15 +649,15 @@ public class ListaClientes extends javax.swing.JFrame {
                 modelo.setValueAt("PERSONA JURIDICA", i, 5);
             }
         }
-        Tabla.setModel(modelo);        
+        Tabla.setModel(modelo);
     }
-    
+
     private void verTablaX() {
         listaCliente = new ArrayList<>();
         listaCliente = controladorCliente.obtenerLista();
 
         modelo.setRowCount(listaCliente.size());
-        
+
         modelo.setRowCount(listaCliente.size());
 
         for (int i = 0; i < listaCliente.size(); i++) {
@@ -517,15 +677,15 @@ public class ListaClientes extends javax.swing.JFrame {
                 modelo.setValueAt("PERSONA JURIDICA", i, 5);
             }
         }
-        Tabla.setModel(modelo);        
+        Tabla.setModel(modelo);
     }
-    
+
     private void verTablaY() {
         listaCliente = new ArrayList<>();
         listaCliente = controladorCliente.obtenerLista();
 
         modelo.setRowCount(listaCliente.size());
-        
+
         modelo.setRowCount(listaCliente.size());
 
         for (int i = 0; i < listaCliente.size(); i++) {
@@ -545,7 +705,7 @@ public class ListaClientes extends javax.swing.JFrame {
                 modelo.setValueAt("PERSONA JURIDICA", i, 5);
             }
         }
-        Tabla.setModel(modelo);        
+        Tabla.setModel(modelo);
     }
-    
+
 }

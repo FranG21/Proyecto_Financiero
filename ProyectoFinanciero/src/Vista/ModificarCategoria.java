@@ -132,7 +132,7 @@ public class ModificarCategoria extends javax.swing.JFrame {
         String cod = this.CajaCod.getText();
         String val = this.CajaValr.getText();
         if (vacio(nombre, val, cod)) {
-            int valr = Integer.parseInt(val);
+            Double valr = Double.parseDouble(val);
             if (cc.existeCampo("cod", cod, c.getIdCategoria()) && cc.existeCampo("nombre", nombre, c.getIdCategoria())) {
                 c.setCodigo(cod);
                 c.setNombre(nombre);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a09c7f89-36bf-438f-8bb5-e45d42a6a7a6">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
-	<property name="ireport.x" value="300"/>
+	<property name="ireport.x" value="338"/>
 	<property name="ireport.y" value="28"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -28,7 +28,8 @@ cliente.estado
 FROM
 cliente
 WHERE
-cliente.cartera = 0
+cliente.cartera = 0 AND
+cliente.tipo = 0
 ORDER BY
 cliente.estado DESC,
 cliente.apellido ASC]]>
@@ -166,7 +167,7 @@ cliente.apellido ASC]]>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Clientes normales]]></text>
+					<text><![CDATA[Personas naturales, cartera: normal]]></text>
 				</staticText>
 			</frame>
 			<frame>

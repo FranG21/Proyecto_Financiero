@@ -11,6 +11,7 @@ import Modelo.Depreciacion;
 import Modelo.DepreciacionAcumulada;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,8 +39,9 @@ public class Depreciar extends javax.swing.JFrame {
         controladorDepreciacion = new ControladorDepreciacion();
         depreciacion = controladorDepreciacion.obtenerObjeto(activo.getId());
         format = new DecimalFormat("00.00");
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
-        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION ANUAL: $"+format.format(d));
+        //JOptionPane.showMessageDialog(null, ""+1/depreciacion.getPorcentajeL());
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL()) / 100) / depreciacion.getN();
+        jLabel2.setText("VALOR EN LIBROS: $" + format.format(depreciacion.getP()) + "          DEPRECIACION ANUAL: $" + format.format(d));
         llenarTabla();
     }
 
@@ -152,26 +154,26 @@ public class Depreciar extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL()) / 100) / depreciacion.getN();
         d = d / 12;
-        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION MENSUAL: $"+format.format(d));
+        jLabel2.setText("VALOR EN LIBROS: $" + format.format(depreciacion.getP()) + "          DEPRECIACION MENSUAL: $" + format.format(d));
         modelo();
         llenarTablaMes();
     }//GEN-LAST:event_BtnVerActionPerformed
 
     private void BtnVer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer2ActionPerformed
         // TODO add your handling code here:
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL() / 100)) / depreciacion.getN();
         d = d / 365;
-        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION DIARIA: $"+format.format(d));
+        jLabel2.setText("VALOR EN LIBROS: $" + format.format(depreciacion.getP()) + "          DEPRECIACION DIARIA: $" + format.format(d));
         modelo();
         llenarTablaDia();
     }//GEN-LAST:event_BtnVer2ActionPerformed
 
     private void BtnVer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVer3ActionPerformed
         // TODO add your handling code here:
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
-        jLabel2.setText("VALOR EN LIBROS: $"+format.format(depreciacion.getP())+"          DEPRECIACION ANUAL: $"+format.format(d));
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL()/100)) / depreciacion.getN();
+        jLabel2.setText("VALOR EN LIBROS: $" + format.format(depreciacion.getP()) + "          DEPRECIACION ANUAL: $" + format.format(d));
         modelo();
         llenarTabla();
     }//GEN-LAST:event_BtnVer3ActionPerformed
@@ -247,7 +249,7 @@ public class Depreciar extends javax.swing.JFrame {
         Double d;
         Double acumulada = 0.0;
         Double valorLibro = 0.0;
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL() / 100)) / depreciacion.getN();
 
         for (int i = 1; i <= depreciacion.getN(); i++) {
             acumulada = acumulada + d;
@@ -262,7 +264,7 @@ public class Depreciar extends javax.swing.JFrame {
         ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
         Double acumulada = 0.0;
         Double valorLibro = 0.0;
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL() / 100)) / depreciacion.getN();
         d = d / var;
 
         for (int i = 1; i <= depreciacion.getN() * var; i++) {

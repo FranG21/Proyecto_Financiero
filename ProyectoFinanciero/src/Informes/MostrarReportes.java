@@ -49,6 +49,23 @@ public class MostrarReportes {
         }
     }
     
+    public void clientesNormalesJuridica(){
+        try {
+
+            Connection cn = conexion.abrirConexion(); // aquí obtengo la conexión
+            Map<String, Object> param = new HashMap<String, Object>(); //aquí construyo un HashMap para parámetros adicionales
+            //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
+            
+            InputStream stream = this.getClass().getResourceAsStream("ClientesNormalesJuridica.jasper");//aquí le pones la ruta de tu reporte;
+
+            JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
+            JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
+            n.setVisible(true); //lo haces visible 
+        } catch (JRException e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+    
     public void clientesMorosos(){
         try {
 
@@ -66,6 +83,23 @@ public class MostrarReportes {
         }
     }
     
+    public void clientesMorososJuridica(){
+        try {
+
+            Connection cn = conexion.abrirConexion(); // aquí obtengo la conexión
+            Map<String, Object> param = new HashMap<String, Object>(); //aquí construyo un HashMap para parámetros adicionales
+            //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
+            
+            InputStream stream = this.getClass().getResourceAsStream("ClientesMorososJuridica.jasper");//aquí le pones la ruta de tu reporte;
+
+            JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
+            JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
+            n.setVisible(true); //lo haces visible 
+        } catch (JRException e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+    
     public void clientesIncobrables(){
         try {
 
@@ -74,6 +108,23 @@ public class MostrarReportes {
             //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
             
             InputStream stream = this.getClass().getResourceAsStream("ClientesIncobrables.jasper");//aquí le pones la ruta de tu reporte;
+
+            JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
+            JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
+            n.setVisible(true); //lo haces visible 
+        } catch (JRException e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+    
+    public void clientesIncobrablesJuridica(){
+        try {
+
+            Connection cn = conexion.abrirConexion(); // aquí obtengo la conexión
+            Map<String, Object> param = new HashMap<String, Object>(); //aquí construyo un HashMap para parámetros adicionales
+            //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
+            
+            InputStream stream = this.getClass().getResourceAsStream("ClientesIncobrablesJuridica.jasper");//aquí le pones la ruta de tu reporte;
 
             JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
             JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte

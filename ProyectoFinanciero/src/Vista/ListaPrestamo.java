@@ -84,8 +84,8 @@ public class ListaPrestamo extends javax.swing.JFrame {
 
             @Override
             public void windowActivated(WindowEvent e) {
-              validarAgregar();
-              verTabla();
+                validarAgregar();
+                verTabla();
             }
 
             @Override
@@ -210,7 +210,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
-        DetallePrestamo vista = new DetallePrestamo(objeto,cliente);
+        DetallePrestamo vista = new DetallePrestamo(objeto, cliente);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnVerActionPerformed
 
@@ -220,7 +220,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void BtnAmortizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAmortizacionActionPerformed
-        ListaAmortizacion vista = new ListaAmortizacion(objeto,cliente);
+        ListaAmortizacion vista = new ListaAmortizacion(objeto, cliente);
         vista.setVisible(true);
     }//GEN-LAST:event_BtnAmortizacionActionPerformed
 
@@ -282,7 +282,7 @@ public class ListaPrestamo extends javax.swing.JFrame {
         listaPrestamo = new ArrayList<>();
         listaPrestamo = controladorPrestamo.obtenerLista(cliente.getId());
         int bandera = 0;
-        if (listaPrestamo.isEmpty()) {
+        if (listaPrestamo.isEmpty() && cliente.getEstado()==1) {
             btnAgregar.setEnabled(true);
         } else {
 
@@ -291,15 +291,15 @@ public class ListaPrestamo extends javax.swing.JFrame {
                     bandera = 1;
                 }
             }
-            if (bandera == 1) {
+            if (bandera == 1 ) {
                 btnAgregar.setEnabled(false);
             } else {
-                if(cliente.getCartera()!=2){
+                if (cliente.getCartera() != 2 && cliente.getEstado() == 1) {
                     btnAgregar.setEnabled(true);
-                }else{
-                   btnAgregar.setEnabled(false); 
+                } else {
+                    btnAgregar.setEnabled(false);
                 }
-                
+
             }
         }
     }

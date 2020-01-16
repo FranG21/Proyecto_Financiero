@@ -17,10 +17,10 @@ public class Categoria {
     private String codigo;
     private Integer vidaUtil;
     private Integer vidaEconomica;
-    private Integer valorResidual;
+    private Double valorResidual;
     private Integer estado;
 
-    public Categoria(String nombre, String codigo, Integer vidaUtil, Integer vidaEconomica, Integer valorResidual, Integer estado) {
+    public Categoria(String nombre, String codigo, Integer vidaUtil, Integer vidaEconomica, Double valorResidual, Integer estado) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.vidaUtil = vidaUtil;
@@ -64,11 +64,11 @@ public class Categoria {
         this.vidaEconomica = vidaEconomica;
     }
 
-    public Integer getValorResidual() {
+    public Double getValorResidual() {
         return valorResidual;
     }
 
-    public void setValorResidual(Integer valorResidual) {
+    public void setValorResidual(Double valorResidual) {
         this.valorResidual = valorResidual;
     }
 

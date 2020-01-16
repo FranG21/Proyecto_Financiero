@@ -14,13 +14,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jose
  */
-
 public class ListaDepreciar extends javax.swing.JFrame {
 
     /**
@@ -30,21 +30,21 @@ public class ListaDepreciar extends javax.swing.JFrame {
     ControladorActivo controladorActivo;
     ControladorSubCategoria controladorSub;
     ControladorCategoria controladorCategoria;
-    ArrayList<Activo> listaActivo;    
+    ArrayList<Activo> listaActivo;
     int posicion = -1;
     Activo objeto;
-    
+
     public ListaDepreciar() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         modelo();
-        
-        listaActivo=new ArrayList<>();
+
+        listaActivo = new ArrayList<>();
         modelo();
-        controladorActivo=new ControladorActivo();
-        controladorSub=new ControladorSubCategoria();
-        controladorCategoria=new ControladorCategoria();
-                
+        controladorActivo = new ControladorActivo();
+        controladorSub = new ControladorSubCategoria();
+        controladorCategoria = new ControladorCategoria();
+
         verTabla();
         this.addWindowListener(new WindowListener() {
             @Override
@@ -84,11 +84,11 @@ public class ListaDepreciar extends javax.swing.JFrame {
             }
 
         });
-        
+
     }
-    
+
     private void modelo() {
-        
+
         modelo = new DefaultTableModel();
         modelo.addColumn("N°");
         modelo.addColumn("CODIGO");
@@ -112,8 +112,6 @@ public class ListaDepreciar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         BtnVer = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -155,12 +153,6 @@ public class ListaDepreciar extends javax.swing.JFrame {
         });
         getContentPane().add(BtnVer);
         BtnVer.setBounds(140, 130, 90, 30);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(550, 50, 230, 30);
-
-        jButton1.setText("BUSCAR");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(780, 50, 90, 32);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,23 +166,25 @@ public class ListaDepreciar extends javax.swing.JFrame {
 
     private void BtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerActionPerformed
         // TODO add your handling code here:
-        DetalleDepreciar vista = new DetalleDepreciar(objeto);
-        vista.setVisible(true);
+        if (!objeto.getCat().equals("TERRENO")) {
+            Depreciar vista = new Depreciar(objeto);
+            vista.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "LOS TERRENOS NO SE DEPRECIAN");
+        }
+
     }//GEN-LAST:event_BtnVerActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVer;
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void Ver(MouseEvent e) {
@@ -198,7 +192,7 @@ public class ListaDepreciar extends javax.swing.JFrame {
         posicion = Integer.parseInt(Tabla.getValueAt(row, 0).toString());
         objeto = new Activo();
         objeto = listaActivo.get(posicion - 1);
-        BtnVer.setEnabled(true);     
+        BtnVer.setEnabled(true);
 
     }
 
@@ -226,5 +220,5 @@ public class ListaDepreciar extends javax.swing.JFrame {
 
         Tabla.setModel(modelo);
     }
-    
+
 }

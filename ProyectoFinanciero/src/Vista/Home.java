@@ -46,7 +46,6 @@ public class Home extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         btnProveedores = new javax.swing.JMenu();
@@ -57,15 +56,22 @@ public class Home extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         btnInformeCuentasPorCobrar = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
         btnUsuarios = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem18 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/18022330-financiación-de-las-empresas-impuestos-contabilidad-estadística-y-analítica-concepto-de-oficina-de-investig.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Informatica-2.png"))); // NOI18N
 
         escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -79,7 +85,7 @@ public class Home extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
         );
 
         btnCuentasPorCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/money.png"))); // NOI18N
@@ -143,15 +149,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
         btnActivoFijo.add(jMenuItem9);
-
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scales.png"))); // NOI18N
-        jMenuItem2.setText("REEVALUAR");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        btnActivoFijo.add(jMenuItem2);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/down.png"))); // NOI18N
         jMenuItem5.setText("DEPRECIAR");
@@ -225,6 +222,8 @@ public class Home extends javax.swing.JFrame {
         btnInformeCuentasPorCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/money.png"))); // NOI18N
         btnInformeCuentasPorCobrar.setText("CUENTAS POR COBRAR");
 
+        jMenu2.setText("PERSONAS NATURALES");
+
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 1.png"))); // NOI18N
         jMenuItem3.setText("CLIENTES NORMALES");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +231,7 @@ public class Home extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        btnInformeCuentasPorCobrar.add(jMenuItem3);
+        jMenu2.add(jMenuItem3);
 
         jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 2.png"))); // NOI18N
         jMenuItem15.setText("CLIENTES MOROSOS");
@@ -241,7 +240,7 @@ public class Home extends javax.swing.JFrame {
                 jMenuItem15ActionPerformed(evt);
             }
         });
-        btnInformeCuentasPorCobrar.add(jMenuItem15);
+        jMenu2.add(jMenuItem15);
 
         jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/group 3.png"))); // NOI18N
         jMenuItem16.setText("CLIENTES INCOBRABLES");
@@ -250,7 +249,37 @@ public class Home extends javax.swing.JFrame {
                 jMenuItem16ActionPerformed(evt);
             }
         });
-        btnInformeCuentasPorCobrar.add(jMenuItem16);
+        jMenu2.add(jMenuItem16);
+
+        btnInformeCuentasPorCobrar.add(jMenu2);
+
+        jMenu3.setText("PERSONAS JURIDICAS");
+
+        jMenuItem19.setText("CLIENTES NORMALES");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem19);
+
+        jMenuItem20.setText("CLIENTES MOROSOS");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem20);
+
+        jMenuItem21.setText("CLIENTES INCOBRABLES");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem21);
+
+        btnInformeCuentasPorCobrar.add(jMenu3);
 
         jMenu4.add(btnInformeCuentasPorCobrar);
 
@@ -269,6 +298,25 @@ public class Home extends javax.swing.JFrame {
         btnUsuarios.add(jMenuItem17);
 
         jMenuBar1.add(btnUsuarios);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/engranaje.png"))); // NOI18N
+        jMenu1.setText("CONFIGURACION");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cerrar-sesion.png"))); // NOI18N
+        jMenuItem18.setText("CERRAR SESION");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem18);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -291,12 +339,6 @@ public class Home extends javax.swing.JFrame {
         ListaClientes vista = new ListaClientes();
         vista.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        ListaReevaluar vista = new ListaReevaluar();
-        vista.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -384,6 +426,33 @@ public class Home extends javax.swing.JFrame {
             usu.show();
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        // TODO add your handling code here:
+        ProductoAcceso nuevo = new ProductoAcceso();
+        nuevo.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        // TODO add your handling code here:
+        new MostrarReportes().clientesMorososJuridica();
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+        new MostrarReportes().clientesNormalesJuridica();
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        // TODO add your handling code here:
+        new MostrarReportes().clientesIncobrablesJuridica();
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -428,6 +497,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu btnUsuarios;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -439,7 +511,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

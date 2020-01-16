@@ -140,7 +140,7 @@ public class RegistrarCategoria extends javax.swing.JFrame {
             String codigo = CajaCodigo.getText();
             Integer vidaUtil = Integer.parseInt(CajaVidaUtil.getText());
             //Integer vidaEconomica = Integer.parseInt(CajaEconomica.getText());
-            Integer valorResidual = Integer.parseInt(CajaValorResidual.getText());
+            Double valorResidual = Double.parseDouble(CajaValorResidual.getText());
 
             Categoria categoria = new Categoria(nombre, codigo, vidaUtil, 0, valorResidual, 0);
             controlador.AgregarCatgoria(categoria);

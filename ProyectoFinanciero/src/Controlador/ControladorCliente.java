@@ -79,11 +79,11 @@ public class ControladorCliente {
         return auxs;
     }
 
-    public boolean ModificarCartera(int cartera,int id) {
+    public boolean ModificarCartera(int cartera, int id) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE cliente SET cartera=" + 1 + " WHERE idCliente=" + id;
+            String sql = "UPDATE cliente SET cartera=" + cartera + " WHERE idCliente=" + id;
             st.executeUpdate(sql);
             conexion.cerrarConexion();
             return true;
@@ -92,8 +92,8 @@ public class ControladorCliente {
         }
         return false;
     }
-    
-    public boolean ModificarCarteraEstado(int cartera,int id) {
+
+    public boolean ModificarCarteraEstado(int cartera, int id) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
@@ -106,13 +106,13 @@ public class ControladorCliente {
         }
         return false;
     }
-    
+
     public ArrayList<Cliente> obtenerListaCondicionada(int estado) {
         ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM cliente WHERE estado="+estado+" ORDER BY nit";
+            String sql = "SELECT * FROM cliente WHERE estado=" + estado + " ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -139,13 +139,115 @@ public class ControladorCliente {
         }
         return auxs;
     }
-    
+
     public ArrayList<Cliente> obtenerListaCondicionadaCartera(int estado) {
         ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM cliente WHERE cartera="+estado+" ORDER BY nit";
+            String sql = "SELECT * FROM cliente WHERE cartera=" + estado + " ORDER BY nit";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente aux = new Cliente();
+
+                aux.setId(rs.getInt(1));
+                aux.setNombre(rs.getString(2));
+                aux.setApellidos_Representante(rs.getString(3));
+                aux.setDui(rs.getString(4));
+                aux.setNit(rs.getString(5));
+                aux.setTelefono(rs.getString(7));
+                aux.setOcupacion(rs.getString(8));
+                aux.setDepartmento(rs.getString(9));
+                aux.setFechaIngreso(rs.getDate(10));
+                aux.setDireccion(rs.getString(11));
+                aux.setEstado(rs.getInt(12));
+                aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
+                auxs.add(aux);
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return auxs;
+    }
+
+    public boolean existeDui(String dui) {
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE dui='" + dui + "' LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+
+    public boolean existeNit(String nit) {
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT * FROM cliente WHERE nit='" + nit + "' LIMIT 1";
+            PreparedStatement ps = accesoDB.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+            conexion.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+
+    public void Modificar(Cliente x) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE cliente SET nombre='" + x.getNombre() + "', apellido='" + x.getApellidos_Representante() + "', dui='" + x.getDui() + "',"
+                    + " nit='" + x.getNit() + "', tel='" + x.getTelefono() + "', ocupacion='" + x.getOcupacion() + "', depa='" + x.getDepartmento() + "', direc='" + x.getDireccion() + "', tipo=" + x.getTipo() + " WHERE idCliente=" + x.getId();
+            st.executeUpdate(sql);
+            conexion.cerrarConexion();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public boolean ModificarEstado(int estado, int id) {
+        try {
+            conexion.abrirConexion();
+            Statement st = conexion.abrirConexion().createStatement();
+            String sql = "UPDATE cliente SET estado=" + estado + " WHERE idCliente=" + id;
+            st.executeUpdate(sql);
+
+            conexion.cerrarConexion();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public ArrayList<Cliente> obtenerListaClaseA() {
+        ArrayList<Cliente> auxs = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            Connection accesoDB = conexion.abrirConexion();
+            String sql = "SELECT "
+                    + "* "
+                    + "FROM "
+                    + "cliente "
+                    + "INNER JOIN prestamo ON prestamo.idCli = cliente.idCliente "
+                    + "WHERE (cliente.tipo=0 AND prestamo.monto>10000) OR (cliente.tipo=1 AND prestamo.monto>100000) AND prestamo.estado=1 AND cliente.cartera=0 ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -173,53 +275,80 @@ public class ControladorCliente {
         return auxs;
     }
     
-    public boolean existeDui(String dui) {
+    public ArrayList<Cliente> obtenerListaClaseB() {
+        ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM cliente WHERE dui='"+dui+"' LIMIT 1";
+            String sql = "SELECT "
+                    + "* "
+                    + "FROM "
+                    + "cliente "
+                    + "INNER JOIN prestamo ON prestamo.idCli = cliente.idCliente "
+                    + "WHERE (cliente.tipo=0 AND prestamo.monto>5000) OR (cliente.tipo=1 AND prestamo.monto>50000) AND prestamo.estado=1 AND cliente.cartera=0 ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
-            if (rs.next()) {
-                return false;
+            while (rs.next()) {
+                Cliente aux = new Cliente();
+
+                aux.setId(rs.getInt(1));
+                aux.setNombre(rs.getString(2));
+                aux.setApellidos_Representante(rs.getString(3));
+                aux.setDui(rs.getString(4));
+                aux.setNit(rs.getString(5));
+                aux.setTelefono(rs.getString(7));
+                aux.setOcupacion(rs.getString(8));
+                aux.setDepartmento(rs.getString(9));
+                aux.setFechaIngreso(rs.getDate(10));
+                aux.setDireccion(rs.getString(11));
+                aux.setEstado(rs.getInt(12));
+                aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
+                auxs.add(aux);
             }
             conexion.cerrarConexion();
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return true;
+        return auxs;
     }
     
-    public boolean existeNit(String nit) {
+    public ArrayList<Cliente> obtenerListaClaseC() {
+        ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT * FROM cliente WHERE nit='"+nit+"' LIMIT 1";
+            String sql = "SELECT "
+                    + "* "
+                    + "FROM "
+                    + "cliente "
+                    + "INNER JOIN prestamo ON prestamo.idCli = cliente.idCliente "
+                    + "WHERE (cliente.tipo=0 AND prestamo.monto>2500) OR (cliente.tipo=1 AND prestamo.monto>25000) AND prestamo.estado=1 AND cliente.cartera=0 ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
-            if (rs.next()) {
-                return false;
+            while (rs.next()) {
+                Cliente aux = new Cliente();
+
+                aux.setId(rs.getInt(1));
+                aux.setNombre(rs.getString(2));
+                aux.setApellidos_Representante(rs.getString(3));
+                aux.setDui(rs.getString(4));
+                aux.setNit(rs.getString(5));
+                aux.setTelefono(rs.getString(7));
+                aux.setOcupacion(rs.getString(8));
+                aux.setDepartmento(rs.getString(9));
+                aux.setFechaIngreso(rs.getDate(10));
+                aux.setDireccion(rs.getString(11));
+                aux.setEstado(rs.getInt(12));
+                aux.setTipo(rs.getInt(13));
+                aux.setCartera(rs.getInt(14));
+                auxs.add(aux);
             }
             conexion.cerrarConexion();
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "ERROR: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return true;
-    }
-    
-    public void Modificar(Cliente x) {
-        try {
-            conexion.abrirConexion();
-            Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE cliente SET nombre='" + x.getNombre() + "', apellido='"+x.getApellidos_Representante()+"', dui='"+x.getDui()+"',"
-                    + " nit='"+x.getNit()+"', tel='"+x.getTelefono()+"', ocupacion='"+x.getOcupacion()+"', depa='"+x.getDepartmento()+"', direc='"+x.getDireccion()+"', tipo="+x.getTipo()+" WHERE idCliente=" + x.getId();
-            st.executeUpdate(sql);
-            conexion.cerrarConexion();
-            
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        
+        return auxs;
     }
 
 }

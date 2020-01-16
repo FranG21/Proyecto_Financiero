@@ -42,7 +42,8 @@ public class ControladorDepreciacion {
                     + "detalle_activo.valor_historico, "
                     + "categoria.val, "
                     + "categoria.vidautil, "
-                    + "detalle_activo.vidautil_restante "
+                    + "detalle_activo.vidautil_restante, "
+                    + "detalle_activo.valor_r "
                     + "FROM "
                     + "activo "
                     + "INNER JOIN subcategoria ON activo.idSub = subcategoria.idSub "
@@ -54,7 +55,7 @@ public class ControladorDepreciacion {
             while (rs.next()) {
 
                 x.setP(rs.getDouble(1));
-                x.setPorcentajeL(0.00+rs.getInt(2));
+                x.setPorcentajeL(0.00+rs.getDouble(5));
                 x.setN(rs.getInt(4));
 
             }

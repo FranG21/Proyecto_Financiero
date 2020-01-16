@@ -56,7 +56,7 @@ public class ControladorCategoria {
                 categoria.setIdCategoria(rs.getInt("idCat"));
                 categoria.setNombre(rs.getString("nombre"));
                 categoria.setCodigo(rs.getString("cod"));
-                categoria.setValorResidual(rs.getInt("val"));
+                categoria.setValorResidual(rs.getDouble("val"));
                 categoria.setVidaEconomica(rs.getInt("vidaeco"));
                 categoria.setVidaUtil(rs.getInt("vidautil"));
                 categoria.setEstado(rs.getInt("estado"));
@@ -83,7 +83,7 @@ public class ControladorCategoria {
                 categoria.setIdCategoria(rs.getInt("idCat"));
                 categoria.setNombre(rs.getString("nombre"));
                 categoria.setCodigo(rs.getString("cod"));
-                categoria.setValorResidual(rs.getInt("val"));
+                categoria.setValorResidual(rs.getDouble("val"));
                 categoria.setVidaEconomica(rs.getInt("vidaeco"));
                 categoria.setVidaUtil(rs.getInt("vidautil"));
                 categoria.setEstado(rs.getInt("estado"));
@@ -110,7 +110,7 @@ public class ControladorCategoria {
                 categoria.setIdCategoria(rs.getInt("idCat"));
                 categoria.setNombre(rs.getString("nombre"));
                 categoria.setCodigo(rs.getString("cod"));
-                categoria.setValorResidual(rs.getInt("val"));
+                categoria.setValorResidual(rs.getDouble("val"));
                 categoria.setVidaEconomica(rs.getInt("vidaeco"));
                 categoria.setVidaUtil(rs.getInt("vidautil"));
                 categoria.setEstado(rs.getInt("estado"));

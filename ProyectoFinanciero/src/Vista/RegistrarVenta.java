@@ -73,6 +73,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         listaAcumuladas = obtenerListaCondicionada(12);
 
         llenarCombo();
+
         calcularPrecio();
         //Línea 1
         this.setSize(new Dimension(899, 450));
@@ -286,7 +287,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
         Double acumulada = 0.0;
         Double valorLibro = 0.0;
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL()) / 100) / depreciacion.getN();
         d = d / var;
 
         for (int i = 1; i <= depreciacion.getN() * var; i++) {
@@ -299,31 +300,34 @@ public class RegistrarVenta extends javax.swing.JFrame {
     }
 
     private void calcularPrecio() {
-
-        if (meses > listaAcumuladas.size()) {
-            precioVenta = listaAcumuladas.get(listaAcumuladas.size() - 1).getValorLibros();
+        if (activo.getCat().equals("TERRENO")) {
+            precioVenta = depreciacion.getP() + depreciacion.getP() * 0.15;
+            CajaPrecio.setText("" + formaPrecio.format(precioVenta));
         } else {
-            if (meses == 0) {
-                precioVenta = depreciacion.getP();
+            if (meses > listaAcumuladas.size()) {
+                precioVenta = listaAcumuladas.get(listaAcumuladas.size() - 1).getValorLibros();
             } else {
-                for (int i = 0; i < listaAcumuladas.size(); i++) {
-                    if (meses == listaAcumuladas.get(i).getNumeroAnio()) {
-                        precioVenta = listaAcumuladas.get(i).getValorLibros();
+                if (meses == 0) {
+                    precioVenta = depreciacion.getP();
+                } else {
+                    for (int i = 0; i < listaAcumuladas.size(); i++) {
+                        if (meses == listaAcumuladas.get(i).getNumeroAnio()) {
+                            precioVenta = listaAcumuladas.get(i).getValorLibros();
+                        }
                     }
                 }
             }
+
+            precioVenta = precioVenta + precioVenta * (depreciacion.getPorcentajeL() / 100);
+            CajaPrecio.setText("" + formaPrecio.format(precioVenta));
         }
 
-        precioVenta = precioVenta + precioVenta * (1 / depreciacion.getPorcentajeL());
-        CajaPrecio.setText("" + formaPrecio.format(precioVenta));
     }
-    
-    
 
     private boolean validar() {
-        if (comboMovimiento.getSelectedIndex()==0) {
+        if (comboMovimiento.getSelectedIndex() == 0) {
             return false;
-        } 
+        }
         return true;
     }
 }
