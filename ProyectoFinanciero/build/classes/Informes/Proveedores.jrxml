@@ -189,7 +189,7 @@ proveedor.ide ASC]]>
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="725" y="0" width="77" height="102" uuid="70cb179d-e5c3-4928-b650-6a6d73a2fbe0"/>
-				<imageExpression><![CDATA["src/Informes/ues.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["Informes/ues.jpg"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="bef86380-fab7-4e2c-8443-1d06907cae80"/>

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.Map;
 import Modelo.Conexion;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -134,6 +135,23 @@ public class MostrarReportes {
         }
     }
     
+    public void clientesZona(){
+        try {
+
+            Connection cn = conexion.abrirConexion(); // aquí obtengo la conexión
+            Map<String, Object> param = new HashMap<String, Object>(); //aquí construyo un HashMap para parámetros adicionales
+            //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
+            
+            InputStream stream = this.getClass().getResourceAsStream("ClientesZona.jasper");//aquí le pones la ruta de tu reporte;
+
+            JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
+            JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
+            n.setVisible(true); //lo haces visible 
+        } catch (JRException e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+    
     public void activosFijos(){
         try {
 
@@ -141,12 +159,13 @@ public class MostrarReportes {
             Map<String, Object> param = new HashMap<String, Object>(); //aquí construyo un HashMap para parámetros adicionales
             //param.put("parametro 1", "el parametro" ); //ejemplo de parámetro de HashMap
             
-            InputStream stream = this.getClass().getResourceAsStream("ActivosHorizontal.jasper");//aquí le pones la ruta de tu reporte;
+            InputStream stream = this.getClass().getResourceAsStream("/Informes/ActivosHorizontal.jasper");//aquí le pones la ruta de tu reporte;
 
             JasperPrint print = print = JasperFillManager.fillReport(stream, param, cn); //aquí le envías el stream, tu HashMap y la conexión a la Base de datos
             JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
             n.setVisible(true); //lo haces visible 
         } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println("error: " + e.getMessage());
         }
     }
@@ -164,6 +183,7 @@ public class MostrarReportes {
             JasperViewer n = new JasperViewer(print, false); //generas tu visor del reporte
             n.setVisible(true); //lo haces visible 
         } catch (JRException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println("error: " + e.getMessage());
         }
     }

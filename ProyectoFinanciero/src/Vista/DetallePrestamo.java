@@ -11,11 +11,9 @@ import Modelo.Amortizacion;
 import Modelo.Cliente;
 import Modelo.Credito;
 import Modelo.Prestamo;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *

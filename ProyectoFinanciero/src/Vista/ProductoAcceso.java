@@ -194,7 +194,7 @@ public class ProductoAcceso extends javax.swing.JFrame {
         Usuario login=new Usuario();
         login.setUser(user);
         login.setPass(clave);
-        Usuario x = ctr.buscarUsuario(user);
+        Usuario x = ctr.loginUsuario(login);
         if (x != null) {
                 return x;
         }
