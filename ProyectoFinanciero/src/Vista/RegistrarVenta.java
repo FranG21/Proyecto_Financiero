@@ -74,7 +74,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
         llenarCombo();
 
-        calcularPrecio();
+        //calcularPrecio();
         //Línea 1
         this.setSize(new Dimension(899, 450));
 
@@ -146,8 +146,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
         CajaFecha.setEnabled(false);
         getContentPane().add(CajaFecha);
         CajaFecha.setBounds(620, 180, 200, 30);
-
-        CajaPrecio.setEnabled(false);
         getContentPane().add(CajaPrecio);
         CajaPrecio.setBounds(210, 250, 200, 30);
 

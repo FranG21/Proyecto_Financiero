@@ -70,40 +70,35 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lbl19" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lbl20" min="-2" pref="201" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="lbl2" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="lbl1" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="lbl3" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="lbl4" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="lbl6" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="lbl2" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <Component id="lbl1" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <Component id="lbl3" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <Component id="lbl4" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <Component id="lbl6" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lbl5" min="-2" pref="153" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="lbl7" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                                  <Component id="lbl9" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="63" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lbl11" pref="190" max="32767" attributes="0"/>
-                              <Component id="lbl10" max="32767" attributes="0"/>
-                              <Component id="lbl12" max="32767" attributes="0"/>
-                              <Component id="lbl14" max="32767" attributes="0"/>
-                              <Component id="lbl13" max="32767" attributes="0"/>
-                              <Component id="lbl15" max="32767" attributes="0"/>
-                              <Component id="lbl16" max="32767" attributes="0"/>
-                              <Component id="lbl18" max="32767" attributes="0"/>
-                          </Group>
+                      <Component id="lbl5" min="-2" pref="153" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="lbl7" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="lbl9" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="lbl19" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="lbl22" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbl21" max="32767" attributes="0"/>
+                      <Component id="lbl20" max="32767" attributes="0"/>
+                      <Component id="lbl11" alignment="1" pref="267" max="32767" attributes="0"/>
+                      <Component id="lbl10" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lbl12" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lbl14" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lbl13" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lbl15" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lbl18" max="32767" attributes="0"/>
+                      <Component id="lbl16" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -155,7 +150,12 @@
                       <Component id="lbl19" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="lbl20" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbl22" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="lbl21" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -361,6 +361,28 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="9999999"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl21">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="9999999"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl22">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ESTADO"/>
           </Properties>
         </Component>
       </SubComponents>

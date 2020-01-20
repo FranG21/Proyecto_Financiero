@@ -48,7 +48,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
 
     ControladorVenta controladorVenta;
     ArrayList<Venta> listaVenta;
-    
+
     ControladorDeparamento controladorDeparamento;
     ArrayList<Departamento> listaDepartamentos;
     Departamento departamento;
@@ -62,11 +62,11 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         controladorActivo = new ControladorActivo();
         listaProveedor = new ArrayList<>();
         controladorProveedor = new ControladorProveedor();
-        controladorVenta=new ControladorVenta();
-        controladorDepreciacion=new ControladorDepreciacion();
-        listaAcumuladas=new ArrayList<>();
-        controladorDeparamento=new ControladorDeparamento();
-        listaDepartamentos=new ArrayList<>();
+        controladorVenta = new ControladorVenta();
+        controladorDepreciacion = new ControladorDepreciacion();
+        listaAcumuladas = new ArrayList<>();
+        controladorDeparamento = new ControladorDeparamento();
+        listaDepartamentos = new ArrayList<>();
 
         formaFecha = new SimpleDateFormat("dd-MM-YYYY");
         forma = new DecimalFormat("0.00");
@@ -76,16 +76,16 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
 
         listaProveedor = controladorProveedor.obtenerListaIdMarca(activo.getIdMarca());
         proveedor = listaProveedor.get(0);
-        
+
         depreciacion = controladorDepreciacion.obtenerObjeto(activo.getId());
         meses = controladorVenta.obtenerMeses(activo.getId());
         id = controladorActivo.obtenerIdDetalle(activo.getId());
 
         listaAcumuladas = obtenerListaCondicionada(12);
-        
-        listaDepartamentos=controladorDeparamento.obtenerListaCondicionadaId(activo.getIdDepartamento());
-        departamento=listaDepartamentos.get(0);
-        
+
+        listaDepartamentos = controladorDeparamento.obtenerListaCondicionadaId(activo.getIdDepartamento());
+        departamento = listaDepartamentos.get(0);
+
         calcularPrecio();
 
         lbl10.setText(detalle.getSerie());
@@ -94,9 +94,16 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl13.setText(formaFecha.format(detalle.getFechaCompra()));
         lbl14.setText(departamento.getNombreDep());
         lbl15.setText(formaFecha.format(detalle.getFechaInicio()));
-        lbl16.setText("" + detalle.getVidaUtilRestante()+" AÑOS");
-        lbl18.setText("$"+forma.format(detalle.getPrecio()));
-        lbl20.setText("$"+forma.format(precioVenta));
+        lbl16.setText("" + detalle.getVidaUtilRestante() + " AÑOS");
+        lbl18.setText("$" + forma.format(detalle.getPrecio()));
+        lbl20.setText("$" + forma.format(precioVenta));
+
+        if (activo.getEstado() == 1) {
+            lbl21.setText("ACTIVO");
+        } else {
+            lbl21.setText("INACTIVO POR: "+activo.getDescripcionEstado());
+        }
+
     }
 
     /**
@@ -128,6 +135,8 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl1 = new javax.swing.JLabel();
         lbl19 = new javax.swing.JLabel();
         lbl20 = new javax.swing.JLabel();
+        lbl21 = new javax.swing.JLabel();
+        lbl22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -219,6 +228,14 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl20.setForeground(new java.awt.Color(255, 255, 255));
         lbl20.setText("9999999");
 
+        lbl21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl21.setForeground(new java.awt.Color(255, 255, 255));
+        lbl21.setText("9999999");
+
+        lbl22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl22.setForeground(new java.awt.Color(255, 255, 255));
+        lbl22.setText("ESTADO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -226,33 +243,31 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl19, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl20, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbl11, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(lbl10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(32, 32, 32))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lbl7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl19, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl22, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(lbl10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +308,11 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl19, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl22, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl21, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
@@ -324,6 +343,8 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
     private javax.swing.JLabel lbl19;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl20;
+    private javax.swing.JLabel lbl21;
+    private javax.swing.JLabel lbl22;
     private javax.swing.JLabel lbl3;
     private javax.swing.JLabel lbl4;
     private javax.swing.JLabel lbl5;

@@ -224,7 +224,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         // TODO add your handling code here:
         if (objeto.getEstado() == 0) {
-            if (controladorActivo.ModificarEstado(1, objeto.getId())) {
+            if (controladorActivo.ModificarEstado(1, objeto.getId(),"")) {
                 verTabla();
                 objeto.setEstado(1);
                 btnEstado.setBackground(Color.RED);
@@ -235,14 +235,22 @@ public class ListaActivoFijo extends javax.swing.JFrame {
             }
 
         } else {
-            if (controladorActivo.ModificarEstado(0, objeto.getId())) {
-                verTabla();
-                objeto.setEstado(0);
-                btnEstado.setBackground(Color.GREEN);
-                btnEstado.setText("DAR DE ALTA");
-                JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+
+            String motivo = JOptionPane.showInputDialog("¿POR QUE QUIERE DAR DE BAJA AL ATIVO?");
+
+            if (!motivo.equals("")) {
+                if (controladorActivo.ModificarEstado(0, objeto.getId(),motivo)) {
+                    verTabla();
+                    objeto.setEstado(0);
+                    btnEstado.setBackground(Color.GREEN);
+                    btnEstado.setText("DAR DE ALTA");
+                    JOptionPane.showMessageDialog(null, "REGISTRO DADO DE BAJA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                }
             } else {
+                JOptionPane.showMessageDialog(null, "COMPLETE CAMPO");
             }
+
         }
     }//GEN-LAST:event_btnEstadoActionPerformed
 
@@ -290,7 +298,7 @@ public class ListaActivoFijo extends javax.swing.JFrame {
         BtnVer.setEnabled(true);
         btnRevaluar.setEnabled(true);
         btnEstado.setEnabled(true);
-        
+
         if (objeto.getEstado() == 0) {
             btnEstado.setBackground(Color.GREEN);
             btnEstado.setText("DAR DE ALTA");

@@ -52,7 +52,7 @@ public class ControladorActivo {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
             String sql = "INSERT INTO detalle_activo (serie,fecha_adqui,fecha_inicio,valor_historico,donado,vidautil_restante,activofijo_id,condicion,valor_r) VALUES"
-                    + " ('" + x.getSerie() + "','" + forma.format(x.getFechaCompra()) + "','" + forma.format(x.getFechaInicio()) + "'," + x.getPrecio() + ",'" + x.getDonado() + "'," + x.getVidaUtilRestante() + "," + x.getActivo().getId() + ",'" + x.getCondicion() + "',"+x.getValorReidual()+")";
+                    + " ('" + x.getSerie() + "','" + forma.format(x.getFechaCompra()) + "','" + forma.format(x.getFechaInicio()) + "'," + x.getPrecio() + ",'" + x.getDonado() + "'," + x.getVidaUtilRestante() + "," + x.getActivo().getId() + ",'" + x.getCondicion() + "'," + x.getValorReidual() + ")";
             st.executeUpdate(sql);
             System.out.println("CTA AGREGADA");
             conexion.cerrarConexion();
@@ -220,7 +220,8 @@ public class ControladorActivo {
                     + "subcategoria.codigo, "
                     + "departamento.codigo, "
                     + "subcategoria.nombre, "
-                    + "categoria.nombre "
+                    + "categoria.nombre,"
+                    + "activo.descripcionEstado "
                     + "FROM "
                     + "activo "
                     + "INNER JOIN departamento ON activo.idDep = departamento.idDep "
@@ -243,6 +244,7 @@ public class ControladorActivo {
                 aux.setEstado(rs.getInt("estado"));
                 aux.setSub(rs.getString(12));
                 aux.setCat(rs.getString(13));
+                //aux.setDescripcionEstado(rs.getString(14));
                 x.add(aux);
             }
             conexion.cerrarConexion();
@@ -276,11 +278,11 @@ public class ControladorActivo {
         return x;
     }
 
-    public boolean ModificarEstado(int estado, int id) {
+    public boolean ModificarEstado(int estado, int id, String motivo) {
         try {
             conexion.abrirConexion();
             Statement st = conexion.abrirConexion().createStatement();
-            String sql = "UPDATE activo SET estado=" + estado + " WHERE idAc=" + id;
+            String sql = "UPDATE activo SET estado=" + estado + ",descripcionEstado='" + motivo + "'  WHERE idAc=" + id;
             st.executeUpdate(sql);
             conexion.cerrarConexion();
             return true;
@@ -331,7 +333,7 @@ public class ControladorActivo {
         }
         return x;
     }
-    
+
     public void Revaluar(Double x, int id) {
         try {
             conexion.abrirConexion();
@@ -339,7 +341,7 @@ public class ControladorActivo {
             String sql = "UPDATE detalle_activo SET valor_historico=" + x + " WHERE activofijo_id=" + id;
             st.executeUpdate(sql);
             conexion.cerrarConexion();
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
