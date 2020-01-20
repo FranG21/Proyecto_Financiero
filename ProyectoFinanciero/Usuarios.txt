@@ -1,0 +1,10 @@
+Administrador  contraseña
+u1             u1
+
+
+
+Gerente de activo fijo   contraseña
+u2                       u2
+
+Gerente de CxC           contraseña
+u3                       u3
