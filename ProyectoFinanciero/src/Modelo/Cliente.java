@@ -26,6 +26,7 @@ public class Cliente {
     private Integer estado;
     private Integer tipo;
     private Integer cartera;
+    private Integer nMora;
 
     public Cliente() {
     }
@@ -145,6 +146,14 @@ public class Cliente {
 
     public void setCartera(Integer cartera) {
         this.cartera = cartera;
+    }
+
+    public Integer getnMora() {
+        return nMora;
+    }
+
+    public void setnMora(Integer nMora) {
+        this.nMora = nMora;
     }
     
     

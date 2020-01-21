@@ -269,7 +269,7 @@ public class ListaClientes extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(390, 20, 70, 30);
 
-        comboClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "A", "B", "C" }));
+        comboClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "A", "B", "C", "D" }));
         comboClase.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboClaseItemStateChanged(evt);
@@ -376,13 +376,41 @@ public class ListaClientes extends javax.swing.JFrame {
 
     private void comboClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClaseActionPerformed
         // TODO add your handling code here:
-        if (comboClase.getSelectedIndex() == 1) {
-            verTablaClaseA();
-        } else if (comboClase.getSelectedIndex() == 2) {
-            verTablaClaseB();
-        } else if (comboClase.getSelectedIndex() == 3) {
-            verTablaClaseC();
+        if (comboClase.getSelectedIndex() == 0) {
+            verTablaX();
+        } else {
+
+            ArrayList<Cliente> listaClienteClase = new ArrayList<>();
+            ArrayList<Cliente> listaClienteFiltrado = new ArrayList<>();
+
+            listaClienteClase = controladorCliente.obtenerListaClaseA();
+            if (comboClase.getSelectedIndex() == 1) {
+                for (int a = 0; a < listaClienteClase.size(); a++) {
+                    if (listaClienteClase.get(a).getnMora() == 0) {
+                        listaClienteFiltrado.add(listaClienteClase.get(a));
+                    }
+                }
+                verTablaClaseA(listaClienteFiltrado);
+            } else if (comboClase.getSelectedIndex() == 2) {
+                for (int b = 0; b < listaClienteClase.size(); b++) {
+                    if (listaClienteClase.get(b).getnMora() > 0 && listaClienteClase.get(b).getnMora() < 10) {
+                        listaClienteFiltrado.add(listaClienteClase.get(b));
+                    }
+                }
+                verTablaClaseB(listaClienteFiltrado);
+            } else if (comboClase.getSelectedIndex() == 3) {
+                for (int c = 0; c < listaClienteClase.size(); c++) {
+                    if (listaClienteClase.get(c).getnMora() >= 10) {
+                        listaClienteFiltrado.add(listaClienteClase.get(c));
+                    }
+                }
+                verTablaClaseC(listaClienteFiltrado);
+            } else if (comboClase.getSelectedIndex() == 4) {
+                verTablaCondicionadaCarteras(2);
+            }
+
         }
+
     }//GEN-LAST:event_comboClaseActionPerformed
 
     /**
@@ -451,10 +479,10 @@ public class ListaClientes extends javax.swing.JFrame {
         Tabla.setModel(modelo);
     }
 
-    void verTablaClaseA() {
+    void verTablaClaseA(ArrayList<Cliente> listaFiltrada) {
         //objeto = new Categoria();
         listaCliente = new ArrayList<>();
-        listaCliente = controladorCliente.obtenerListaClaseA();
+        listaCliente = listaFiltrada;
 
         modelo.setRowCount(listaCliente.size());
 
@@ -478,10 +506,10 @@ public class ListaClientes extends javax.swing.JFrame {
         Tabla.setModel(modelo);
     }
 
-    void verTablaClaseB() {
+    void verTablaClaseB(ArrayList<Cliente> listaFiltrada) {
         //objeto = new Categoria();
         listaCliente = new ArrayList<>();
-        listaCliente = controladorCliente.obtenerListaClaseB();
+        listaCliente = listaFiltrada;
 
         modelo.setRowCount(listaCliente.size());
 
@@ -505,10 +533,10 @@ public class ListaClientes extends javax.swing.JFrame {
         Tabla.setModel(modelo);
     }
 
-    void verTablaClaseC() {
+    void verTablaClaseC(ArrayList<Cliente> listaFiltrada) {
         //objeto = new Categoria();
         listaCliente = new ArrayList<>();
-        listaCliente = controladorCliente.obtenerListaClaseC();
+        listaCliente = listaFiltrada;
 
         modelo.setRowCount(listaCliente.size());
 

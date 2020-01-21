@@ -243,11 +243,31 @@ public class ControladorCliente {
         try {
             Connection accesoDB = conexion.abrirConexion();
             String sql = "SELECT "
-                    + "* "
+                    + "cliente.idCliente, "
+                    + "cliente.nombre, "
+                    + "cliente.apellido, "
+                    + "cliente.dui, "
+                    + "cliente.nit, "
+                    + "cliente.repre, "
+                    + "cliente.tel, "
+                    + "cliente.ocupacion, "
+                    + "cliente.depa, "
+                    + "cliente.fecha, "
+                    + "cliente.direc, "
+                    + "cliente.estado, "
+                    + "cliente.tipo, "
+                    + "cliente.cartera, "
+                    + "IFNULL((select COUNT(idAmortizacion) as mora "
+                    + "FROM "
+                    + "amortizacion "
+                    + "INNER JOIN prestamo ON amortizacion.idPrestamo = prestamo.idPres "
+                    + "WHERE "
+                    + "prestamo.idCli = cliente.idCliente AND "
+                    + "amortizacion.mora = 1),0)  as nmora "
                     + "FROM "
                     + "cliente "
-                    + "INNER JOIN prestamo ON prestamo.idCli = cliente.idCliente "
-                    + "WHERE (cliente.tipo=0 AND prestamo.monto>10000) OR (cliente.tipo=1 AND prestamo.monto>100000) AND prestamo.estado=1 AND cliente.cartera=0 ORDER BY nit";
+                    + "WHERE cliente.cartera!=2 "
+                    + "ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -266,6 +286,7 @@ public class ControladorCliente {
                 aux.setEstado(rs.getInt(12));
                 aux.setTipo(rs.getInt(13));
                 aux.setCartera(rs.getInt(14));
+                aux.setnMora(rs.getInt(15));
                 auxs.add(aux);
             }
             conexion.cerrarConexion();
@@ -274,18 +295,13 @@ public class ControladorCliente {
         }
         return auxs;
     }
-    
+
     public ArrayList<Cliente> obtenerListaClaseB() {
         ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
         try {
             Connection accesoDB = conexion.abrirConexion();
-            String sql = "SELECT "
-                    + "* "
-                    + "FROM "
-                    + "cliente "
-                    + "INNER JOIN prestamo ON prestamo.idCli = cliente.idCliente "
-                    + "WHERE (cliente.tipo=0 AND prestamo.monto>5000) OR (cliente.tipo=1 AND prestamo.monto>50000) AND prestamo.estado=1 AND cliente.cartera=0 ORDER BY nit";
+            String sql = "SELECT * FROM cliente WHERE cartera=" + 1 + " ORDER BY nit";
             PreparedStatement ps = accesoDB.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -312,7 +328,7 @@ public class ControladorCliente {
         }
         return auxs;
     }
-    
+
     public ArrayList<Cliente> obtenerListaClaseC() {
         ArrayList<Cliente> auxs = new ArrayList<>();
         ResultSet rs = null;
