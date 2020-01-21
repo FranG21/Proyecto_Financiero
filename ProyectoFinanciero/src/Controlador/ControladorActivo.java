@@ -324,7 +324,7 @@ public class ControladorActivo {
                 aux.setPrecio(rs.getDouble(5));
                 aux.setDonado(rs.getString(6));
                 aux.setVidaUtilRestante(rs.getInt(7));
-
+                aux.setValorReidual(rs.getDouble(12));
                 x.add(aux);
             }
             conexion.cerrarConexion();

@@ -96,7 +96,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         lbl15.setText(formaFecha.format(detalle.getFechaInicio()));
         lbl16.setText("" + detalle.getVidaUtilRestante() + " AÑOS");
         lbl18.setText("$" + forma.format(detalle.getPrecio()));
-        lbl20.setText("$" + forma.format(precioVenta));
+        lbl20.setText( detalle.getValorReidual()+ "%");
 
         if (activo.getEstado() == 1) {
             lbl21.setText("ACTIVO");
@@ -222,7 +222,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
 
         lbl19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl19.setForeground(new java.awt.Color(255, 255, 255));
-        lbl19.setText("VALOR RESIDUAL");
+        lbl19.setText("PORCENTAJE DE R");
 
         lbl20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl20.setForeground(new java.awt.Color(255, 255, 255));
@@ -357,7 +357,7 @@ public class DetalleActivoFijo extends javax.swing.JFrame {
         ArrayList<DepreciacionAcumulada> lista = new ArrayList<>();
         Double acumulada = 0.0;
         Double valorLibro = 0.0;
-        d = (depreciacion.getP() - depreciacion.getP() * (1 / depreciacion.getPorcentajeL())) / depreciacion.getN();
+        d = (depreciacion.getP() - depreciacion.getP() * (depreciacion.getPorcentajeL()/100)) / depreciacion.getN();
         d = d / var;
 
         for (int i = 1; i <= depreciacion.getN() * var; i++) {
