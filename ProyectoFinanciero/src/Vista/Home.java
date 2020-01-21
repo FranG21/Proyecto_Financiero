@@ -60,11 +60,12 @@ public class Home extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
         btnUsuarios = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -252,6 +253,15 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem16);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
+        jMenuItem2.setText("ZONAS");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         btnInformeCuentasPorCobrar.add(jMenu2);
 
         jMenu3.setText("PERSONAS JURIDICAS");
@@ -280,16 +290,16 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem21);
 
-        btnInformeCuentasPorCobrar.add(jMenu3);
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
-        jMenuItem2.setText("ZONAS");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem22.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem22.setText("ZONAS");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem22ActionPerformed(evt);
             }
         });
-        btnInformeCuentasPorCobrar.add(jMenuItem2);
+        jMenu3.add(jMenuItem22);
+
+        btnInformeCuentasPorCobrar.add(jMenu3);
 
         jMenu4.add(btnInformeCuentasPorCobrar);
 
@@ -468,6 +478,11 @@ public class Home extends javax.swing.JFrame {
         new MostrarReportes().clientesZona();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        // TODO add your handling code here:
+        new MostrarReportes().clientesZonaJuridico();
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -531,6 +546,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

@@ -154,7 +154,7 @@ cliente.apellido ASC]]>
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="725" y="0" width="77" height="102" uuid="2c63a1df-5f4a-473e-b53f-097932cf0f31"/>
-				<imageExpression><![CDATA["src/Informes/ues.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["Informes/ues.jpg"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="abd09ab8-3a13-41db-83b1-5ff77406fda7"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="274ac467-9361-490b-9f6b-58c882e7d0cc">
-	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.zoom" value="1.3310000000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="140"/>
+	<property name="ireport.y" value="96"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -24,11 +24,18 @@ cliente.depa,
 cliente.fecha AS edad,
 cliente.tipo,
 cliente.cartera,
-cliente.estado
+cliente.estado,
+IFNULL((select COUNT(idAmortizacion) as mora 
+          FROM 
+          amortizacion 
+          INNER JOIN prestamo ON amortizacion.idPrestamo = prestamo.idPres 
+          WHERE 
+          prestamo.idCli = cliente.idCliente AND 
+          amortizacion.mora = 1),0)  as nmora
 FROM
 cliente
 WHERE
-cliente.cartera = 0 AND
+
 cliente.tipo = 0
 ORDER BY
 cliente.estado DESC,
@@ -64,6 +71,7 @@ cliente.apellido ASC]]>
 	<field name="estado" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nmora" class="java.lang.Long"/>
 	<variable name="variable1" class="java.lang.Integer" resetType="Group" resetGroup="cartera" calculation="Count">
 		<variableExpression><![CDATA[$F{apellido}]]></variableExpression>
 	</variable>
@@ -125,7 +133,7 @@ cliente.apellido ASC]]>
 							<font fontName="Times New Roman" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 							<paragraph lineSpacing="Single"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{cartera}==0?"Normal":$F{cartera}==0?"Moroso":"Incobrable"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{cartera}==0?"Normal":$F{cartera}==1?"Moroso":"Incobrable"]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
@@ -186,6 +194,13 @@ cliente.apellido ASC]]>
 						</textElement>
 						<text><![CDATA[#]]></text>
 					</staticText>
+					<staticText>
+						<reportElement style="Column header" x="750" y="2" width="47" height="18" forecolor="#000000" uuid="52246b82-0042-43b8-95e7-0ccef34fe906"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[Clase]]></text>
+					</staticText>
 				</frame>
 			</band>
 		</groupHeader>
@@ -210,14 +225,14 @@ cliente.apellido ASC]]>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
+					<text><![CDATA[NOMBRE S.A]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="a9526f97-44be-4330-8212-d493f2121a39"/>
+					<reportElement style="SubTitle" x="370" y="37" width="327" height="29" uuid="a9526f97-44be-4330-8212-d493f2121a39"/>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[Personas naturales por departamento]]></text>
 				</staticText>
 			</frame>
 			<frame>
@@ -291,6 +306,14 @@ cliente.apellido ASC]]>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="750" y="0" width="47" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="174dc58b-faa9-4a09-8c54-08a446db10ee"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cartera}==2?"D":($F{nmora}==0?"A":($F{nmora}>0 && $F{nmora}<10)?"B":$F{nmora}>=10?"C":"C")]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

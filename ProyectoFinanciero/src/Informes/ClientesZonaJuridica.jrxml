@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="274ac467-9361-490b-9f6b-58c882e7d0cc">
-	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.zoom" value="1.3310000000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="140"/>
+	<property name="ireport.y" value="101"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -24,12 +24,20 @@ cliente.depa,
 cliente.fecha AS edad,
 cliente.tipo,
 cliente.cartera,
-cliente.estado
+cliente.estado,
+cliente.nit,
+IFNULL((select COUNT(idAmortizacion) as mora 
+          FROM 
+          amortizacion 
+          INNER JOIN prestamo ON amortizacion.idPrestamo = prestamo.idPres 
+          WHERE 
+          prestamo.idCli = cliente.idCliente AND 
+          amortizacion.mora = 1),0)  as nmora
 FROM
 cliente
 WHERE
-cliente.cartera = 0 AND
-cliente.tipo = 0
+
+cliente.tipo = 1
 ORDER BY
 cliente.estado DESC,
 cliente.depa ASC,
@@ -64,6 +72,10 @@ cliente.apellido ASC]]>
 	<field name="estado" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nmora" class="java.lang.Long"/>
 	<variable name="variable1" class="java.lang.Integer" resetType="Group" resetGroup="cartera" calculation="Count">
 		<variableExpression><![CDATA[$F{apellido}]]></variableExpression>
 	</variable>
@@ -125,7 +137,7 @@ cliente.apellido ASC]]>
 							<font fontName="Times New Roman" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 							<paragraph lineSpacing="Single"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{cartera}==0?"Normal":$F{cartera}==0?"Moroso":"Incobrable"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{cartera}==0?"Normal":$F{cartera}==1?"Moroso":"Incobrable"]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
@@ -138,46 +150,39 @@ cliente.apellido ASC]]>
 						<rightPen lineWidth="0.0"/>
 					</box>
 					<staticText>
-						<reportElement style="Column header" x="153" y="2" width="113" height="18" forecolor="#000000" uuid="f658322c-b52f-4646-ba3b-cd0d766b0bdf"/>
+						<reportElement style="Column header" x="160" y="2" width="113" height="18" forecolor="#000000" uuid="273ece5e-b509-45de-ba75-9a9b559ddc5b"/>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<text><![CDATA[Nombres]]></text>
+						<text><![CDATA[NIT]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Column header" x="283" y="2" width="113" height="18" forecolor="#000000" uuid="273ece5e-b509-45de-ba75-9a9b559ddc5b"/>
-						<textElement>
-							<font isBold="true"/>
-						</textElement>
-						<text><![CDATA[DUI]]></text>
-					</staticText>
-					<staticText>
-						<reportElement style="Column header" x="396" y="2" width="113" height="18" forecolor="#000000" uuid="e129f651-2f5c-4d68-90a5-700cde9cd48e"/>
+						<reportElement style="Column header" x="276" y="2" width="80" height="18" forecolor="#000000" uuid="e129f651-2f5c-4d68-90a5-700cde9cd48e"/>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
 						<text><![CDATA[TEL.]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Column header" x="509" y="2" width="113" height="18" forecolor="#000000" uuid="8af5cf4a-fde8-4768-9400-8acffdcfa31b"/>
+						<reportElement style="Column header" x="358" y="2" width="113" height="18" forecolor="#000000" uuid="8af5cf4a-fde8-4768-9400-8acffdcfa31b"/>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<text><![CDATA[Ocupacion]]></text>
+						<text><![CDATA[Giro]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Column header" x="624" y="2" width="113" height="18" forecolor="#000000" uuid="4918a307-da37-45e9-beb5-561c901fe395"/>
+						<reportElement style="Column header" x="529" y="2" width="113" height="18" forecolor="#000000" uuid="4918a307-da37-45e9-beb5-561c901fe395"/>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<text><![CDATA[Fecha de registro]]></text>
+						<text><![CDATA[Representante]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Column header" x="16" y="2" width="113" height="18" forecolor="#000000" uuid="f7d59017-fb0e-4d16-b112-50362deeedc7"/>
+						<reportElement style="Column header" x="16" y="2" width="140" height="18" forecolor="#000000" uuid="f7d59017-fb0e-4d16-b112-50362deeedc7"/>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<text><![CDATA[Apellidos]]></text>
+						<text><![CDATA[Nombre o razón social]]></text>
 					</staticText>
 					<staticText>
 						<reportElement style="Column header" x="0" y="2" width="15" height="18" forecolor="#000000" uuid="4602f549-2aab-464c-9a7a-439973f4bdbd"/>
@@ -185,6 +190,13 @@ cliente.apellido ASC]]>
 							<font isBold="true"/>
 						</textElement>
 						<text><![CDATA[#]]></text>
+					</staticText>
+					<staticText>
+						<reportElement style="Column header" x="740" y="2" width="47" height="18" forecolor="#000000" uuid="20a3e341-a838-440e-af22-c0ea801f85bd"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[Clase]]></text>
 					</staticText>
 				</frame>
 			</band>
@@ -210,14 +222,14 @@ cliente.apellido ASC]]>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
+					<text><![CDATA[NOMBRE S.A]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="a9526f97-44be-4330-8212-d493f2121a39"/>
+					<reportElement style="SubTitle" x="370" y="37" width="327" height="29" uuid="a9526f97-44be-4330-8212-d493f2121a39"/>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[Personas juridicas por departamento]]></text>
 				</staticText>
 			</frame>
 			<frame>
@@ -243,46 +255,32 @@ cliente.apellido ASC]]>
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="4f08bc92-4662-41c8-8b5f-57dad42cb4ef"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="16" y="0" width="137" height="18" uuid="87d68b30-dd0b-4a25-899e-24a9a042d4ab"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="153" y="0" width="129" height="18" uuid="534ab6e8-eb63-4ed4-889a-45984fe07b92"/>
+					<reportElement style="Detail" positionType="Float" x="16" y="0" width="140" height="18" uuid="87d68b30-dd0b-4a25-899e-24a9a042d4ab"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="282" y="0" width="113" height="18" uuid="22353627-8645-4983-9a2c-3e3347b5643b"/>
+					<reportElement style="Detail" positionType="Float" x="160" y="0" width="113" height="18" uuid="22353627-8645-4983-9a2c-3e3347b5643b"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{dui}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="395" y="0" width="113" height="18" uuid="467730d6-39b9-4c96-a2ad-b3ea1d5652d8"/>
+					<reportElement style="Detail" positionType="Float" x="276" y="0" width="80" height="18" uuid="467730d6-39b9-4c96-a2ad-b3ea1d5652d8"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{tel}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="509" y="0" width="113" height="18" uuid="4a9ac3ee-4259-4abe-95de-68c7df06052b"/>
+					<reportElement style="Detail" positionType="Float" x="358" y="0" width="162" height="18" uuid="4a9ac3ee-4259-4abe-95de-68c7df06052b"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ocupacion}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-					<reportElement style="Detail" positionType="Float" x="624" y="0" width="113" height="18" uuid="007adf57-fcbe-4661-93a1-8d794ed2195a"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement mode="Transparent" x="0" y="0" width="15" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="d31808c2-0eb5-4b6f-81da-a1b717284372"/>
@@ -291,6 +289,22 @@ cliente.apellido ASC]]>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="529" y="0" width="191" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="59d09151-837b-4bf6-988f-52267f8f3003"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="740" y="0" width="47" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="2e0fff3d-ba7c-47fe-8abd-1475f51ec1ea"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cartera}==2?"D":($F{nmora}==0?"A":($F{nmora}>0 && $F{nmora}<10)?"B":$F{nmora}>=10?"C":"C")]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a09c7f89-36bf-438f-8bb5-e45d42a6a7a6">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="338"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.y" value="26"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -154,7 +154,7 @@ cliente.apellido ASC]]>
 		<band height="102" splitType="Stretch">
 			<image>
 				<reportElement x="725" y="0" width="77" height="102" uuid="2c63a1df-5f4a-473e-b53f-097932cf0f31"/>
-				<imageExpression><![CDATA["src/Informes/ues.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["Informes/ues.jpg"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="abd09ab8-3a13-41db-83b1-5ff77406fda7"/>
