@@ -125,6 +125,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         btnPagar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnRefinanciar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -168,7 +169,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnPagar);
-        btnPagar.setBounds(360, 560, 210, 50);
+        btnPagar.setBounds(370, 560, 210, 50);
 
         jButton2.setBackground(new java.awt.Color(255, 153, 51));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -190,6 +191,18 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         jLabel3.setPreferredSize(new java.awt.Dimension(930, 690));
         getContentPane().add(jLabel3);
         jLabel3.setBounds(229, 0, 400, 70);
+
+        btnRefinanciar.setBackground(new java.awt.Color(0, 0, 255));
+        btnRefinanciar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnRefinanciar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefinanciar.setText("REFINANCIAR");
+        btnRefinanciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefinanciarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRefinanciar);
+        btnRefinanciar.setBounds(130, 560, 210, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bitcoin_1600x900_10536.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -219,6 +232,21 @@ public class ListaAmortizacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPagarActionPerformed
 
+    private void btnRefinanciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefinanciarActionPerformed
+        // TODO add your handling code here:
+        if (cliente.getEstado() == 0 || cliente.getCartera() == 2) {
+            JOptionPane.showMessageDialog(null, "EL CLIENTE DEBE SER ACTIVO Y NO DEBE DE TENER CARTERA DE INCOBRABILIDAD");
+        } else {
+            if (prestamo.getEstado()==1) {
+                JOptionPane.showMessageDialog(null, "EL PRESTAMO YA HA SIDO CANCELADO");
+            } else {
+                RegistrarRefinanciamiento vista = new RegistrarRefinanciamiento(cliente, prestamo, listaAmortizacion);
+                vista.setVisible(true);
+            }
+
+        }
+    }//GEN-LAST:event_btnRefinanciarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +254,7 @@ public class ListaAmortizacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;
     private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnRefinanciar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

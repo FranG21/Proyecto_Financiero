@@ -94,7 +94,7 @@ public class ModificarCredito extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("NUEVO CREDITO");
+        jLabel2.setText("MODIFICAR CREDITO");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(30, 20, 310, 70);
 
@@ -146,7 +146,7 @@ public class ModificarCredito extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(192, 57, 43));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
+        jButton1.setText("CANCELAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -210,7 +210,7 @@ public class ModificarCredito extends javax.swing.JFrame {
             Double tasa = Double.parseDouble(cajaInteres.getText());
             String garantia = comboTipo.getSelectedItem().toString();
 
-            if (canMax > canMin) {
+            if ( (canMax > canMin) && plazoMax>4 ) {
                 //Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
                 credito.setTipo(nombre);
                 credito.setPlazoMax(plazoMax);
@@ -223,7 +223,7 @@ public class ModificarCredito extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "DATOS MODIFICADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "DEBE SER MAYOR LA CANTIDAD MAXIMA QUE LA CANTIDAD MINIMA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DEBE SER MAYOR LA CANTIDAD MAXIMA QUE LA CANTIDAD MINIMA Y EL PLAZO DEBE SER MAYOR QUE 4 MESES", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {

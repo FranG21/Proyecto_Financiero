@@ -186,14 +186,14 @@ public class RegistrarCredito extends javax.swing.JFrame {
             Double tasa = Double.parseDouble(cajaInteres.getText());
             String garantia = comboTipo.getSelectedItem().toString();
 
-            if (canMax > canMin) {
+            if ((canMax > canMin) && plazoMax > 4) {
                 Credito credito = new Credito(nombre, plazoMax, canMax, canMin, garantia, tasa);
                 credito.setClasifiacion(comboCategoria.getSelectedIndex());
                 controladorCredito.Agregar(credito);
                 JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "DEBE SER MAYOR LA CANTIDAD MAXIMA QUE LA CANTIDAD MINIMA", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DEBE SER MAYOR LA CANTIDAD MAXIMA QUE LA CANTIDAD MINIMA Y EL PLAZO DEBE SER MAYOR QUE 4 MESES", "EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {

@@ -35,7 +35,7 @@ import javax.swing.JOptionPane;
  *
  * @author jose
  */
-public class RegistrarPrestamo extends javax.swing.JFrame {
+public class RegistrarRefinanciamiento extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistrarClientes
@@ -55,11 +55,14 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     ControladorAmortizacion controladorAmortizacion;
     ControladorCliente controladorCliente;
     ControladorFiador controladorFiador;
+    Prestamo prestamo;
+    ArrayList<Amortizacion> listaAux;
 
-    public RegistrarPrestamo(Cliente obj) {
+    public RegistrarRefinanciamiento(Cliente obj, Prestamo pres, ArrayList<Amortizacion> lis) {
         initComponents();
 
         cliente = obj;
+        prestamo = pres;
 
         txtNombreFiador.setVisible(false);
         txtDuiFiador.setVisible(false);
@@ -82,6 +85,9 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         formaPrecio = new DecimalFormat("0.00");
         listaCreditos = new ArrayList<>();
         listaAmortizacion = new ArrayList<>();
+        listaAux = new ArrayList<>();
+
+        listaAux = lis;
 
         CajaFecha.setText(formaFecha.format(fechaActual));
 
@@ -90,6 +96,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
         listaCreditos = controladorCredito.obtenerListaEstado(cliente.getTipo());
         llenarCombo();
+        validarCombo();
         //Línea 1
         this.setSize(new Dimension(899, 660));
 
@@ -152,9 +159,9 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REGISTRAR PRESTAMO");
+        jLabel2.setText("REGISTRAR REFINANCIAMIENTO");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 20, 310, 70);
+        jLabel2.setBounds(30, 20, 420, 70);
 
         TxtApellidos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TxtApellidos.setForeground(new java.awt.Color(255, 255, 255));
@@ -354,9 +361,21 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             Double in = listaCreditos.get(comboTipo.getSelectedIndex() - 1).getInteres() / 12;
             in = in / 100;
             Integer id_fiador = -1;
-            // asignarTipo();
 
             if ((monto >= montoMin) && (monto <= montoMax) && (plazo >= 4) && (plazo <= plazoMax)) {
+
+                controladorPrestamo.ModificarEstado(prestamo.getId());
+                Double c = 0.0;
+                for (int var = 0; var < listaAux.size(); var++) {
+                    if (listaAux.get(var).getMora() == 1) {
+                        c = listaAux.get(var).getCuotaMensual() + listaAux.get(var).getCuotaMensual() * 0.15;
+                    } else {
+                        c = listaAux.get(var).getCuotaMensual();
+                    }
+                    // JOptionPane.showMessageDialog(null, "" + c+" " + 1 + " " + listaAux.get(var).getId());
+                    if (controladorAmortizacion.ModificarEstado(c, 1, listaAux.get(var).getId())) {
+                    }
+                }
 
                 if (comboFiador.getSelectedIndex() == 1) {
                     Fiador fiador = new Fiador(nombreFiador, nitFiador, duiFiador, fuente);
@@ -393,7 +412,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS", "EXITO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN MONTO VALIDO Y PLAZO VALIDO CORRESPONDIENTE", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN MONTO VALIDO Y PLAZO VALIDO CORRESPONDIENTE","ERROR", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {
@@ -532,6 +551,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
     }
 
     private boolean validar() {
+        //
         if (comboTipo.getSelectedIndex() == 0 || CajaMonto.getText().equals("")) {
             return false;
         } else if (CajaPlazo.getText().equals("") || CajaCuota.getText().equals("")) {
@@ -557,13 +577,13 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         return pagoMensual;
     }
 
-    private void asignarTipo() {
-
-        listaPrestamos = new ArrayList<>();
-        listaPrestamos = controladorPrestamo.obtenerLista(cliente.getId());
-
-        if (listaPrestamos.isEmpty()) {
-            controladorCliente.ModificarCartera(1, cliente.getId());
+    private void validarCombo() {
+        comboTipo.setEnabled(false);
+        for (int i = 0; i < listaCreditos.size(); i++) {
+            if (listaCreditos.get(i).getId() == prestamo.getIdCredito()) {
+                comboTipo.setSelectedIndex(i + 1);
+            }
         }
     }
+
 }
